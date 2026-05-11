@@ -11,28 +11,28 @@ Refresh the "used-convertibles-near-media-pa" artifact with fresh convertible li
 ## Search criteria (all sites)
 
 - Body style: **convertible** (any drop-top: soft-top, hardtop convertible, retractable hardtop)
+- Min price: **$7,000** (filter out the high-mileage / rough-shape sub-$7k listings)
 - Max price: **$15,000**
-- No min price (catch the under-$5k cheap roadsters)
 - Radius: **35 miles** from ZIP 19063 (this approximates a 45-minute drive in mixed suburban + highway around Media, PA)
 - Makes: **all** (Mazda Miata, BMW, Ford Mustang, Chrysler Sebring, Saab, Pontiac Solstice, Audi, Mercedes SLK, etc. — all in scope)
 
-## URLs to fetch (verify on first run!)
+## URLs to fetch (verified working as of 2026-05-11)
 
-The body-style URL syntax on these sites is something I had to guess at. On the first scheduled run, if any site returns zero listings, the filter param is probably the wrong name — open the URL in your own browser and check whether convertibles appear. Likely fallbacks are listed in SETUP.md.
-
-- **Cars.com:** `https://www.cars.com/shopping/results/?stock_type=used&body_style_slugs[]=convertible&list_price_max=15000&maximum_distance=35&zip=19063&no_accidents=true&clean_title=true&sort=list_price`
-- **CarGurus:** `https://www.cargurus.com/Cars/searchresults.action?zip=19063&distance=35&maxPrice=15000&bodyTypeGroup=Convertible`
-- **AutoTrader:** `https://www.autotrader.com/cars-for-sale/all-cars/convertible/media-pa?maxPrice=15000&searchRadius=35&zip=19063&sortBy=derivedpriceASC`
-- **TrueCar:** `https://www.truecar.com/used-cars-for-sale/listings/body-style-convertible/location-media-pa/?searchRadius=35&listPriceMax=15000&hasNoAccidents=true`
+- **Cars.com:** `https://www.cars.com/shopping/results/?stock_type=used&body_style_slugs[]=convertible&list_price_min=7000&list_price_max=15000&maximum_distance=35&zip=19063&no_accidents=true&clean_title=true&sort=list_price` — paginate with `&page=2` for second-page listings
+- **CarGurus:** `https://www.cargurus.com/Cars/l-Used-Convertible-bg1?zip=19063&distance=35&minPrice=7000&maxPrice=15000` — body group is **`bg1`** (NOT bg2)
+- **AutoTrader:** `https://www.autotrader.com/cars-for-sale/all-cars/convertible/media-pa?minPrice=7000&maxPrice=15000&searchRadius=35&zip=19063&sortBy=derivedpriceASC` — paginate with `&firstRecord=25` for second page
+- **TrueCar:** body-style filter currently broken across every variant; record `truecar.totalFound=0` and skip
 
 ## Data extraction (unchanged from lexcars)
 
 Use the same `__NEXT_DATA__` / `__APOLLO_STATE__` / `CarsWeb.SearchController.index` patterns documented in `BUILD_NOTES_FOR_CLAUDE_CODE.md` in the lexcars-site repo. The extraction logic doesn't care what's being searched for — it just walks the embedded state blob. The only thing that changes here is which entity field to read for body style:
 
-- **Cars.com:** title text matches `^Used (YYYY) (Make) (Model) (Trim)` — extract `make` and `model` from there. Body of `srp_results` is at `CarsWeb.SearchController.index` script id. URL slug for body style is `body_style_slugs[]=convertible`. **Convertible body group = bg1** in CarGurus URLs (bg2/bg7 are SUV/Coupe; the SETUP.md fallback list is wrong — use `bg1`).
-- **CarGurus:** correct URL is `https://www.cargurus.com/Cars/l-Used-Convertible-bg1?zip=19063&distance=35&maxPrice=15000`. Cards are `[data-cg-ft="srp-listing-blade"]`. Walk parent `<a href*="/details/{id}">` for the listing id. **Image:** find `<img>` inside the wrapping link; lazy-loaded cards below the fold show a `no-image-placeholder.svg` until scrolled — scroll the page top-to-bottom in 600px steps with 300ms delays before extracting, and skip any `src` containing `no-image-placeholder`. Strip query strings from image URLs (the MCP output filter blocks them otherwise).
-- **AutoTrader:** `props.pageProps.__eggsState.inventory[id]` has `make.name`, `model.name`, `bodyStyles[0].name` (filter for "Convertible"). **Image:** `inventory[id].images.sources[0].src` (NOT `images[0].url`).
+- **Cars.com:** title text matches `^Used (YYYY) (Make) (Model) (Trim)` — extract `make` and `model` from there. Body of `srp_results` is at `CarsWeb.SearchController.index` script id. **Listing URL:** capture the `<a href*="/vehicledetail/">` from the card (`[data-listing-id]` element), or fall back to `https://www.cars.com/vehicledetail/{id}/`. **Image:** `result.gallery.images[0].url`.
+- **CarGurus:** cards are `[data-cg-ft="srp-listing-blade"]`. Walk up the parent `<a href*="/details/{id}">` for the listing id. **Canonical listing URL** is `https://www.cargurus.com/details/{id}` (strip the query string — those are tracking params and the MCP output filter blocks them anyway; the bare URL still loads the listing page). The older `inventorylisting/viewDetailsFilterViewInventoryListing.action?inventoryListing={id}` form redirects to a search page — do NOT use it. **Image:** find `<img>` inside the wrapping link; lazy-loaded cards below the fold show a `no-image-placeholder.svg` until scrolled — scroll the page top-to-bottom in 600px steps with 300ms delays before extracting, and skip any `src` containing `no-image-placeholder`. Strip query strings from image URLs.
+- **AutoTrader:** `props.pageProps.__eggsState.inventory[id]` has `make.name` (often UPPERCASE — title-case it before output), `model.name`, `bodyStyles[0].name` (filter for "Convertible"). **Listing URL:** capture the `<a href>` from each card; canonical form is `https://www.autotrader.com/cars-for-sale/vehicle/{id}` (NOT the `vehicledetails.xhtml?listingId=…` form). **Image:** `inventory[id].images.sources[0].src`.
 - **TrueCar:** `ConsumerSummaryListing[*].vehicle.make.name`, `model.name`, `style.name`. **The body-style filter URL is currently broken across every slug variant we've tried** (`body-style-convertible`, `style-convertible`, `?bodyStyle=convertible`, `?bodyStyleAliases[]=convertible`) — backend returns `isFallback:false` but feeds back SUVs anyway. Until TrueCar fixes their slugs, record `truecar.totalFound = 0` and proceed; do not waste cycles trying alternates.
+
+**URL capture rule:** prefer the `<a href>` actually rendered on the SRP card over a URL constructed from listing ID — that's the format the site uses to navigate to the detail page when a user clicks. Strip query strings (tracking params) before storing.
 
 ## Output schema — fields the index.html template depends on
 
@@ -91,18 +91,32 @@ Same as lexcars task.
 ### 2. Fetch each site
 Visit the four URLs above. Extract listings using the patterns referenced in step "Data extraction" above.
 
-### 3. Build the new top 10 ranking
+### 3. Build the Top 10 ranking
 Apply the criteria from the section above. Output 10 picks.
+
+### 3b. Build the Mustangs section
+
+Filter all sources for `make == "Ford"` and `model contains "Mustang"`. Rank by:
+1. **GT trim > Cobra > Mach 1 > Shelby > V6** (V8 grunt is the point)
+2. **Manual transmission preferred** (this is a fun car)
+3. **Lower mileage**
+4. **Closer to Media, PA**
+
+Output up to 5 picks under the `mustangs` key with the same per-pick shape as `top10.picks`. Mustang-specific PPI items: SN-95 (1994–2004) frame rust at convertible-top-mount-to-rocker, S197 (2005–2014) IRS clunk on equipped cars, T-3650 third-gear synchro test (slow-shift to 3rd), 8.8 rear-axle clunk on takeoff, water staining on rear seats from top seal failure.
+
+If zero Mustangs surface in budget, set `mustangs.totalFound = 0` and `mustangs.picks = []` — the dashboard renders an empty-state message automatically.
 
 ### 4. Build the JSON
 ```
 {
   "lastRefreshed": "<ISO timestamp>",
+  "filters":    { "minPrice": 7000, "maxPrice": 15000, "radiusMi": 35, "zip": "19063" },
   "carscom":    { "totalFound": N, "url": "...", "listings": [...] },
   "cargurus":   { "totalFound": N, "url": "...", "listings": [...] },
   "autotrader": { "totalFound": N, "url": "...", "listings": [...] },
   "truecar":    { "totalFound": N, "url": "...", "listings": [...] },
-  "top10":      { "introHtml": "...", "picks": [10 picks] }
+  "top10":      { "introHtml": "...", "picks": [10 picks] },
+  "mustangs":   { "totalFound": N, "introHtml": "...", "picks": [up to 5 Mustangs] }
 }
 ```
 
