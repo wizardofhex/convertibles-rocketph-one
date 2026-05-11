@@ -75,4 +75,52 @@ In this order:
 
 For each pick include:
 - **rank**: 1–10
-- **year, make, model, trim**: separate 
+- **year, make, model, trim**: separate fields (renderer concatenates them — do NOT supply a combined `title`)
+- **price**: integer dollars (no `$`, no commas)
+- **mileage**: integer miles (no commas, no "mi" suffix)
+- **location, dealer, source, url, dealRating, imageUrl**: same shape as listings above
+- **whyGood**: why this specific listing scores well — model strengths + this listing's particulars (mileage, location, deal rating, verified status)
+- **whatToVerify**: convertible-specific PPI items — operate the top through a full cycle, check headliner + carpet for water stains, inspect rear-window seam, look at rocker-panel rust, plus any model-specific gotcha (Miata: timing belt history if pre-2006; BMW: oil leaks, soft-top hydraulic ram; Mustang: rear-axle clunk; Boxster: IMS-bearing service)
+- **bottomLine**: one-sentence verdict
+
+## Steps
+
+### 1. Connect to Chrome
+Same as lexcars task.
+
+### 2. Fetch each site
+Visit the four URLs above. Extract listings using the patterns referenced in step "Data extraction" above.
+
+### 3. Build the new top 10 ranking
+Apply the criteria from the section above. Output 10 picks.
+
+### 4. Build the JSON
+```
+{
+  "lastRefreshed": "<ISO timestamp>",
+  "carscom":    { "totalFound": N, "url": "...", "listings": [...] },
+  "cargurus":   { "totalFound": N, "url": "...", "listings": [...] },
+  "autotrader": { "totalFound": N, "url": "...", "listings": [...] },
+  "truecar":    { "totalFound": N, "url": "...", "listings": [...] },
+  "top10":      { "introHtml": "...", "picks": [10 picks] }
+}
+```
+
+### 5. Update the Cowork artifact (if it exists)
+
+The Cowork artifact for this dashboard is `used-convertibles-near-media-pa`. If it doesn't exist yet, skip this step on the first run — Bill will create it manually from this template. Once it exists:
+
+1. `mcp__cowork__list_artifacts` → find the path.
+2. Read its HTML.
+3. Replace the `<script id="LISTINGS_DATA" type="application/json">…</script>` contents with the JSON from step 4 (Python regex: `<script id="LISTINGS_DATA"[^>]*>([\s\S]*?)</script>`, replace group 1).
+4. Write to outputs as `convertibles-dashboard.html`.
+5. `mcp__cowork__update_artifact` with id, html_path, and a 1-line update_summary.
+
+### 6. Write `data.json` to the convertibles-site repo
+
+1. `mcp__cowork__request_cowork_directory` with path `C:\Users\billb\Documents\AI Agents\AI Agent Team\convertibles-site`.
+2. Write the JSON from step 4 to `C:\Users\billb\Documents\AI Agents\AI Agent Team\convertibles-site\data.json` (overwrite).
+3. Do NOT touch `index.html`, `vercel.json`, or any other file. The template is committed once.
+
+### 7. Cleanup
+Close the Chrome tab. Do NOT include any commentary about this task — just execute it.

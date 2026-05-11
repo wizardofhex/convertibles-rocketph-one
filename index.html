@@ -682,4 +682,62 @@
   }
 
   function renderTop10() {
- 
+    var src = DATA.top10;
+    var introEl = document.getElementById("top10-intro");
+    var contentEl = document.getElementById("content-top10");
+    if (!src || !src.picks) {
+      contentEl.innerHTML = '<div class="empty">Top 10 analysis not available — will populate after the next refresh.</div>';
+      return;
+    }
+    introEl.classList.add("top10-intro");
+    introEl.innerHTML = src.introHtml || "";
+    var html = "";
+    src.picks.forEach(function (p) {
+      var ymm = (p.year ? p.year + " " : "") + (p.make ? p.make + " " : "") + (p.model || "") || (p.title || "");
+      var mileNum = toNum(p.mileage);
+      var miles = mileNum != null && mileNum > 0 ? nfmt(mileNum) + " mi" : (p.mileage ? String(p.mileage) : "Mileage on listing");
+      var verifyTags = (p.verified || []).map(function (v) { return '<span class="verify-tag">✓ ' + escapeHtml(v) + '</span>'; }).join("");
+      var dealHtml = p.dealRating ? '<span class="deal-tag">' + escapeHtml(p.dealRating) + '</span>' : "";
+      var locTag = p.location ? '<span class="meta-tag">' + escapeHtml(p.location) + '</span>' : "";
+      var imgSrc = p.imageUrl || IMG_PLACEHOLDER;
+      html += '<div class="pick rank-' + p.rank + '">'
+        +   '<div class="rank">' + p.rank + '</div>'
+        +   '<div class="photo"><img loading="lazy" src="' + escapeHtml(imgSrc) + '" alt="' + escapeHtml(ymm) + '"></div>'
+        +   '<div class="body">'
+        +     '<div class="title-row">'
+        +       '<span class="ymm">' + escapeHtml(ymm) + '</span>'
+        +       (p.trim ? '<span class="trim">' + escapeHtml(p.trim) + '</span>' : "")
+        +     '</div>'
+        +     '<div class="meta-row">'
+        +       '<span class="price-tag">' + dollar(p.price) + '</span>'
+        +       '<span class="meta-tag">' + escapeHtml(miles) + '</span>'
+        +       locTag
+        +       '<span class="source-tag">' + escapeHtml(p.source) + '</span>'
+        +       verifyTags
+        +       dealHtml
+        +     '</div>'
+        +     '<div class="section-grid">'
+        +       '<div class="section good"><div class="lbl">Why it works</div><p>' + escapeHtml(p.whyGood) + '</p></div>'
+        +       '<div class="section verify"><div class="lbl">What to verify</div><p>' + escapeHtml(p.whatToVerify) + '</p></div>'
+        +       '<div class="section bottom"><div class="lbl">Bottom line</div><p>' + escapeHtml(p.bottomLine) + '</p></div>'
+        +     '</div>'
+        +     '<div class="actions">'
+        +       '<a target="_blank" rel="noopener" href="' + escapeHtml(p.url) + '">View listing</a>'
+        +       '<a class="secondary" target="_blank" rel="noopener" href="https://vehiclehistory.bja.ojp.gov/">VIN check (NMVTIS)</a>'
+        +     '</div>'
+        +   '</div>'
+        + '</div>';
+    });
+    contentEl.innerHTML = html;
+  }
+
+  // Render every tab
+  renderTop10();
+  renderTab("carscom", "Cars.com");
+  renderTab("cargurus", "CarGurus");
+  renderTab("autotrader", "AutoTrader");
+  renderTab("truecar", "TrueCar");
+})();
+</script>
+</body>
+</html>

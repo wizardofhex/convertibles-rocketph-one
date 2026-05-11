@@ -72,27 +72,55 @@ try {
         Write-Warn "data.json is more than 24h old. Pushing anyway, but data may be stale."
     }
 
-    # 4. Pull latest
-    Write-Step "git pull --rebase"
-    git pull --rebase 2>&1 | ForEach-Object { Write-Host "    $_" }
+    # 4. Pull latest. --autostash lets pull --rebase succeed even if there are
+    #    uncommitted local edits (e.g. an in-progress edit to index.html or SKILL.md);
+    #    git stashes them, rebases, then re-applies the stash automatically.
+    Write-Step "git pull --rebase --autostash"
+    git pull --rebase --autostash 2>&1 | ForEach-Object { Write-Host "    $_" }
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "git pull --rebase failed (likely a merge conflict). Resolve manually, then re-run."
+        exit 1
+    }
 
-    # 5. Check if anything changed
+    # 5. Stage every tracked change. The original deploy script staged only
+    #    data.json / index.html / vercel.json, which meant edits to SKILL.md,
+    #    README.md, deploy.ps1 itself, etc. were silently dropped. The script's
+    #    stated intent is "commits and pushes whatever has changed", so trust
+    #    .gitignore to keep junk out and stage all tracked changes.
+    git add -A
+
+    # 6. Check if anything is staged. If working tree was clean to start with
+    #    and nothing came in via the pull, exit clean.
     $statusOutput = git status --porcelain
     if ([string]::IsNullOrWhiteSpace($statusOutput)) {
         Write-Skip "No changes to commit - exiting."
         exit 0
     }
 
-    # 6. Commit + push
-    Write-Step "git add + commit"
-    git add data.json index.html vercel.json
+    # 7. Commit + push
+    Write-Step "git commit"
     $commitMsg = "Daily refresh: $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
     git commit -m $commitMsg
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "git commit failed - see output above."
+        exit 1
+    }
     Write-Ok "Committed: $commitMsg"
 
     $branch = git rev-parse --abbrev-ref HEAD
     Write-Step "git push origin $branch"
     git push origin $branch 2>&1 | ForEach-Object { Write-Host "    $_" }
+    if ($LASTEXITCODE -ne 0) {
+        # Most common cause: a new commit landed on origin between our pull
+        # and our push. One retry with rebase usually fixes it.
+        Write-Warn "Push rejected. Retrying with a fresh pull --rebase..."
+        git pull --rebase --autostash 2>&1 | ForEach-Object { Write-Host "    $_" }
+        git push origin $branch 2>&1 | ForEach-Object { Write-Host "    $_" }
+        if ($LASTEXITCODE -ne 0) {
+            Write-Error "Push still failing after retry. Investigate manually."
+            exit 1
+        }
+    }
     Write-Ok "Pushed. Vercel will redeploy in ~30s. Visit https://convertibles.rocketph.one to verify."
 }
 finally {
