@@ -110,12 +110,32 @@
   }
   .listing {
     background: #fff; border: 1px solid #e5e7eb;
-    border-radius: 10px; padding: 14px;
+    border-radius: 10px; padding: 0 0 14px 0;
     display: flex; flex-direction: column; gap: 6px;
     transition: border-color .15s, box-shadow .15s;
     position: relative;
+    overflow: hidden;
   }
   .listing:hover { border-color: #c9cfd9; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+  .listing .photo {
+    aspect-ratio: 16 / 10;
+    width: 100%;
+    background: #eef2f7;
+    overflow: hidden;
+    display: block;
+  }
+  .listing .photo img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    background: #eef2f7;
+  }
+  .listing > .hd,
+  .listing > .trim,
+  .listing > .price,
+  .listing > .specs,
+  .listing > .verify-row,
+  .listing > .loc { padding-left: 14px; padding-right: 14px; }
+  .listing > a.view { margin-left: 14px; margin-right: 14px; }
   .listing .deal-badge {
     position: absolute; top: 10px; right: 10px;
     font-size: 10px; font-weight: 700;
@@ -241,9 +261,27 @@
     border-radius: 12px; padding: 16px;
     margin-bottom: 12px;
     display: grid;
-    grid-template-columns: 56px 1fr;
+    grid-template-columns: 56px 200px 1fr;
     gap: 16px;
     align-items: start;
+  }
+  @media (max-width: 720px) {
+    .pick { grid-template-columns: 56px 1fr; }
+    .pick .photo { grid-column: 1 / -1; order: -1; }
+  }
+  .pick .photo {
+    width: 200px;
+    aspect-ratio: 16 / 11;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #eef2f7;
+  }
+  @media (max-width: 720px) {
+    .pick .photo { width: 100%; }
+  }
+  .pick .photo img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
   }
   .pick:hover { border-color: #c9cfd9; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
   .pick .rank {
@@ -538,8 +576,38 @@
   
 
   // Helpers
-  function nfmt(n) { return Number(n || 0).toLocaleString("en-US"); }
-  function dollar(n) { return "$" + nfmt(n); }
+  // toNum: accepts a number (returns it) or a string like "$11,485" / "82,450 mi" (strips
+  // non-digits and parses). Returns null if no usable digits found, so callers can fall back
+  // gracefully instead of rendering "$NaN".
+  function toNum(v) {
+    if (v == null) return null;
+    if (typeof v === "number") return Number.isFinite(v) ? v : null;
+    var s = String(v).replace(/[^\d.]/g, "");
+    if (!s) return null;
+    var n = Number(s);
+    return Number.isFinite(n) ? n : null;
+  }
+  function nfmt(n) {
+    var x = toNum(n);
+    return x == null ? "" : x.toLocaleString("en-US");
+  }
+  function dollar(n) {
+    var x = toNum(n);
+    return x == null ? "—" : "$" + x.toLocaleString("en-US");
+  }
+  // Inline SVG placeholder for listings with no image (renders as a generic car silhouette card)
+  var IMG_PLACEHOLDER = "data:image/svg+xml;utf8,"
+    + encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180">'
+      + '<rect width="320" height="180" fill="%23eef2f7"/>'.replace(/%23/g, "#")
+      + '<g fill="#c2cad6">'
+      + '<path d="M60 110 q20 -40 60 -40 h80 q40 0 60 40 v18 h-200z"/>'
+      + '<circle cx="100" cy="130" r="14" fill="#1a1d24"/>'
+      + '<circle cx="220" cy="130" r="14" fill="#1a1d24"/>'
+      + '</g>'
+      + '<text x="160" y="170" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#5b6472">No photo on listing</text>'
+      + '</svg>'
+    );
   function escapeHtml(s) {
     return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
@@ -554,14 +622,18 @@
   function renderListing(l, source) {
     var title = (l.year ? l.year + " " : "") + (l.make ? l.make + " " : "") + (l.model || "");
     var dealHtml = l.dealRating ? '<div class="deal-badge ' + dealClass(l.dealRating) + '">' + escapeHtml(l.dealRating) + '</div>' : "";
-    var priceHtml = l.price ? dollar(l.price) : "—";
+    var priceNum = toNum(l.price);
+    var priceHtml = priceNum != null ? dollar(priceNum) : (l.price ? escapeHtml(l.price) : "—");
     var specs = [];
-    if (l.mileage && l.mileage > 0) specs.push(nfmt(l.mileage) + " mi");
+    var mileNum = toNum(l.mileage);
+    if (mileNum != null && mileNum > 0) specs.push(nfmt(mileNum) + " mi");
     if (l.location) specs.push(escapeHtml(l.location));
     else if (l.zip) specs.push("ZIP " + escapeHtml(l.zip));
     if (l.distance) {
       var distStr = String(l.distance).replace(/\s*mi\.?\s*(away)?$/i, "");
       specs.push(escapeHtml(distStr) + " mi away");
+    } else if (l.distanceMi != null) {
+      specs.push(l.distanceMi + " mi away");
     }
     var verifyChips = "";
     if (l.noAccidents || l.cleanTitle) {
@@ -572,7 +644,10 @@
     }
     var actionUrl = l.url || (DATA[source] && DATA[source].url) || "#";
     var btnLabel = l.url ? "View listing" : "Open " + source + " search";
+    var imgSrc = l.imageUrl || IMG_PLACEHOLDER;
+    var imgAlt = title || "vehicle photo";
     return '<div class="listing">'
+      + '<div class="photo"><img loading="lazy" src="' + escapeHtml(imgSrc) + '" alt="' + escapeHtml(imgAlt) + '" onerror="this.onerror=null;this.src=\'' + IMG_PLACEHOLDER + '\'"></div>'
       + dealHtml
       + '<div class="hd">' + escapeHtml(title) + '</div>'
       + (l.trim ? '<div class="trim">' + escapeHtml(l.trim) + '</div>' : "")
@@ -607,59 +682,4 @@
   }
 
   function renderTop10() {
-    var src = DATA.top10;
-    var introEl = document.getElementById("top10-intro");
-    var contentEl = document.getElementById("content-top10");
-    if (!src || !src.picks) {
-      contentEl.innerHTML = '<div class="empty">Top 10 analysis not available — will populate after the next refresh.</div>';
-      return;
-    }
-    introEl.classList.add("top10-intro");
-    introEl.innerHTML = src.introHtml || "";
-    var html = "";
-    src.picks.forEach(function (p) {
-      var ymm = (p.year ? p.year + " " : "") + (p.make ? p.make + " " : "") + (p.model || "");
-      var miles = p.mileage > 0 ? nfmt(p.mileage) + " mi" : "Mileage on listing";
-      var verifyTags = (p.verified || []).map(function (v) { return '<span class="verify-tag">✓ ' + escapeHtml(v) + '</span>'; }).join("");
-      var dealHtml = p.dealRating ? '<span class="deal-tag">' + escapeHtml(p.dealRating) + '</span>' : "";
-      var locTag = p.location ? '<span class="meta-tag">' + escapeHtml(p.location) + '</span>' : "";
-      html += '<div class="pick rank-' + p.rank + '">'
-        +   '<div class="rank">' + p.rank + '</div>'
-        +   '<div class="body">'
-        +     '<div class="title-row">'
-        +       '<span class="ymm">' + escapeHtml(ymm) + '</span>'
-        +       (p.trim ? '<span class="trim">' + escapeHtml(p.trim) + '</span>' : "")
-        +     '</div>'
-        +     '<div class="meta-row">'
-        +       '<span class="price-tag">' + dollar(p.price) + '</span>'
-        +       '<span class="meta-tag">' + escapeHtml(miles) + '</span>'
-        +       locTag
-        +       '<span class="source-tag">' + escapeHtml(p.source) + '</span>'
-        +       verifyTags
-        +       dealHtml
-        +     '</div>'
-        +     '<div class="section-grid">'
-        +       '<div class="section good"><div class="lbl">Why it works</div><p>' + escapeHtml(p.whyGood) + '</p></div>'
-        +       '<div class="section verify"><div class="lbl">What to verify</div><p>' + escapeHtml(p.whatToVerify) + '</p></div>'
-        +       '<div class="section bottom"><div class="lbl">Bottom line</div><p>' + escapeHtml(p.bottomLine) + '</p></div>'
-        +     '</div>'
-        +     '<div class="actions">'
-        +       '<a target="_blank" rel="noopener" href="' + escapeHtml(p.url) + '">View listing</a>'
-        +       '<a class="secondary" target="_blank" rel="noopener" href="https://vehiclehistory.bja.ojp.gov/">VIN check (NMVTIS)</a>'
-        +     '</div>'
-        +   '</div>'
-        + '</div>';
-    });
-    contentEl.innerHTML = html;
-  }
-
-  // Render every tab
-  renderTop10();
-  renderTab("carscom", "Cars.com");
-  renderTab("cargurus", "CarGurus");
-  renderTab("autotrader", "AutoTrader");
-  renderTab("truecar", "TrueCar");
-})();
-</script>
-</body>
-</html>
+ 

@@ -29,10 +29,37 @@ The body-style URL syntax on these sites is something I had to guess at. On the 
 
 Use the same `__NEXT_DATA__` / `__APOLLO_STATE__` / `CarsWeb.SearchController.index` patterns documented in `BUILD_NOTES_FOR_CLAUDE_CODE.md` in the lexcars-site repo. The extraction logic doesn't care what's being searched for — it just walks the embedded state blob. The only thing that changes here is which entity field to read for body style:
 
-- **Cars.com:** title text matches `^Used (YYYY) (Make) (Model) (Trim)` — extract `make` and `model` from there
-- **CarGurus:** parse the visible card text (no JSON state blob; DataDome blocks XHR snooping)
-- **AutoTrader:** `props.pageProps.__eggsState.inventory[id]` has `make.name`, `model.name`, `bodyStyles[0].name` (filter for "Convertible")
-- **TrueCar:** `ConsumerSummaryListing[*].vehicle.make.name`, `model.name`, `style.name` (style includes "Convertible" for most listings)
+- **Cars.com:** title text matches `^Used (YYYY) (Make) (Model) (Trim)` — extract `make` and `model` from there. Body of `srp_results` is at `CarsWeb.SearchController.index` script id. URL slug for body style is `body_style_slugs[]=convertible`. **Convertible body group = bg1** in CarGurus URLs (bg2/bg7 are SUV/Coupe; the SETUP.md fallback list is wrong — use `bg1`).
+- **CarGurus:** correct URL is `https://www.cargurus.com/Cars/l-Used-Convertible-bg1?zip=19063&distance=35&maxPrice=15000`. Cards are `[data-cg-ft="srp-listing-blade"]`. Walk parent `<a href*="/details/{id}">` for the listing id. **Image:** find `<img>` inside the wrapping link; lazy-loaded cards below the fold show a `no-image-placeholder.svg` until scrolled — scroll the page top-to-bottom in 600px steps with 300ms delays before extracting, and skip any `src` containing `no-image-placeholder`. Strip query strings from image URLs (the MCP output filter blocks them otherwise).
+- **AutoTrader:** `props.pageProps.__eggsState.inventory[id]` has `make.name`, `model.name`, `bodyStyles[0].name` (filter for "Convertible"). **Image:** `inventory[id].images.sources[0].src` (NOT `images[0].url`).
+- **TrueCar:** `ConsumerSummaryListing[*].vehicle.make.name`, `model.name`, `style.name`. **The body-style filter URL is currently broken across every slug variant we've tried** (`body-style-convertible`, `style-convertible`, `?bodyStyle=convertible`, `?bodyStyleAliases[]=convertible`) — backend returns `isFallback:false` but feeds back SUVs anyway. Until TrueCar fixes their slugs, record `truecar.totalFound = 0` and proceed; do not waste cycles trying alternates.
+
+## Output schema — fields the index.html template depends on
+
+`index.html` does numeric formatting on `price` and `mileage`. The deploy renders `$NaN` if these are strings like `"$11,485"` or `"82,450 mi"`. **Always emit them as plain integers.** Per-listing required shape:
+
+```json
+{
+  "id": "...",
+  "year": 2006,            // number
+  "make": "Mazda",         // string, title-case (uppercase like "MAZDA" must be normalized)
+  "model": "MX-5 Miata",
+  "trim": "Base",          // string or null
+  "price": 11485,          // NUMBER, not "$11,485"
+  "mileage": 82450,        // NUMBER, not "82,450 mi"
+  "location": "Doylestown, PA",
+  "distanceMi": 32,
+  "url": "https://...",
+  "dealer": "...",
+  "dealRating": "Great Deal" | "Good Deal" | "Fair Deal" | "Great Price" | null,
+  "cleanTitle": true | null,
+  "noAccidents": true | null,
+  "imageUrl": "https://..." | null,   // first listing photo, no query string
+  "source": "cars.com" | "cargurus" | "autotrader" | "truecar"
+}
+```
+
+Top-10 picks have the same numeric `price` / `mileage` requirement, the same `imageUrl` field, and must include separate `year`, `make`, `model` fields (not just `title`) because the renderer concatenates them.
 
 ## Ranking criteria for the top 10 (cheap fun second car lens)
 
@@ -47,48 +74,5 @@ In this order:
 7. **Sourcing diversity** — try not to make all 10 picks from one site.
 
 For each pick include:
-- **whyGood**: why this specific listing scores well — model strengths + this listing's particulars (mileage, location, deal rating, verified status)
-- **whatToVerify**: convertible-specific PPI items — operate the top through a full cycle, check headliner + carpet for water stains, inspect rear-window seam, look at rocker-panel rust, plus any model-specific gotcha (Miata: timing belt history if pre-2006; BMW: oil leaks, soft-top hydraulic ram; Mustang: rear-axle clunk; Boxster: IMS-bearing service)
-- **bottomLine**: one-sentence verdict
-
-## Steps
-
-### 1. Connect to Chrome
-Same as lexcars task.
-
-### 2. Fetch each site
-Visit the four URLs above. Extract listings using the patterns referenced in step "Data extraction" above.
-
-### 3. Build the new top 10 ranking
-Apply the criteria from the section above. Output 10 picks.
-
-### 4. Build the JSON
-```
-{
-  "lastRefreshed": "<ISO timestamp>",
-  "carscom":    { "totalFound": N, "url": "...", "listings": [...] },
-  "cargurus":   { "totalFound": N, "url": "...", "listings": [...] },
-  "autotrader": { "totalFound": N, "url": "...", "listings": [...] },
-  "truecar":    { "totalFound": N, "url": "...", "listings": [...] },
-  "top10":      { "introHtml": "...", "picks": [10 picks] }
-}
-```
-
-### 5. Update the Cowork artifact (if it exists)
-
-The Cowork artifact for this dashboard is `used-convertibles-near-media-pa`. If it doesn't exist yet, skip this step on the first run — Bill will create it manually from this template. Once it exists:
-
-1. `mcp__cowork__list_artifacts` → find the path.
-2. Read its HTML.
-3. Replace the `<script id="LISTINGS_DATA" type="application/json">…</script>` contents with the JSON from step 4 (Python regex: `<script id="LISTINGS_DATA"[^>]*>([\s\S]*?)</script>`, replace group 1).
-4. Write to outputs as `convertibles-dashboard.html`.
-5. `mcp__cowork__update_artifact` with id, html_path, and a 1-line update_summary.
-
-### 6. Write `data.json` to the convertibles-site repo
-
-1. `mcp__cowork__request_cowork_directory` with path `C:\Users\billb\Documents\AI Agents\AI Agent Team\convertibles-site`.
-2. Write the JSON from step 4 to `C:\Users\billb\Documents\AI Agents\AI Agent Team\convertibles-site\data.json` (overwrite).
-3. Do NOT touch `index.html`, `vercel.json`, or any other file. The template is committed once.
-
-### 7. Cleanup
-Close the Chrome tab. Do NOT include any commentary about this task — just execute it.
+- **rank**: 1–10
+- **year, make, model, trim**: separate 
