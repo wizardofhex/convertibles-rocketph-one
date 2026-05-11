@@ -1,0 +1,27 @@
+{
+  "lastRefreshed": "2026-05-11T00:00:00-04:00",
+  "carscom": {
+    "totalFound": 0,
+    "url": "https://www.cars.com/shopping/results/?stock_type=used&body_style_slugs[]=convertible&list_price_max=15000&maximum_distance=35&zip=19063&no_accidents=true&clean_title=true&sort=list_price",
+    "listings": []
+  },
+  "cargurus": {
+    "totalFound": 0,
+    "url": "https://www.cargurus.com/Cars/searchresults.action?zip=19063&distance=35&maxPrice=15000&bodyTypeGroup=Convertible",
+    "listings": []
+  },
+  "autotrader": {
+    "totalFound": 0,
+    "url": "https://www.autotrader.com/cars-for-sale/all-cars/convertible/media-pa?maxPrice=15000&searchRadius=35&zip=19063&sortBy=derivedpriceASC",
+    "listings": []
+  },
+  "truecar": {
+    "totalFound": 0,
+    "url": "https://www.truecar.com/used-cars-for-sale/listings/body-style-convertible/location-media-pa/?searchRadius=35&listPriceMax=15000&hasNoAccidents=true",
+    "listings": []
+  },
+  "top10": {
+    "introHtml": "<p><b>Awaiting first refresh.</b> Run the scheduled task or trigger a manual refresh in Cowork to populate this dashboard with live listings and a top-10 ranking.</p>",
+    "picks": []
+  }
+}

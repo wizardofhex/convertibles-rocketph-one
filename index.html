@@ -1,0 +1,665 @@
+<!doctype html><script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Convertibles Under 15k Near Media Pa",
+  "schemaVersion": 1,
+  "description": "Multi-tab dashboard for used convertibles under $15,000 within ~35 miles (about a 45-min drive) of Media, PA. Top 10 picks ranked as a cheap fun second car - condition over miles. Live-fetched listings from Cars.com, CarGurus, AutoTrader, and TrueCar.",
+  "mcpTools": [],
+  "mcpServerNames": []
+}
+</script>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="description" content="Daily-refreshed dashboard of used convertibles under $15,000 within ~35 miles (about 45 min) of Media, PA. Top 10 picks ranked as a cheap fun second car - condition over miles."><meta property="og:title" content="Convertibles Under $15k - Near Media, PA"><meta property="og:description" content="Top convertibles under $15k near Media, PA, refreshed daily.">
+<title>Convertibles Under $15k - Near Media, PA</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: #f7f8fa;
+    color: #1a1d24;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 24px; }
+  header.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 18px;
+  }
+  header.top h1 { margin: 0 0 4px 0; font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+  header.top .sub { color: #5b6472; font-size: 13px; }
+  .badges-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .date-pill {
+    background: #1a1d24; color: #fff;
+    padding: 6px 12px; border-radius: 999px;
+    font-size: 12px; font-weight: 500; white-space: nowrap;
+  }
+  .refresh-pill {
+    background: #fff; border: 1px solid #d3d8e0;
+    color: #1a1d24; padding: 6px 12px; border-radius: 999px;
+    font-size: 12px; font-weight: 500; cursor: pointer;
+    font-family: inherit;
+  }
+  .refresh-pill:hover { border-color: #1a1d24; }
+
+  .filter-bar {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    background: #fff; border: 1px solid #e5e7eb;
+    border-radius: 10px; padding: 12px 14px;
+    margin-bottom: 18px; font-size: 13px;
+  }
+  .filter-bar .pill {
+    background: #f3f5f8; border-radius: 6px;
+    padding: 4px 10px; color: #2c3340; font-weight: 500;
+  }
+
+  .tabs {
+    display: flex; gap: 2px;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 20px; overflow-x: auto;
+  }
+  .tab {
+    background: none; border: none;
+    padding: 10px 16px; font-size: 14px;
+    font-weight: 500; cursor: pointer;
+    color: #5b6472;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    margin-bottom: -1px;
+    font-family: inherit;
+  }
+  .tab:hover { color: #1a1d24; }
+  .tab.active { color: #1a1d24; border-bottom-color: #1a1d24; font-weight: 600; }
+  .tab .badge-count {
+    display: inline-block;
+    background: #e5e7eb; color: #5b6472;
+    border-radius: 999px; padding: 1px 8px;
+    font-size: 11px; margin-left: 6px;
+    font-weight: 600;
+  }
+  .tab.active .badge-count { background: #1a1d24; color: #fff; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .panel-header {
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 10px;
+    margin-bottom: 14px;
+  }
+  .panel-header .meta { font-size: 12px; color: #8a92a0; }
+  .panel-header .meta .stat { color: #1a1d24; font-weight: 600; }
+  .panel-header a.search-link {
+    background: #fff; border: 1px solid #d3d8e0;
+    border-radius: 8px; padding: 6px 12px;
+    font-size: 12px; font-weight: 500; cursor: pointer;
+    color: #1a1d24; text-decoration: none;
+  }
+  .panel-header a.search-link:hover { border-color: #1a1d24; }
+
+  .listing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+  .listing {
+    background: #fff; border: 1px solid #e5e7eb;
+    border-radius: 10px; padding: 14px;
+    display: flex; flex-direction: column; gap: 6px;
+    transition: border-color .15s, box-shadow .15s;
+    position: relative;
+  }
+  .listing:hover { border-color: #c9cfd9; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+  .listing .deal-badge {
+    position: absolute; top: 10px; right: 10px;
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    padding: 3px 8px; border-radius: 4px;
+  }
+  .deal-Great { background: #d1fae5; color: #065f46; }
+  .deal-Good  { background: #dbeafe; color: #1e40af; }
+  .deal-Fair  { background: #fef3c7; color: #92400e; }
+  .deal-High  { background: #fee2e2; color: #991b1b; }
+  .deal-Excellent { background: #d1fae5; color: #065f46; }
+
+  .listing .hd {
+    font-size: 15px; font-weight: 700;
+    color: #1a1d24;
+    line-height: 1.25;
+    margin-right: 70px;
+  }
+  .listing .trim { font-size: 12px; color: #5b6472; }
+  .listing .price {
+    font-size: 22px; font-weight: 700;
+    color: #0d8a4f;
+    margin: 4px 0 0;
+  }
+  .listing .specs {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    font-size: 12px; color: #2c3340;
+    margin-top: 2px;
+  }
+  .listing .specs span {
+    background: #f3f5f8; padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .listing .verify-row {
+    display: flex; gap: 4px; flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  .listing .verify-row .vchip {
+    font-size: 10px; font-weight: 600;
+    background: #ecfccb; color: #365314;
+    padding: 2px 6px; border-radius: 3px;
+  }
+  .listing .loc { font-size: 12px; color: #5b6472; margin-top: 2px; }
+  .listing a.view {
+    margin-top: auto;
+    display: inline-block;
+    text-align: center;
+    background: #1a1d24; color: #fff;
+    text-decoration: none; padding: 8px 12px;
+    border-radius: 6px; font-size: 13px;
+    font-weight: 600;
+  }
+  .listing a.view:hover { opacity: 0.9; }
+  .listing.has-vin a.view { background: #1a1d24; }
+
+  .empty {
+    text-align: center; padding: 40px 20px;
+    color: #5b6472; font-size: 14px;
+    background: #fff; border: 1px solid #e5e7eb;
+    border-radius: 10px;
+  }
+
+  .launch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .launch-card {
+    background: #fff; border: 1px solid #e5e7eb;
+    border-radius: 10px; padding: 14px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .launch-card .nm { font-weight: 700; font-size: 15px; }
+  .launch-card .why { font-size: 12px; color: #5b6472; flex-grow: 1; }
+  .launch-card .links { display: flex; gap: 6px; flex-wrap: wrap; }
+  .launch-card a {
+    flex: 1; min-width: 80px; text-align: center;
+    background: #1a1d24; color: #fff;
+    text-decoration: none; padding: 7px 10px;
+    border-radius: 6px; font-size: 12px;
+    font-weight: 600;
+  }
+  .checklist {
+    background: #fff; border: 1px solid #e5e7eb;
+    border-radius: 10px; padding: 16px;
+  }
+  .checklist h3 { margin: 0 0 8px 0; font-size: 14px; }
+  .checklist ul { margin: 0; padding-left: 18px; font-size: 13px; color: #2c3340; }
+  .checklist li { margin-bottom: 4px; }
+  .vin-tools {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 8px; margin-top: 12px;
+  }
+  .vin-tools a {
+    background: #fff; border: 1px solid #e5e7eb;
+    border-radius: 8px; padding: 10px;
+    text-decoration: none; color: #1a1d24;
+    font-size: 13px;
+  }
+  .vin-tools a:hover { border-color: #1a1d24; }
+  .vin-tools a .t { font-weight: 700; display: block; }
+  .vin-tools a .d { color: #5b6472; font-size: 11px; }
+
+  .note-box {
+    background: #f0f7ff; border: 1px solid #cfe3ff;
+    border-radius: 8px; padding: 10px 14px;
+    font-size: 12px; color: #1e3a5f;
+    margin-bottom: 16px;
+  }
+  .warn-box {
+    background: #fffbe6; border: 1px solid #ffe58a;
+    border-radius: 8px; padding: 10px 14px;
+    font-size: 12px; color: #6b5400;
+    margin-bottom: 16px;
+  }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: #5b6472; font-weight: 600; margin: 18px 0 10px 0; }
+
+  /* Top 10 Picks card */
+  .pick {
+    background: #fff; border: 1px solid #e5e7eb;
+    border-radius: 12px; padding: 16px;
+    margin-bottom: 12px;
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .pick:hover { border-color: #c9cfd9; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+  .pick .rank {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: #1a1d24; color: #fff;
+    font-size: 22px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  .pick.rank-1 .rank { background: linear-gradient(135deg, #f5d061 0%, #d6a635 100%); color: #4a3a00; }
+  .pick.rank-2 .rank { background: linear-gradient(135deg, #d8d8d8 0%, #a8a8a8 100%); color: #2a2a2a; }
+  .pick.rank-3 .rank { background: linear-gradient(135deg, #d49b6a 0%, #a26b3c 100%); color: #2a1a00; }
+
+  .pick .body { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+  .pick .title-row {
+    display: flex; align-items: baseline;
+    gap: 12px; flex-wrap: wrap;
+  }
+  .pick .title-row .ymm {
+    font-size: 17px; font-weight: 700; color: #1a1d24;
+  }
+  .pick .title-row .trim {
+    font-size: 13px; color: #5b6472;
+  }
+  .pick .meta-row {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    align-items: center; font-size: 13px;
+  }
+  .pick .price-tag {
+    font-size: 18px; font-weight: 700; color: #0d8a4f;
+  }
+  .pick .meta-tag {
+    background: #f3f5f8; color: #2c3340;
+    padding: 3px 9px; border-radius: 4px;
+    font-size: 12px;
+  }
+  .pick .source-tag {
+    background: #1a1d24; color: #fff;
+    padding: 3px 9px; border-radius: 4px;
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .pick .verify-tag {
+    background: #ecfccb; color: #365314;
+    padding: 3px 9px; border-radius: 4px;
+    font-size: 11px; font-weight: 600;
+  }
+  .pick .deal-tag {
+    background: #d1fae5; color: #065f46;
+    padding: 3px 9px; border-radius: 4px;
+    font-size: 11px; font-weight: 600;
+  }
+  .pick .section-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 4px;
+  }
+  @media (max-width: 720px) {
+    .pick .section-grid { grid-template-columns: 1fr; }
+  }
+  .pick .section {
+    background: #f9fafb;
+    border-radius: 8px;
+    padding: 10px 12px;
+    border-left: 3px solid #e5e7eb;
+  }
+  .pick .section.good   { border-left-color: #10b981; }
+  .pick .section.verify { border-left-color: #f59e0b; }
+  .pick .section.bottom { border-left-color: #1a1d24; }
+  .pick .section .lbl {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #5b6472;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .pick .section p {
+    margin: 0;
+    font-size: 12.5px;
+    color: #2c3340;
+    line-height: 1.45;
+  }
+  .pick .actions {
+    display: flex; gap: 8px;
+    margin-top: 6px;
+  }
+  .pick .actions a {
+    background: #1a1d24; color: #fff;
+    text-decoration: none; padding: 7px 14px;
+    border-radius: 6px; font-size: 12px;
+    font-weight: 600;
+  }
+  .pick .actions a:hover { opacity: 0.9; }
+  .pick .actions a.secondary {
+    background: #fff; color: #1a1d24;
+    border: 1px solid #d3d8e0;
+  }
+  .top10-intro p { margin: 0 0 6px; font-size: 13px; line-height: 1.5; }
+  .top10-intro p:last-child { margin-bottom: 0; }
+  .top10-intro b { color: #0d2540; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <h1>Used convertibles near Media, PA</h1>
+      <div class="sub">Top listings under $15,000 within ~35 miles (about a 45-min drive) of 19063. Refreshed each morning by a scheduled task.</div>
+    </div>
+    <div class="badges-row">
+      <div class="date-pill" id="datePill">—</div>
+    </div>
+  </header>
+
+  <div class="filter-bar">
+    <span class="pill">Convertibles (all makes)</span>
+    <span class="pill">Under $15,000</span>
+    <span class="pill">~35 mi from 19063 (≈45 min)</span>
+    <span class="pill">Clean title preferred</span>
+    <span class="pill">No accidents preferred</span>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-tab="top10"    >★ Top 10 Picks</button>
+    <button class="tab"        data-tab="carscom"  >Cars.com</button>
+    <button class="tab"        data-tab="cargurus" >CarGurus</button>
+    <button class="tab"        data-tab="autotrader">AutoTrader</button>
+    <button class="tab"        data-tab="truecar"  >TrueCar</button>
+    <button class="tab"        data-tab="othersites">Other Sites</button>
+    <button class="tab"        data-tab="checklist" >Buyer Checklist</button>
+  </div>
+
+  <!-- Top 10 Picks (default tab) -->
+  <div class="tab-panel active" id="panel-top10">
+    <div class="note-box" id="top10-intro"></div>
+    <div id="content-top10"></div>
+    <div class="warn-box" style="margin-top: 16px"><b>Important caveat:</b> No web listing replaces a pre-purchase inspection by an independent mechanic ($100–200). These rankings reflect the data on the listing card — a real test drive, OBD-II scan, and undercarriage check can flip any of these. Every recommendation here assumes a clean PPI.</div>
+  </div>
+
+  <!-- Cars.com -->
+  <div class="tab-panel" id="panel-carscom">
+    <div class="note-box">Cars.com URL filters honor "no accidents" and "clean title" automatically — every listing here meets those criteria.</div>
+    <div class="panel-header">
+      <div class="meta" id="meta-carscom">—</div>
+      <a class="search-link" target="_blank" rel="noopener" href="https://www.cars.com/shopping/results/?stock_type=used&body_style_slugs[]=convertible&list_price_max=15000&maximum_distance=35&zip=19063&no_accidents=true&clean_title=true&sort=list_price">Open full search →</a>
+    </div>
+    <div id="content-carscom"></div>
+  </div>
+
+  <!-- CarGurus -->
+  <div class="tab-panel" id="panel-cargurus">
+    <div class="warn-box">CarGurus URL doesn't auto-filter "no accidents" or "clean title" — verify on each listing page. Deal rating shown in the badge.</div>
+    <div class="panel-header">
+      <div class="meta" id="meta-cargurus">—</div>
+      <a class="search-link" target="_blank" rel="noopener" href="https://www.cargurus.com/Cars/searchresults.action?zip=19063&distance=35&maxPrice=15000&bodyTypeGroup=Convertible">Open full search →</a>
+    </div>
+    <div id="content-cargurus"></div>
+  </div>
+
+  <!-- AutoTrader -->
+  <div class="tab-panel" id="panel-autotrader">
+    <div class="warn-box">AutoTrader URL doesn't auto-filter "no accidents" or "clean title" — toggle them on the page or verify each listing. "Price rating" badge shown when available.</div>
+    <div class="panel-header">
+      <div class="meta" id="meta-autotrader">—</div>
+      <a class="search-link" target="_blank" rel="noopener" href="https://www.autotrader.com/cars-for-sale/all-cars/convertible/media-pa?maxPrice=15000&searchRadius=35&zip=19063&sortBy=derivedpriceASC">Open full search →</a>
+    </div>
+    <div id="content-autotrader"></div>
+  </div>
+
+  <!-- TrueCar -->
+  <div class="tab-panel" id="panel-truecar">
+    <div class="note-box">TrueCar shows "No accidents" and "Clean title" badges on each qualifying listing — those are tagged below. Each TrueCar listing also has a Carfax button on the detail page.</div>
+    <div class="panel-header">
+      <div class="meta" id="meta-truecar">—</div>
+      <a class="search-link" target="_blank" rel="noopener" href="https://www.truecar.com/used-cars-for-sale/listings/body-style-convertible/location-media-pa/?searchRadius=35&listPriceMax=15000&hasNoAccidents=true">Open full search →</a>
+    </div>
+    <div id="content-truecar"></div>
+  </div>
+
+  <!-- Other sites launchpad -->
+  <div class="tab-panel" id="panel-othersites">
+    <div class="warn-box"><b>Sites that block automated fetching:</b> Facebook and Craigslist work fine in your browser, but their bot protection blocks our automated daily refresh — these cards link to pre-filtered searches you can run manually. For convertibles, private-party listings on Facebook and Craigslist often have the best prices because dealers mark them up assuming a "fun car" premium.</div>
+    <div class="launch-grid">
+      <div class="launch-card">
+        <div class="nm">Facebook Marketplace</div>
+        <div class="why">Private sellers — best deals on convertibles where dealers mark up "fun cars." Requires login. Always run the VIN and inspect the top.</div>
+        <div class="links">
+          <a target="_blank" rel="noopener" href="https://www.facebook.com/marketplace/107616379263823/cars/?maxPrice=15000&radius=56000&query=convertible&exact=false">Convertibles ≤$15k</a>
+        </div>
+      </div>
+      <div class="launch-card">
+        <div class="nm">Craigslist Philadelphia</div>
+        <div class="why">Private + small dealers. Filtered to convertible body, clean title only. Read each post — describe the soft-top condition and any leaks.</div>
+        <div class="links">
+          <a target="_blank" rel="noopener" href="https://philadelphia.craigslist.org/search/cta?postal=19063&search_distance=35&max_price=15000&auto_bodytype=2&auto_title_status=1#search=1~gallery~0~0">Convertibles ≤$15k</a>
+        </div>
+      </div>
+      <div class="launch-card">
+        <div class="nm">eBay Motors</div>
+        <div class="why">Mix of dealers and private. Verify location filter applies — many ship from afar. Convertibles auction-style can go cheap if you're patient.</div>
+        <div class="links">
+          <a target="_blank" rel="noopener" href="https://www.ebay.com/b/Convertibles/6001/bn_580277?LH_BIN=1&LH_ItemCondition=3000&_udhi=15000&_stpos=19063&_sadis=50">Convertibles ≤$15k</a>
+        </div>
+      </div>
+      <div class="launch-card">
+        <div class="nm">CarMax</div>
+        <div class="why">No-haggle dealer. Most convertibles here will exceed the $15k cap, but worth a glance for low-mile examples.</div>
+        <div class="links">
+          <a target="_blank" rel="noopener" href="https://www.carmax.com/cars?bodyTypes=convertible&zip=19063">Convertibles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Buyer Checklist -->
+  <div class="tab-panel" id="panel-checklist">
+    <div class="checklist">
+      <h3>Pre-purchase checklist</h3>
+      <ul>
+        <li><b>Run the VIN through NMVTIS first</b> — free, catches salvage/flood/junk titles even when listing claims "clean." Convertibles get totaled in side hits more often than coupes/sedans — this matters here.</li>
+        <li><b>Operate the top through a full cycle</b> — twice, from fully closed to fully open and back. Listen for hydraulic groans, motor whining, or fabric binding. A broken power top can be $1,500+.</li>
+        <li><b>Inspect the headliner and carpet for water stains</b> — even if the top looks clean. Leaky tops drain into the rear footwells; pull up the floor mat and feel for damp padding.</li>
+        <li><b>Check rear-window seal on fabric tops</b> — plastic windows yellow and crack first. A new top can be $1,000–$2,500.</li>
+        <li><b>Hardtop convertibles (BMW E46, Chrysler Crossfire, etc.):</b> watch for clicking from the trunk during the roof cycle — failing micro-switches strand the roof half-deployed.</li>
+        <li><b>Look for chassis rust around the rocker panels and rear-shock mounts</b> — convertibles have less structural rigidity than coupes and rust eats them faster.</li>
+        <li><b>Demand a Carfax or AutoCheck before any deposit.</b> If the seller refuses, walk away.</li>
+        <li><b>Get a pre-purchase inspection ($100–$200)</b> from an independent mechanic — non-negotiable on private-party convertibles. Many shops have specialists for specific marques (Miata, BMW, Porsche).</li>
+      </ul>
+    </div>
+    <h2>VIN check tools</h2>
+    <div class="vin-tools">
+      <a target="_blank" rel="noopener" href="https://vehiclehistory.bja.ojp.gov/">
+        <span class="t">NMVTIS (free)</span>
+        <span class="d">Federal title-history check</span>
+      </a>
+      <a target="_blank" rel="noopener" href="https://www.carfax.com/">
+        <span class="t">Carfax</span>
+        <span class="d">Paid — full accident, service history</span>
+      </a>
+      <a target="_blank" rel="noopener" href="https://www.autocheck.com/">
+        <span class="t">AutoCheck</span>
+        <span class="d">Paid — alternative to Carfax</span>
+      </a>
+      <a target="_blank" rel="noopener" href="https://www.iihs.org/ratings">
+        <span class="t">IIHS Safety Ratings</span>
+        <span class="d">Crash test scores by model/year</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<script id="LISTINGS_DATA" type="application/json"></script>
+
+<script>
+(async function () {
+  // Load data: embedded blob (Cowork artifact) takes precedence, else fetch external JSON (public site)
+  var DATA = {};
+  var embedded = document.getElementById("LISTINGS_DATA");
+  var embeddedText = embedded ? embedded.textContent.trim() : "";
+  if (embeddedText.length > 50) {
+    try { DATA = JSON.parse(embeddedText); } catch (e) { console.error("Embedded data parse failed", e); }
+  } else {
+    try {
+      var res = await fetch("./data.json?v=" + Date.now(), { cache: "no-store" });
+      if (res.ok) DATA = await res.json();
+    } catch (e) { console.error("data.json fetch failed", e); }
+  }
+
+  // Date pill — show last refreshed time
+  var d = DATA.lastRefreshed ? new Date(DATA.lastRefreshed) : new Date();
+  document.getElementById("datePill").textContent =
+    "Refreshed " + d.toLocaleDateString("en-US", { month: "short", day: "numeric" }) + " · " + d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+
+  // Tabs
+  var tabs = document.querySelectorAll(".tab");
+  var panels = document.querySelectorAll(".tab-panel");
+  tabs.forEach(function (t) {
+    t.addEventListener("click", function () {
+      tabs.forEach(function (x) { x.classList.remove("active"); });
+      panels.forEach(function (p) { p.classList.remove("active"); });
+      t.classList.add("active");
+      var p = document.getElementById("panel-" + t.dataset.tab);
+      if (p) p.classList.add("active");
+    });
+  });
+
+  
+
+  // Helpers
+  function nfmt(n) { return Number(n || 0).toLocaleString("en-US"); }
+  function dollar(n) { return "$" + nfmt(n); }
+  function escapeHtml(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function dealClass(r) {
+    if (!r) return "";
+    var word = r.split(" ")[0]; // Great/Good/Fair/High/Excellent
+    return "deal-" + word;
+  }
+
+  function renderListing(l, source) {
+    var title = (l.year ? l.year + " " : "") + (l.make ? l.make + " " : "") + (l.model || "");
+    var dealHtml = l.dealRating ? '<div class="deal-badge ' + dealClass(l.dealRating) + '">' + escapeHtml(l.dealRating) + '</div>' : "";
+    var priceHtml = l.price ? dollar(l.price) : "—";
+    var specs = [];
+    if (l.mileage && l.mileage > 0) specs.push(nfmt(l.mileage) + " mi");
+    if (l.location) specs.push(escapeHtml(l.location));
+    else if (l.zip) specs.push("ZIP " + escapeHtml(l.zip));
+    if (l.distance) {
+      var distStr = String(l.distance).replace(/\s*mi\.?\s*(away)?$/i, "");
+      specs.push(escapeHtml(distStr) + " mi away");
+    }
+    var verifyChips = "";
+    if (l.noAccidents || l.cleanTitle) {
+      verifyChips = '<div class="verify-row">'
+        + (l.noAccidents ? '<span class="vchip">✓ No accidents</span>' : "")
+        + (l.cleanTitle ? '<span class="vchip">✓ Clean title</span>' : "")
+        + '</div>';
+    }
+    var actionUrl = l.url || (DATA[source] && DATA[source].url) || "#";
+    var btnLabel = l.url ? "View listing" : "Open " + source + " search";
+    return '<div class="listing">'
+      + dealHtml
+      + '<div class="hd">' + escapeHtml(title) + '</div>'
+      + (l.trim ? '<div class="trim">' + escapeHtml(l.trim) + '</div>' : "")
+      + '<div class="price">' + priceHtml + '</div>'
+      + (specs.length ? '<div class="specs">' + specs.map(function (s) { return '<span>' + s + '</span>'; }).join("") + '</div>' : "")
+      + verifyChips
+      + '<a class="view" target="_blank" rel="noopener" href="' + escapeHtml(actionUrl) + '">' + btnLabel + '</a>'
+      + '</div>';
+  }
+
+  function renderTab(key, sourceName) {
+    var content = document.getElementById("content-" + key);
+    var meta = document.getElementById("meta-" + key);
+    var src = DATA[key];
+    if (!src || !src.listings || !src.listings.length) {
+      content.innerHTML = '<div class="empty">No listings on the last refresh. Try the "Open full search" link or refresh.</div>';
+      meta.textContent = "0 listings";
+      return;
+    }
+    var t = src.listings.slice(0, 10);
+    var setBadge = function (n) {
+      var btn = document.querySelector('.tab[data-tab="' + key + '"]');
+      if (!btn) return;
+      var b = btn.querySelector(".badge-count");
+      if (!b) { b = document.createElement("span"); b.className = "badge-count"; btn.appendChild(b); }
+      b.textContent = n;
+    };
+    setBadge(t.length);
+    var totalNote = src.totalFound ? src.totalFound + " total found · " : "";
+    meta.innerHTML = '<span class="stat">' + totalNote + '</span>showing top ' + t.length + ' under $13,000';
+    content.innerHTML = '<div class="listing-grid">' + t.map(function (l) { return renderListing(l, key); }).join("") + '</div>';
+  }
+
+  function renderTop10() {
+    var src = DATA.top10;
+    var introEl = document.getElementById("top10-intro");
+    var contentEl = document.getElementById("content-top10");
+    if (!src || !src.picks) {
+      contentEl.innerHTML = '<div class="empty">Top 10 analysis not available — will populate after the next refresh.</div>';
+      return;
+    }
+    introEl.classList.add("top10-intro");
+    introEl.innerHTML = src.introHtml || "";
+    var html = "";
+    src.picks.forEach(function (p) {
+      var ymm = (p.year ? p.year + " " : "") + (p.make ? p.make + " " : "") + (p.model || "");
+      var miles = p.mileage > 0 ? nfmt(p.mileage) + " mi" : "Mileage on listing";
+      var verifyTags = (p.verified || []).map(function (v) { return '<span class="verify-tag">✓ ' + escapeHtml(v) + '</span>'; }).join("");
+      var dealHtml = p.dealRating ? '<span class="deal-tag">' + escapeHtml(p.dealRating) + '</span>' : "";
+      var locTag = p.location ? '<span class="meta-tag">' + escapeHtml(p.location) + '</span>' : "";
+      html += '<div class="pick rank-' + p.rank + '">'
+        +   '<div class="rank">' + p.rank + '</div>'
+        +   '<div class="body">'
+        +     '<div class="title-row">'
+        +       '<span class="ymm">' + escapeHtml(ymm) + '</span>'
+        +       (p.trim ? '<span class="trim">' + escapeHtml(p.trim) + '</span>' : "")
+        +     '</div>'
+        +     '<div class="meta-row">'
+        +       '<span class="price-tag">' + dollar(p.price) + '</span>'
+        +       '<span class="meta-tag">' + escapeHtml(miles) + '</span>'
+        +       locTag
+        +       '<span class="source-tag">' + escapeHtml(p.source) + '</span>'
+        +       verifyTags
+        +       dealHtml
+        +     '</div>'
+        +     '<div class="section-grid">'
+        +       '<div class="section good"><div class="lbl">Why it works</div><p>' + escapeHtml(p.whyGood) + '</p></div>'
+        +       '<div class="section verify"><div class="lbl">What to verify</div><p>' + escapeHtml(p.whatToVerify) + '</p></div>'
+        +       '<div class="section bottom"><div class="lbl">Bottom line</div><p>' + escapeHtml(p.bottomLine) + '</p></div>'
+        +     '</div>'
+        +     '<div class="actions">'
+        +       '<a target="_blank" rel="noopener" href="' + escapeHtml(p.url) + '">View listing</a>'
+        +       '<a class="secondary" target="_blank" rel="noopener" href="https://vehiclehistory.bja.ojp.gov/">VIN check (NMVTIS)</a>'
+        +     '</div>'
+        +   '</div>'
+        + '</div>';
+    });
+    contentEl.innerHTML = html;
+  }
+
+  // Render every tab
+  renderTop10();
+  renderTab("carscom", "Cars.com");
+  renderTab("cargurus", "CarGurus");
+  renderTab("autotrader", "AutoTrader");
+  renderTab("truecar", "TrueCar");
+})();
+</script>
+</body>
+</html>
