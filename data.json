@@ -1,5 +1,5 @@
 {
-  "lastRefreshed": "2026-06-05T11:38:09-04:00",
+  "lastRefreshed": "2026-06-06T11:39:33.267551+00:00",
   "filters": {
     "minPrice": 7000,
     "maxPrice": 15000,
@@ -9,17 +9,15 @@
   "carscom": {
     "totalFound": 0,
     "url": "https://www.cars.com/shopping/results/?stock_type=used&body_style_slugs[]=convertible&list_price_min=7000&list_price_max=15000&maximum_distance=35&zip=19063&no_accidents=true&clean_title=true&sort=list_price",
-    "listings": [],
-    "note": "Site requires Chrome extension for data extraction \u2014 no listings returned in this run"
+    "listings": []
   },
   "cargurus": {
     "totalFound": 0,
     "url": "https://www.cargurus.com/Cars/l-Used-Convertible-bg1?zip=19063&distance=35&minPrice=7000&maxPrice=15000",
-    "listings": [],
-    "note": "Location filter requires JavaScript rendering \u2014 returned nationwide results without Chrome; cannot reliably filter to 35mi"
+    "listings": []
   },
   "autotrader": {
-    "totalFound": 78,
+    "totalFound": 75,
     "url": "https://www.autotrader.com/cars-for-sale/all-cars/convertible/media-pa?minPrice=7000&maxPrice=15000&searchRadius=35&zip=19063&sortBy=derivedpriceASC",
     "listings": [
       {
@@ -257,24 +255,6 @@
         "source": "autotrader"
       },
       {
-        "id": "780692161",
-        "year": 2017,
-        "make": "FIAT",
-        "model": "500",
-        "trim": "Lounge",
-        "price": 9966,
-        "mileage": 129000,
-        "location": "Near Media, PA",
-        "distanceMi": 9,
-        "url": "https://www.autotrader.com/cars-for-sale/vehicle/780692161",
-        "dealer": "Del Chevrolet",
-        "dealRating": null,
-        "cleanTitle": null,
-        "noAccidents": null,
-        "imageUrl": "https://images2.autotrader.com/hn/c/05083398f63843fea2a4f648403de15a.jpg",
-        "source": "autotrader"
-      },
-      {
         "id": "770808740",
         "year": 2000,
         "make": "BMW",
@@ -308,24 +288,6 @@
         "cleanTitle": null,
         "noAccidents": true,
         "imageUrl": "https://images2.autotrader.com/hn/c/c480d9ba461344948a3357a5ee3d9a0e.jpg",
-        "source": "autotrader"
-      },
-      {
-        "id": "781940830",
-        "year": 2008,
-        "make": "Audi",
-        "model": "TT",
-        "trim": "3.2",
-        "price": 9995,
-        "mileage": 110000,
-        "location": "Near Media, PA",
-        "distanceMi": 25,
-        "url": "https://www.autotrader.com/cars-for-sale/vehicle/781940830",
-        "dealer": "PA Auto Liquidators LLC",
-        "dealRating": null,
-        "cleanTitle": null,
-        "noAccidents": true,
-        "imageUrl": "https://images2.autotrader.com/hn/c/bc20ecda559c4ede927ef4e1216949a8.jpg",
         "source": "autotrader"
       },
       {
@@ -455,6 +417,42 @@
         "source": "autotrader"
       },
       {
+        "id": "781514334",
+        "year": 2004,
+        "make": "BMW",
+        "model": "330Ci",
+        "trim": "Convertible",
+        "price": 10500,
+        "mileage": 88000,
+        "location": "Near Media, PA",
+        "distanceMi": 13,
+        "url": "https://www.autotrader.com/cars-for-sale/vehicle/781514334",
+        "dealer": "Private Seller",
+        "dealRating": null,
+        "cleanTitle": true,
+        "noAccidents": true,
+        "imageUrl": "https://images2.autotrader.com/ps-vehicle-media/6e7e21d8-082f-45a2-a1af-895c29de3db9.jpg",
+        "source": "autotrader"
+      },
+      {
+        "id": "770241661",
+        "year": 2005,
+        "make": "Chrysler",
+        "model": "Crossfire",
+        "trim": "Limited",
+        "price": 10987,
+        "mileage": 64000,
+        "location": "Near Media, PA",
+        "distanceMi": 2,
+        "url": "https://www.autotrader.com/cars-for-sale/vehicle/770241661",
+        "dealer": "Weathers Motors",
+        "dealRating": null,
+        "cleanTitle": null,
+        "noAccidents": true,
+        "imageUrl": "https://images2.autotrader.com/hn/c/8a298ef304fd42dc9b583fcb2a6b2540.jpg",
+        "source": "autotrader"
+      },
+      {
         "id": "778587840",
         "year": 2013,
         "make": "Volvo",
@@ -471,32 +469,13 @@
         "noAccidents": true,
         "imageUrl": "https://images2.autotrader.com/dealership/c1d1b050-cfee-46f3-bda9-56e9686c50f0.jpeg",
         "source": "autotrader"
-      },
-      {
-        "id": "781590811",
-        "year": 2010,
-        "make": "Lexus",
-        "model": "IS 250C",
-        "trim": null,
-        "price": 14740,
-        "mileage": 91000,
-        "location": "Near Media, PA",
-        "distanceMi": 13,
-        "url": "https://www.autotrader.com/cars-for-sale/vehicle/781590811",
-        "dealer": "Private Seller",
-        "dealRating": null,
-        "cleanTitle": true,
-        "noAccidents": null,
-        "imageUrl": "https://images2.autotrader.com/ps-vehicle-media/5380fad3-243a-4fa3-ae3d-ebac920dc5b4.jpeg",
-        "source": "autotrader"
       }
     ]
   },
   "truecar": {
     "totalFound": 0,
     "url": "https://www.truecar.com/used-cars-for-sale/listings/convertible/?zip=19063&range=35&price_min=7000&price_max=15000",
-    "listings": [],
-    "note": "Body-style filter broken per task spec \u2014 skipped"
+    "listings": []
   },
   "top10": {
     "introHtml": "<p>Top 10 picks for a cheap, fun second car near Media, PA \u2014 ranked by condition signals, model reliability, and fun factor. Mileage matters less than history and top condition on a convertible.</p>",
@@ -692,24 +671,24 @@
       },
       {
         "rank": 10,
-        "year": 2012,
-        "make": "MINI",
-        "model": "Cooper",
-        "trim": "S",
-        "price": 9400,
-        "mileage": 98000,
+        "year": 2004,
+        "make": "BMW",
+        "model": "330Ci",
+        "trim": "Convertible",
+        "price": 10500,
+        "mileage": 88000,
         "location": "Near Media, PA",
-        "distanceMi": 17,
-        "url": "https://www.autotrader.com/cars-for-sale/vehicle/777472503",
+        "distanceMi": 13,
+        "url": "https://www.autotrader.com/cars-for-sale/vehicle/781514334",
         "dealer": "Private Seller",
         "dealRating": null,
         "cleanTitle": true,
         "noAccidents": true,
-        "imageUrl": "https://images2.autotrader.com/ps-vehicle-media/3794377d-adea-46b7-93da-26eb2b3f4466.jpeg",
+        "imageUrl": "https://images2.autotrader.com/ps-vehicle-media/6e7e21d8-082f-45a2-a1af-895c29de3db9.jpg",
         "source": "autotrader",
-        "whyGood": "98K miles, clean title, no accidents, private seller who presumably knows the car. The R57 Cooper S convertible is the turbocharged version \u2014 genuine fun. Price is fair for this mileage and condition.",
-        "whatToVerify": "Inspect soft top at all four corners and the rear window. Check for turbo boost leaks. Timing chain stretch on R56-family engines is a known issue \u2014 listen on cold start. Check for water intrusion under carpets. Electric water pump \u2014 verify it's been replaced (MINI recommends proactive replacement).",
-        "bottomLine": "Solid turbocharged fun at under $10k from a private seller \u2014 a good backup if the Z3s or 325Ci need more work than expected."
+        "whyGood": "The E46 330Ci is the top of the E46 convertible range \u2014 the 3.0L M54 inline-six makes 225 hp and pulls smoothly to redline. 88K miles, no accidents, clean title, private seller, just 13 miles away. This is a new arrival since yesterday\u2019s refresh. E46 convertibles are well-built and the soft top mechanism is reliable when maintained.",
+        "whatToVerify": "Operate soft top through a full cycle \u2014 check the headliner for water stains and the rear window for delamination. Inspect rocker panels and subframe for rust (critical on E46 convertibles). Check VANOS operation (rattle on cold start = worn seals). Pull codes. Look for coolant discoloration (head gasket on M54). Verify oil leaks at valve cover, oil filter housing, rear main.",
+        "bottomLine": "A new arrival: the best-spec E46 convertible in the dataset \u2014 330Ci with the smooth 3.0L, no accidents, clean title, private seller. Top pick if the PPI comes back clean."
       }
     ]
   },
