@@ -14,7 +14,20 @@ Refresh the "used-convertibles-near-media-pa" artifact with fresh convertible li
 - Min price: **$7,000** (filter out the high-mileage / rough-shape sub-$7k listings)
 - Max price: **$15,000**
 - Radius: **35 miles** from ZIP 19063 (this approximates a 45-minute drive in mixed suburban + highway around Media, PA)
-- Makes: **all** (Mazda Miata, BMW, Ford Mustang, Chrysler Sebring, Saab, Pontiac Solstice, Audi, Mercedes SLK, etc. — all in scope)
+- Makes: **all** — but apply the exclusions below before storing any listing
+
+### Mandatory exclusions (apply to ALL sections — listings, Top 10, Mustangs)
+
+**Two-seater models — do not include in any output:**
+Mazda MX-5 Miata / MX-5 / Miata (all generations), BMW Z3, BMW Z4, Pontiac Solstice, Saturn Sky, Honda S2000, Chrysler Crossfire, Porsche Boxster, Porsche Cayman (open-top), Mercedes SLK, Toyota MR2, Toyota Paseo (convertible), Chevrolet Corvette, Lotus Elise, Lotus Exige, MINI Cooper Roadster (R59 — 2-seat body; the regular MINI Cooper convertible is 4-seat and OK), Ford Thunderbird 2002–2005 (11th-gen revival was 2-seat).
+
+**Mustangs — year filter:** Only include Ford Mustang convertibles from model year **2000 or newer**. Silently drop any Mustang listing with year < 2000; do not add it to the mustangs section or any other section.
+
+## Dashboard tabs
+
+The live dashboard (`index.html` / artifact) has these tabs: **★ Top 10 Picks, 🐎 Mustangs, AutoTrader, TrueCar, Other Sites, Buyer Checklist.**
+
+Cars.com and CarGurus tabs have been **removed** — Cars.com is fully client-rendered (bot protection blocks extraction even with Chrome extension), and CarGurus's geographic filter does not apply reliably (returns nationwide results). Do not restore these tabs. The "Other Sites" tab still has manual-search launch cards for both sites.
 
 ## URLs to fetch (verified working as of 2026-05-11)
 
@@ -96,7 +109,7 @@ Apply the criteria from the section above. Output 10 picks.
 
 ### 3b. Build the Mustangs section
 
-Filter all sources for `make == "Ford"` and `model contains "Mustang"`. Rank by:
+Filter all sources for `make == "Ford"` and `model contains "Mustang"` **and `year >= 2000`** (pre-2000 Mustangs are excluded per user preference). Rank by:
 1. **GT trim > Cobra > Mach 1 > Shelby > V6** (V8 grunt is the point)
 2. **Manual transmission preferred** (this is a fun car)
 3. **Lower mileage**

@@ -112,14 +112,16 @@ try {
 
     $branch = git rev-parse --abbrev-ref HEAD
     Write-Step "git push origin $branch"
-    git push origin $branch 2>&1 | ForEach-Object { Write-Host "    $_" }
+    $pushResult = & { $ErrorActionPreference = "SilentlyContinue"; git push origin $branch 2>&1 }
+    $pushResult | ForEach-Object { Write-Host "    $_" }
     if ($LASTEXITCODE -ne 0) {
         # Most common cause: a new commit landed on origin between our pull
         # and our push. One retry with rebase usually fixes it.
         Write-Warn "Push rejected. Retrying with a fresh pull --rebase..."
         $retryResult = & { $ErrorActionPreference = "SilentlyContinue"; git pull --rebase --autostash 2>&1 }
         $retryResult | ForEach-Object { Write-Host "    $_" }
-        git push origin $branch 2>&1 | ForEach-Object { Write-Host "    $_" }
+        $retryPush = & { $ErrorActionPreference = "SilentlyContinue"; git push origin $branch 2>&1 }
+        $retryPush | ForEach-Object { Write-Host "    $_" }
         if ($LASTEXITCODE -ne 0) {
             Write-Error "Push still failing after retry. Investigate manually."
             exit 1
