@@ -76,7 +76,10 @@ try {
     #    uncommitted local edits (e.g. an in-progress edit to index.html or SKILL.md);
     #    git stashes them, rebases, then re-applies the stash automatically.
     Write-Step "git pull --rebase --autostash"
-    git pull --rebase --autostash 2>&1 | ForEach-Object { Write-Host "    $_" }
+    # Wrap in SilentlyContinue so git's informational stderr lines (e.g. "Applied autostash.")
+    # don't become terminating errors under $ErrorActionPreference = "Stop".
+    $pullResult = & { $ErrorActionPreference = "SilentlyContinue"; git pull --rebase --autostash 2>&1 }
+    $pullResult | ForEach-Object { Write-Host "    $_" }
     if ($LASTEXITCODE -ne 0) {
         Write-Error "git pull --rebase failed (likely a merge conflict). Resolve manually, then re-run."
         exit 1
@@ -114,7 +117,8 @@ try {
         # Most common cause: a new commit landed on origin between our pull
         # and our push. One retry with rebase usually fixes it.
         Write-Warn "Push rejected. Retrying with a fresh pull --rebase..."
-        git pull --rebase --autostash 2>&1 | ForEach-Object { Write-Host "    $_" }
+        $retryResult = & { $ErrorActionPreference = "SilentlyContinue"; git pull --rebase --autostash 2>&1 }
+        $retryResult | ForEach-Object { Write-Host "    $_" }
         git push origin $branch 2>&1 | ForEach-Object { Write-Host "    $_" }
         if ($LASTEXITCODE -ne 0) {
             Write-Error "Push still failing after retry. Investigate manually."
