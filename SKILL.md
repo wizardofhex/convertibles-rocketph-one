@@ -23,16 +23,10 @@ Mazda MX-5 Miata / MX-5 / Miata (all generations), BMW Z3, BMW Z4, Pontiac Solst
 
 **Mustangs — year filter:** Only include Ford Mustang convertibles from model year **2000 or newer**. Silently drop any Mustang listing with year < 2000; do not add it to the mustangs section or any other section.
 
-## Dashboard tabs
-
-The live dashboard (`index.html` / artifact) has these tabs: **★ Top 10 Picks, 🐎 Mustangs, AutoTrader, TrueCar, Other Sites, Buyer Checklist.**
-
-Cars.com and CarGurus tabs have been **removed** — Cars.com is fully client-rendered (bot protection blocks extraction even with Chrome extension), and CarGurus's geographic filter does not apply reliably (returns nationwide results). Do not restore these tabs. The "Other Sites" tab still has manual-search launch cards for both sites.
-
 ## URLs to fetch (verified working as of 2026-05-11)
 
-- **Cars.com:** `https://www.cars.com/shopping/results/?stock_type=used&body_style_slugs[]=convertible&list_price_min=7000&list_price_max=15000&maximum_distance=35&zip=19063&no_accidents=true&clean_title=true&sort=list_price` — paginate with `&page=2` for second-page listings
-- **CarGurus:** `https://www.cargurus.com/Cars/l-Used-Convertible-bg1?zip=19063&distance=35&minPrice=7000&maxPrice=15000` — body group is **`bg1`** (NOT bg2)
+- **Cars.com:** `https://www.cars.com/shopping/results/?stock_type=used&body_style_slugs[]=convertible&list_price_min=7000&list_price_max=15000&maximum_distance=35&zip=19063&no_accidents=true&clean_title=true&sort=list_price` — paginate with `&page=2` for second-page listings. **Cars.com is fully client-rendered — this URL only works if the Claude in Chrome extension is connected and Chrome is open when the task runs.** If the Chrome MCP is unavailable, record `carscom.totalFound=0` and `carscom.note="Chrome extension not connected"` and move on; do not error out.
+- **CarGurus:** Use this URL which applies the geographic filter correctly: `https://www.cargurus.com/Cars/l-Used-Convertible-bg1?zip=19063&distance=35&minPrice=7000&maxPrice=15000&sortDir=ASC&sortType=PRICE` — body group is **`bg1`** (NOT bg2). After navigating, **scroll the page top-to-bottom in 600px steps with 300ms delays** before extracting — lazy-loaded cards below the fold won't render otherwise. Verify the result set is geographically filtered (listings should show PA/NJ/DE/MD locations) — if you see listings from CA, TX, FL etc. the filter didn't stick; record `cargurus.note="Geographic filter did not apply"` and store 0 listings rather than polluting the dashboard with nationwide results.
 - **AutoTrader:** `https://www.autotrader.com/cars-for-sale/all-cars/convertible/media-pa?minPrice=7000&maxPrice=15000&searchRadius=35&zip=19063&sortBy=derivedpriceASC` — paginate with `&firstRecord=25` for second page
 - **TrueCar:** body-style filter currently broken across every variant; record `truecar.totalFound=0` and skip
 

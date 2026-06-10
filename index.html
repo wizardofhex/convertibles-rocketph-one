@@ -411,6 +411,8 @@
   <div class="tabs" id="tabs">
     <button class="tab active" data-tab="top10"    >★ Top 10 Picks</button>
     <button class="tab"        data-tab="mustangs" >🐎 Mustangs</button>
+    <button class="tab"        data-tab="carscom"  >Cars.com</button>
+    <button class="tab"        data-tab="cargurus" >CarGurus</button>
     <button class="tab"        data-tab="autotrader">AutoTrader</button>
     <button class="tab"        data-tab="truecar"  >TrueCar</button>
     <button class="tab"        data-tab="othersites">Other Sites</button>
@@ -429,6 +431,26 @@
     <div class="note-box" id="mustangs-intro"></div>
     <div id="content-mustangs"></div>
     <div class="warn-box" style="margin-top: 16px"><b>Mustang convertible PPI tips:</b> SN-95 (1994–2004) frames can rust where the convertible top mechanism mounts to the rocker — get under the car. S197 (2005–2014) and S550 (2015+) are stiffer but watch for IRS clunk on equipped cars. T-3650 manuals had third-gear synchro issues — slow-shift into 3rd to test. The convertible top boot color fades — set expectations on cosmetics.</div>
+  </div>
+
+  <!-- Cars.com -->
+  <div class="tab-panel" id="panel-carscom">
+    <div class="note-box">Cars.com filters honor "no accidents" and "clean title" automatically — every listing here meets those criteria. <b>Requires Chrome to be open</b> when the morning refresh runs.</div>
+    <div class="panel-header">
+      <div class="meta" id="meta-carscom">—</div>
+      <a class="search-link" target="_blank" rel="noopener" href="https://www.cars.com/shopping/results/?stock_type=used&body_style_slugs[]=convertible&list_price_min=7000&list_price_max=15000&maximum_distance=35&zip=19063&no_accidents=true&clean_title=true&sort=list_price">Open full search →</a>
+    </div>
+    <div id="content-carscom"></div>
+  </div>
+
+  <!-- CarGurus -->
+  <div class="tab-panel" id="panel-cargurus">
+    <div class="warn-box">CarGurus URL doesn't auto-filter "no accidents" or "clean title" — verify on each listing page. Deal rating shown in the badge.</div>
+    <div class="panel-header">
+      <div class="meta" id="meta-cargurus">—</div>
+      <a class="search-link" target="_blank" rel="noopener" href="https://www.cargurus.com/Cars/l-Used-Convertible-bg1?zip=19063&distance=35&minPrice=7000&maxPrice=15000">Open full search →</a>
+    </div>
+    <div id="content-cargurus"></div>
   </div>
 
   <!-- AutoTrader -->
@@ -721,6 +743,8 @@
   // Render every tab
   renderRankedPicks("top10", "top10-intro", "content-top10", "Top 10 analysis not available — will populate after the next refresh.");
   renderRankedPicks("mustangs", "mustangs-intro", "content-mustangs", "No Ford Mustang convertibles in budget on the latest refresh.");
+  renderTab("carscom", "Cars.com");
+  renderTab("cargurus", "CarGurus");
   renderTab("autotrader", "AutoTrader");
   renderTab("truecar", "TrueCar");
 })();
