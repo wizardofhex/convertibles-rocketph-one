@@ -92,24 +92,29 @@ try {
     #    .gitignore to keep junk out and stage all tracked changes.
     git add -A
 
-    # 6. Check if anything is staged. If working tree was clean to start with
-    #    and nothing came in via the pull, exit clean.
+    # 6. Check if anything is staged.
     $statusOutput = git status --porcelain
     if ([string]::IsNullOrWhiteSpace($statusOutput)) {
-        Write-Skip "No changes to commit - exiting."
-        exit 0
+        # No new changes to commit. Check whether local commits haven't been pushed yet.
+        $aheadCount = [int](& git rev-list --count "origin/main..HEAD" 2>$null)
+        if ($aheadCount -eq 0) {
+            Write-Skip "No changes to commit and nothing to push - exiting."
+            exit 0
+        }
+        Write-Skip "No new changes to commit, but $aheadCount local commit(s) not yet pushed. Pushing..."
+    } else {
+        # 7. Commit
+        Write-Step "git commit"
+        $commitMsg = "Daily refresh: $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
+        git commit -m $commitMsg
+        if ($LASTEXITCODE -ne 0) {
+            Write-Error "git commit failed - see output above."
+            exit 1
+        }
+        Write-Ok "Committed: $commitMsg"
     }
 
-    # 7. Commit + push
-    Write-Step "git commit"
-    $commitMsg = "Daily refresh: $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
-    git commit -m $commitMsg
-    if ($LASTEXITCODE -ne 0) {
-        Write-Error "git commit failed - see output above."
-        exit 1
-    }
-    Write-Ok "Committed: $commitMsg"
-
+    # 8. Push (runs whether we just committed or had pre-existing unpushed commits)
     $branch = git rev-parse --abbrev-ref HEAD
     Write-Step "git push origin $branch"
     $pushResult = & { $ErrorActionPreference = "SilentlyContinue"; git push origin $branch 2>&1 }
