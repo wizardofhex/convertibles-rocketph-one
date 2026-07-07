@@ -11,435 +11,436 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="description" content="Daily-refreshed dashboard of used convertibles under $15,000 within ~35 miles (about 45 min) of Media, PA. Top 10 picks ranked as a cheap fun second car - condition over miles."><meta property="og:title" content="Convertibles Under $15k - Near Media, PA"><meta property="og:description" content="Top convertibles under $15k near Media, PA, refreshed daily.">
-<title>Convertibles Under $15k - Near Media, PA</title>
+<title>Convertibles Under $15k · Near Media, PA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root { color-scheme: light; }
+  :root {
+    color-scheme: light;
+    --ink: #14171d;
+    --ink-soft: #262b34;
+    --paper: #eef1f5;
+    --card: #ffffff;
+    --line: #dde2ea;
+    --line-soft: #e8ecf2;
+    --muted: #616a79;
+    --muted-2: #97a0b0;
+    --accent: #2f6df6;
+    --accent-deep: #1e51c9;
+    --green: #147a4a;
+    --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --display: "Bricolage Grotesque", var(--sans);
+    --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
   * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
   body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background: #f7f8fa;
-    color: #1a1d24;
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
     line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
   }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 24px; }
-  header.top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    gap: 16px;
-    padding-bottom: 18px;
-    border-bottom: 1px solid #e5e7eb;
-    margin-bottom: 18px;
-  }
-  header.top h1 { margin: 0 0 4px 0; font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
-  header.top .sub { color: #5b6472; font-size: 13px; }
-  .badges-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-  .date-pill {
-    background: #1a1d24; color: #fff;
-    padding: 6px 12px; border-radius: 999px;
-    font-size: 12px; font-weight: 500; white-space: nowrap;
-  }
-  .refresh-pill {
-    background: #fff; border: 1px solid #d3d8e0;
-    color: #1a1d24; padding: 6px 12px; border-radius: 999px;
-    font-size: 12px; font-weight: 500; cursor: pointer;
-    font-family: inherit;
-  }
-  .refresh-pill:hover { border-color: #1a1d24; }
+  a { color: var(--accent-deep); text-decoration: none; }
+  a:hover { color: var(--accent); }
 
-  .filter-bar {
-    display: flex; flex-wrap: wrap; gap: 12px;
-    background: #fff; border: 1px solid #e5e7eb;
-    border-radius: 10px; padding: 12px 14px;
-    margin-bottom: 18px; font-size: 13px;
-  }
-  .filter-bar .pill {
-    background: #f3f5f8; border-radius: 6px;
-    padding: 4px 10px; color: #2c3340; font-weight: 500;
+  /* road-dash motif */
+  .roadline {
+    height: 3px;
+    background-image: repeating-linear-gradient(90deg, var(--accent) 0 20px, transparent 20px 34px);
+    opacity: .9;
   }
 
-  .tabs {
-    display: flex; gap: 2px;
-    border-bottom: 1px solid #e5e7eb;
-    margin-bottom: 20px; overflow-x: auto;
-  }
-  .tab {
-    background: none; border: none;
-    padding: 10px 16px; font-size: 14px;
-    font-weight: 500; cursor: pointer;
-    color: #5b6472;
-    border-bottom: 2px solid transparent;
-    white-space: nowrap;
-    margin-bottom: -1px;
-    font-family: inherit;
-  }
-  .tab:hover { color: #1a1d24; }
-  .tab.active { color: #1a1d24; border-bottom-color: #1a1d24; font-weight: 600; }
-  .tab .badge-count {
-    display: inline-block;
-    background: #e5e7eb; color: #5b6472;
-    border-radius: 999px; padding: 1px 8px;
-    font-size: 11px; margin-left: 6px;
-    font-weight: 600;
-  }
-  .tab.active .badge-count { background: #1a1d24; color: #fff; }
-  .tab-panel { display: none; }
-  .tab-panel.active { display: block; }
-
-  .panel-header {
-    display: flex; justify-content: space-between;
-    align-items: center; flex-wrap: wrap; gap: 10px;
-    margin-bottom: 14px;
-  }
-  .panel-header .meta { font-size: 12px; color: #8a92a0; }
-  .panel-header .meta .stat { color: #1a1d24; font-weight: 600; }
-  .panel-header a.search-link {
-    background: #fff; border: 1px solid #d3d8e0;
-    border-radius: 8px; padding: 6px 12px;
-    font-size: 12px; font-weight: 500; cursor: pointer;
-    color: #1a1d24; text-decoration: none;
-  }
-  .panel-header a.search-link:hover { border-color: #1a1d24; }
-
-  .listing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 12px;
-  }
-  .listing {
-    background: #fff; border: 1px solid #e5e7eb;
-    border-radius: 10px; padding: 0 0 14px 0;
-    display: flex; flex-direction: column; gap: 6px;
-    transition: border-color .15s, box-shadow .15s;
+  /* ---------- HERO ---------- */
+  .hero {
+    background: var(--ink);
+    color: #eef1f5;
     position: relative;
     overflow: hidden;
   }
-  .listing:hover { border-color: #c9cfd9; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
-  .listing .photo {
-    aspect-ratio: 16 / 10;
-    width: 100%;
-    background: #eef2f7;
+  .hero::after {
+    content: "";
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 3px;
+    background-image: repeating-linear-gradient(90deg, var(--accent) 0 26px, transparent 26px 44px);
+  }
+  .hero-inner {
+    max-width: 1120px; margin: 0 auto;
+    padding: 34px 28px 30px;
+  }
+  .kicker {
+    font-family: var(--mono);
+    font-size: 12px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600;
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 14px;
+  }
+  .kicker .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .hero-row {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 28px; flex-wrap: wrap;
+  }
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 800; letter-spacing: -0.02em;
+    font-size: clamp(34px, 6vw, 62px);
+    line-height: 0.98; margin: 0;
+    max-width: 15ch;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero .sub {
+    color: #a7afbd; font-size: 14.5px; max-width: 46ch;
+    margin-top: 16px;
+  }
+  .refreshed {
+    font-family: var(--mono);
+    font-size: 12px; color: #ccd2dc;
+    border: 1px solid #363c46;
+    border-radius: 4px; padding: 9px 13px;
+    display: inline-flex; align-items: center; gap: 9px;
+    white-space: nowrap;
+    background: rgba(255,255,255,0.02);
+  }
+  .refreshed .live {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #4ade80; box-shadow: 0 0 0 3px rgba(74,222,128,.18);
+  }
+  /* spec ribbon */
+  .spec-ribbon {
+    max-width: 1120px; margin: 0 auto;
+    padding: 0 28px;
+  }
+  .spec-ribbon-in {
+    display: flex; flex-wrap: wrap; gap: 0;
+    background: var(--ink-soft);
+    border-radius: 8px;
+    margin: 22px 0 0;
     overflow: hidden;
-    display: block;
+    transform: translateY(0);
   }
-  .listing .photo img {
-    width: 100%; height: 100%;
-    object-fit: cover; display: block;
-    background: #eef2f7;
+  .spec {
+    padding: 12px 18px;
+    border-right: 1px solid rgba(255,255,255,0.07);
+    flex: 1 1 auto; min-width: 130px;
   }
-  .listing > .hd,
-  .listing > .trim,
-  .listing > .price,
-  .listing > .specs,
-  .listing > .verify-row,
-  .listing > .loc { padding-left: 14px; padding-right: 14px; }
-  .listing > a.view { margin-left: 14px; margin-right: 14px; }
-  .listing .deal-badge {
-    position: absolute; top: 10px; right: 10px;
-    font-size: 10px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.04em;
-    padding: 3px 8px; border-radius: 4px;
+  .spec:last-child { border-right: none; }
+  .spec .sl {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .14em;
+    text-transform: uppercase; color: #8b93a1; margin-bottom: 3px;
   }
-  .deal-Great { background: #d1fae5; color: #065f46; }
+  .spec .sv { font-size: 13.5px; color: #eef1f5; font-weight: 600; }
+
+  /* ---------- SHELL ---------- */
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 26px 28px 60px; }
+
+  /* ---------- TABS ---------- */
+  .tabs {
+    display: flex; gap: 4px;
+    border-bottom: 1.5px solid var(--line);
+    margin: 30px 0 26px; overflow-x: auto;
+    scrollbar-width: none;
+    position: sticky; top: 0; z-index: 20;
+    background: var(--paper);
+    padding-top: 4px;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    background: none; border: none;
+    padding: 12px 15px 13px; font-size: 12px;
+    font-family: var(--mono); font-weight: 600;
+    letter-spacing: .06em; text-transform: uppercase;
+    cursor: pointer; color: var(--muted);
+    border-bottom: 2.5px solid transparent;
+    white-space: nowrap; margin-bottom: -1.5px;
+    display: inline-flex; align-items: center; gap: 7px;
+    transition: color .15s;
+  }
+  .tab:hover { color: var(--ink); }
+  .tab.active { color: var(--ink); border-bottom-color: var(--accent); }
+  .tab .badge-count {
+    display: inline-block;
+    background: var(--line); color: var(--muted);
+    border-radius: 3px; padding: 1px 7px;
+    font-size: 11px; font-weight: 700;
+    font-family: var(--mono);
+  }
+  .tab.active .badge-count { background: var(--accent); color: #fff; }
+  .tab-panel { display: none; animation: fade .3s ease; }
+  .tab-panel.active { display: block; }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  /* ---------- SECTION HEADERS + PANEL HEADERS ---------- */
+  h2.sec {
+    font-family: var(--mono); font-size: 12px;
+    text-transform: uppercase; letter-spacing: .12em;
+    color: var(--muted); font-weight: 600;
+    margin: 26px 0 12px; display: flex; align-items: center; gap: 12px;
+  }
+  h2.sec::after { content: ""; flex: 1; height: 2px;
+    background-image: repeating-linear-gradient(90deg, var(--line) 0 14px, transparent 14px 24px); }
+
+  .panel-header {
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 12px;
+    margin-bottom: 18px;
+  }
+  .panel-header .meta {
+    font-family: var(--mono); font-size: 12px; color: var(--muted-2);
+    letter-spacing: .02em;
+  }
+  .panel-header .meta .stat { color: var(--ink); font-weight: 600; }
+  .search-link {
+    background: var(--ink); border: 1px solid var(--ink);
+    border-radius: 5px; padding: 9px 15px;
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    letter-spacing: .04em; text-transform: uppercase;
+    cursor: pointer; color: #fff; text-decoration: none;
+    transition: background .15s;
+  }
+  .search-link:hover { background: var(--accent-deep); border-color: var(--accent-deep); color: #fff; }
+
+  /* ---------- INFO BOXES ---------- */
+  .note-box, .warn-box {
+    border-radius: 8px; padding: 13px 16px;
+    font-size: 13px; margin-bottom: 20px;
+    border-left: 3px solid;
+    line-height: 1.55;
+  }
+  .note-box { background: #eaf1ff; border-color: var(--accent); color: var(--ink-soft); }
+  .warn-box { background: #fdf4dd; border-color: #d99a1c; color: #6b5316; }
+  .note-box b, .warn-box b { color: var(--ink); }
+  .note-box p, .warn-box p { margin: 0 0 6px; }
+  .note-box p:last-child, .warn-box p:last-child { margin-bottom: 0; }
+
+  /* ---------- LISTING GRID CARDS ---------- */
+  .listing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(268px, 1fr));
+    gap: 16px;
+  }
+  .listing {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 10px; padding: 0 0 15px;
+    display: flex; flex-direction: column; gap: 6px;
+    transition: transform .18s, box-shadow .18s, border-color .18s;
+    position: relative; overflow: hidden;
+  }
+  .listing:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 10px 24px rgba(23,23,26,.09); }
+  .listing .photo {
+    aspect-ratio: 16 / 10; width: 100%;
+    background: #dfe4ec; overflow: hidden; display: block;
+  }
+  .listing .photo img { width: 100%; height: 100%; object-fit: cover; display: block; background: #dfe4ec; }
+  .listing > .hd, .listing > .trim, .listing > .price,
+  .listing > .specs, .listing > .verify-row, .listing > .loc { padding-left: 15px; padding-right: 15px; }
+  .listing > a.view { margin: 6px 15px 0; }
+  .deal-badge {
+    position: absolute; top: 11px; right: 11px;
+    font-family: var(--mono); font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .05em;
+    padding: 4px 9px; border-radius: 4px;
+    backdrop-filter: blur(2px);
+  }
+  .deal-Great, .deal-Excellent { background: #d1fae5; color: #065f46; }
   .deal-Good  { background: #dbeafe; color: #1e40af; }
   .deal-Fair  { background: #fef3c7; color: #92400e; }
   .deal-High  { background: #fee2e2; color: #991b1b; }
-  .deal-Excellent { background: #d1fae5; color: #065f46; }
-
   .listing .hd {
-    font-size: 15px; font-weight: 700;
-    color: #1a1d24;
-    line-height: 1.25;
-    margin-right: 70px;
+    font-family: var(--display); font-size: 17px; font-weight: 700;
+    color: var(--ink); line-height: 1.12; margin: 10px 70px 0 0;
+    letter-spacing: -.01em;
   }
-  .listing .trim { font-size: 12px; color: #5b6472; }
+  .listing .trim { font-size: 12px; color: var(--muted); }
   .listing .price {
-    font-size: 22px; font-weight: 700;
-    color: #0d8a4f;
-    margin: 4px 0 0;
+    font-family: var(--mono); font-size: 23px; font-weight: 700;
+    color: var(--green); margin: 6px 0 0; letter-spacing: -.02em;
   }
-  .listing .specs {
-    display: flex; gap: 6px; flex-wrap: wrap;
-    font-size: 12px; color: #2c3340;
-    margin-top: 2px;
-  }
+  .listing .specs { display: flex; gap: 6px; flex-wrap: wrap; font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
   .listing .specs span {
-    background: #f3f5f8; padding: 2px 8px;
-    border-radius: 4px;
+    background: #eef1f6; padding: 3px 9px; border-radius: 4px;
+    font-family: var(--mono); font-size: 11px;
   }
-  .listing .verify-row {
-    display: flex; gap: 4px; flex-wrap: wrap;
-    margin-top: 4px;
+  .verify-row { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 5px; }
+  .verify-row .vchip {
+    font-family: var(--mono); font-size: 10px; font-weight: 600;
+    background: #e7f4e4; color: #2f6b2a; padding: 3px 7px; border-radius: 3px;
   }
-  .listing .verify-row .vchip {
-    font-size: 10px; font-weight: 600;
-    background: #ecfccb; color: #365314;
-    padding: 2px 6px; border-radius: 3px;
+  .listing .loc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  a.view {
+    display: block; text-align: center;
+    background: var(--ink); color: #fff;
+    padding: 10px 12px; border-radius: 6px;
+    font-family: var(--mono); font-size: 12px; font-weight: 600;
+    letter-spacing: .04em; text-transform: uppercase;
+    transition: background .15s;
   }
-  .listing .loc { font-size: 12px; color: #5b6472; margin-top: 2px; }
-  .listing a.view {
-    margin-top: auto;
-    display: inline-block;
-    text-align: center;
-    background: #1a1d24; color: #fff;
-    text-decoration: none; padding: 8px 12px;
-    border-radius: 6px; font-size: 13px;
-    font-weight: 600;
-  }
-  .listing a.view:hover { opacity: 0.9; }
-  .listing.has-vin a.view { background: #1a1d24; }
+  a.view:hover { background: var(--accent-deep); color: #fff; }
 
   .empty {
-    text-align: center; padding: 40px 20px;
-    color: #5b6472; font-size: 14px;
-    background: #fff; border: 1px solid #e5e7eb;
+    text-align: center; padding: 46px 22px;
+    color: var(--muted); font-size: 14px;
+    background: var(--card); border: 1px dashed var(--line);
     border-radius: 10px;
   }
 
-  .launch-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 12px;
-    margin-top: 8px;
-  }
-  .launch-card {
-    background: #fff; border: 1px solid #e5e7eb;
-    border-radius: 10px; padding: 14px;
-    display: flex; flex-direction: column; gap: 10px;
-  }
-  .launch-card .nm { font-weight: 700; font-size: 15px; }
-  .launch-card .why { font-size: 12px; color: #5b6472; flex-grow: 1; }
-  .launch-card .links { display: flex; gap: 6px; flex-wrap: wrap; }
-  .launch-card a {
-    flex: 1; min-width: 80px; text-align: center;
-    background: #1a1d24; color: #fff;
-    text-decoration: none; padding: 7px 10px;
-    border-radius: 6px; font-size: 12px;
-    font-weight: 600;
-  }
-  .checklist {
-    background: #fff; border: 1px solid #e5e7eb;
-    border-radius: 10px; padding: 16px;
-  }
-  .checklist h3 { margin: 0 0 8px 0; font-size: 14px; }
-  .checklist ul { margin: 0; padding-left: 18px; font-size: 13px; color: #2c3340; }
-  .checklist li { margin-bottom: 4px; }
-  .vin-tools {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 8px; margin-top: 12px;
-  }
-  .vin-tools a {
-    background: #fff; border: 1px solid #e5e7eb;
-    border-radius: 8px; padding: 10px;
-    text-decoration: none; color: #1a1d24;
-    font-size: 13px;
-  }
-  .vin-tools a:hover { border-color: #1a1d24; }
-  .vin-tools a .t { font-weight: 700; display: block; }
-  .vin-tools a .d { color: #5b6472; font-size: 11px; }
-
-  .note-box {
-    background: #f0f7ff; border: 1px solid #cfe3ff;
-    border-radius: 8px; padding: 10px 14px;
-    font-size: 12px; color: #1e3a5f;
-    margin-bottom: 16px;
-  }
-  .warn-box {
-    background: #fffbe6; border: 1px solid #ffe58a;
-    border-radius: 8px; padding: 10px 14px;
-    font-size: 12px; color: #6b5400;
-    margin-bottom: 16px;
-  }
-  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: #5b6472; font-weight: 600; margin: 18px 0 10px 0; }
-
-  /* Top 10 Picks card */
-  .pick {
-    background: #fff; border: 1px solid #e5e7eb;
-    border-radius: 12px; padding: 16px;
-    margin-bottom: 12px;
-    display: grid;
-    grid-template-columns: 56px 200px 1fr;
-    gap: 16px;
-    align-items: start;
-  }
-  @media (max-width: 720px) {
-    .pick { grid-template-columns: 56px 1fr; }
-    .pick .photo { grid-column: 1 / -1; order: -1; }
-  }
-  .pick .photo {
-    width: 200px;
-    aspect-ratio: 16 / 11;
-    border-radius: 8px;
-    overflow: hidden;
-    background: #eef2f7;
-  }
-  @media (max-width: 720px) {
-    .pick .photo { width: 100%; }
-  }
-  .pick .photo img {
-    width: 100%; height: 100%;
-    object-fit: cover; display: block;
-  }
-  .pick:hover { border-color: #c9cfd9; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
-  .pick .rank {
-    width: 56px; height: 56px;
-    border-radius: 50%;
-    background: #1a1d24; color: #fff;
-    font-size: 22px; font-weight: 800;
-    display: flex; align-items: center; justify-content: center;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  }
-  .pick.rank-1 .rank { background: linear-gradient(135deg, #f5d061 0%, #d6a635 100%); color: #4a3a00; }
-  .pick.rank-2 .rank { background: linear-gradient(135deg, #d8d8d8 0%, #a8a8a8 100%); color: #2a2a2a; }
-  .pick.rank-3 .rank { background: linear-gradient(135deg, #d49b6a 0%, #a26b3c 100%); color: #2a1a00; }
-
-  .pick .body { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
-  .pick .title-row {
-    display: flex; align-items: baseline;
-    gap: 12px; flex-wrap: wrap;
-  }
-  .pick .title-row .ymm {
-    font-size: 17px; font-weight: 700; color: #1a1d24;
-  }
-  .pick .title-row .trim {
-    font-size: 13px; color: #5b6472;
-  }
-  .pick .meta-row {
-    display: flex; gap: 8px; flex-wrap: wrap;
-    align-items: center; font-size: 13px;
-  }
-  .pick .price-tag {
-    font-size: 18px; font-weight: 700; color: #0d8a4f;
-  }
-  .pick .meta-tag {
-    background: #f3f5f8; color: #2c3340;
-    padding: 3px 9px; border-radius: 4px;
-    font-size: 12px;
-  }
-  .pick .source-tag {
-    background: #1a1d24; color: #fff;
-    padding: 3px 9px; border-radius: 4px;
-    font-size: 11px; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.04em;
-  }
-  .pick .verify-tag {
-    background: #ecfccb; color: #365314;
-    padding: 3px 9px; border-radius: 4px;
-    font-size: 11px; font-weight: 600;
-  }
-  .pick .deal-tag {
-    background: #d1fae5; color: #065f46;
-    padding: 3px 9px; border-radius: 4px;
-    font-size: 11px; font-weight: 600;
-  }
-  .pick .section-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 12px;
-    margin-top: 4px;
-  }
-  @media (max-width: 720px) {
-    .pick .section-grid { grid-template-columns: 1fr; }
-  }
-  .pick .section {
-    background: #f9fafb;
-    border-radius: 8px;
-    padding: 10px 12px;
-    border-left: 3px solid #e5e7eb;
-  }
-  .pick .section.good   { border-left-color: #10b981; }
-  .pick .section.verify { border-left-color: #f59e0b; }
-  .pick .section.bottom { border-left-color: #1a1d24; }
-  .pick .section .lbl {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: #5b6472;
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
-  .pick .section p {
-    margin: 0;
-    font-size: 12.5px;
-    color: #2c3340;
-    line-height: 1.45;
-  }
-  .pick .actions {
-    display: flex; gap: 8px;
-    margin-top: 6px;
-  }
-  .pick .actions a {
-    background: #1a1d24; color: #fff;
-    text-decoration: none; padding: 7px 14px;
-    border-radius: 6px; font-size: 12px;
-    font-weight: 600;
-  }
-  .pick .actions a:hover { opacity: 0.9; }
-  .pick .actions a.secondary {
-    background: #fff; color: #1a1d24;
-    border: 1px solid #d3d8e0;
-  }
-  .top10-intro p { margin: 0 0 6px; font-size: 13px; line-height: 1.5; }
+  /* ---------- RANKED PICKS ---------- */
+  .top10-intro p { margin: 0 0 6px; font-size: 13px; line-height: 1.55; }
   .top10-intro p:last-child { margin-bottom: 0; }
-  .top10-intro b { color: #0d2540; }
+  .top10-intro b { color: var(--ink); }
+
+  .pick {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; overflow: hidden;
+    margin-bottom: 16px;
+    display: grid; grid-template-columns: 300px 1fr;
+    transition: box-shadow .18s, border-color .18s;
+  }
+  .pick:hover { border-color: var(--accent); box-shadow: 0 12px 30px rgba(23,23,26,.08); }
+  @media (max-width: 760px) { .pick { grid-template-columns: 1fr; } }
+
+  .pick .photo {
+    position: relative; background: #dfe4ec;
+    min-height: 230px;
+  }
+  .pick .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+  .pick .rank {
+    position: absolute; top: 0; left: 0;
+    font-family: var(--display); font-weight: 800;
+    font-size: 30px; line-height: 1;
+    background: var(--ink); color: #fff;
+    padding: 12px 15px 13px; border-bottom-right-radius: 12px;
+    min-width: 62px; text-align: center;
+  }
+  .pick .rank .lbl { display:block; font-family: var(--mono); font-size: 8px; letter-spacing: .16em; font-weight: 600; color: #a49b8c; margin-bottom: 2px; }
+  .pick.rank-1 .rank { background: var(--accent); color: #fff; }
+  .pick.rank-1 .rank .lbl { color: #ffd9c6; }
+  .pick.rank-2 .rank, .pick.rank-3 .rank { background: var(--ink-soft); }
+
+  .pick .body { display: flex; flex-direction: column; gap: 11px; min-width: 0; padding: 17px 19px 18px; }
+  .pick .title-row { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .pick .title-row .ymm { font-family: var(--display); font-size: 22px; font-weight: 700; color: var(--ink); letter-spacing: -.015em; line-height: 1.05; }
+  .pick .title-row .trim { font-size: 13px; color: var(--muted); }
+  .pick .meta-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .pick .price-tag { font-family: var(--mono); font-size: 21px; font-weight: 700; color: var(--green); letter-spacing: -.02em; margin-right: 4px; }
+  .pick .meta-tag { background: #eef1f6; color: var(--ink-soft); padding: 4px 10px; border-radius: 4px; font-family: var(--mono); font-size: 11px; }
+  .pick .source-tag {
+    background: var(--ink); color: #fff; padding: 4px 10px; border-radius: 4px;
+    font-family: var(--mono); font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .06em;
+  }
+  .pick .verify-tag { background: #e7f4e4; color: #2f6b2a; padding: 4px 10px; border-radius: 4px; font-family: var(--mono); font-size: 11px; font-weight: 600; }
+  .pick .deal-tag { background: #d1fae5; color: #065f46; padding: 4px 10px; border-radius: 4px; font-family: var(--mono); font-size: 11px; font-weight: 600; }
+
+  .pick .section-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 2px; }
+  @media (max-width: 760px) { .pick .section-grid { grid-template-columns: 1fr; } }
+  .pick .section { background: #f5f8fd; border-radius: 8px; padding: 11px 13px; border-top: 2.5px solid var(--line); }
+  .pick .section.good   { border-top-color: var(--green); }
+  .pick .section.verify { border-top-color: #d99a1c; }
+  .pick .section.bottom { border-top-color: var(--accent); }
+  .pick .section .lbl { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; margin-bottom: 5px; }
+  .pick .section p { margin: 0; font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; }
+  .pick .actions { display: flex; gap: 9px; margin-top: 3px; flex-wrap: wrap; }
+  .pick .actions a {
+    background: var(--ink); color: #fff; padding: 9px 16px; border-radius: 6px;
+    font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+    transition: background .15s;
+  }
+  .pick .actions a:hover { background: var(--accent-deep); color: #fff; }
+  .pick .actions a.secondary { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+  .pick .actions a.secondary:hover { border-color: var(--accent); color: var(--accent-deep); background: transparent; }
+
+  /* ---------- LAUNCH CARDS / CHECKLIST / VIN TOOLS ---------- */
+  .launch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(272px, 1fr)); gap: 16px; margin-top: 6px; }
+  .launch-card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 17px; display: flex; flex-direction: column; gap: 11px; transition: border-color .18s, box-shadow .18s; }
+  .launch-card:hover { border-color: var(--accent); box-shadow: 0 10px 24px rgba(23,23,26,.07); }
+  .launch-card .nm { font-family: var(--display); font-weight: 700; font-size: 17px; letter-spacing: -.01em; }
+  .launch-card .why { font-size: 12.5px; color: var(--muted); flex-grow: 1; line-height: 1.5; }
+  .launch-card .links { display: flex; gap: 7px; flex-wrap: wrap; }
+  .launch-card a { flex: 1; min-width: 90px; text-align: center; background: var(--ink); color: #fff; padding: 9px 10px; border-radius: 6px; font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; transition: background .15s; }
+  .launch-card a:hover { background: var(--accent-deep); color: #fff; }
+
+  .checklist { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 22px 24px; }
+  .checklist h3 { font-family: var(--display); margin: 0 0 6px; font-size: 20px; letter-spacing: -.01em; }
+  .checklist .lead { color: var(--muted); font-size: 13px; margin: 0 0 16px; }
+  .checklist ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+  .checklist li { font-size: 13.5px; color: var(--ink-soft); line-height: 1.5; padding-left: 30px; position: relative; }
+  .checklist li::before {
+    content: counter(ci, decimal-leading-zero);
+    counter-increment: ci;
+    position: absolute; left: 0; top: 1px;
+    font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--accent);
+  }
+  .checklist ul { counter-reset: ci; }
+  .checklist li b { color: var(--ink); }
+  .vin-tools { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; margin-top: 10px; }
+  .vin-tools a { background: var(--card); border: 1px solid var(--line); border-radius: 9px; padding: 13px 15px; color: var(--ink); transition: border-color .18s, transform .18s; }
+  .vin-tools a:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .vin-tools a .t { font-family: var(--display); font-weight: 700; display: block; font-size: 15px; }
+  .vin-tools a .d { color: var(--muted); font-size: 11.5px; }
+
+  footer.foot { max-width: 1120px; margin: 0 auto; padding: 0 28px 44px; }
+  footer.foot .fl { font-family: var(--mono); font-size: 11px; color: var(--muted-2); letter-spacing: .04em; border-top: 1px solid var(--line); padding-top: 16px; }
 </style>
 </head>
 <body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="kicker"><span class="dot"></span> Top-Down · Media, PA · 19063</div>
+    <div class="hero-row">
+      <div>
+        <h1>Cheap, fun <em>drop&#8209;tops</em> under $15k.</h1>
+        <div class="sub">A daily-refreshed shortlist of used convertibles within ~35 miles (about a 45-minute drive) of Media, PA — ranked as a fun second car, condition over miles.</div>
+      </div>
+      <div class="refreshed" id="datePill"><span class="live"></span> —</div>
+    </div>
+  </div>
+  <div class="spec-ribbon">
+    <div class="spec-ribbon-in">
+      <div class="spec"><div class="sl">Body</div><div class="sv">Convertible · 4+ seats</div></div>
+      <div class="spec"><div class="sl">Budget</div><div class="sv">$7,000 – $15,000</div></div>
+      <div class="spec"><div class="sl">Radius</div><div class="sv">~35 mi from 19063</div></div>
+      <div class="spec"><div class="sl">Title</div><div class="sv">Clean preferred</div></div>
+      <div class="spec"><div class="sl">History</div><div class="sv">No accidents preferred</div></div>
+    </div>
+  </div>
+</div>
+
 <div class="wrap">
 
-  <header class="top">
-    <div>
-      <h1>Used convertibles near Media, PA</h1>
-      <div class="sub">Top listings under $15,000 within ~35 miles (about a 45-min drive) of 19063. Refreshed each morning by a scheduled task.</div>
-    </div>
-    <div class="badges-row">
-      <div class="date-pill" id="datePill">—</div>
-    </div>
-  </header>
-
-  <div class="filter-bar">
-    <span class="pill">Convertibles (all makes)</span>
-    <span class="pill">4+ seats</span>
-    <span class="pill">$7,000 – $15,000</span>
-    <span class="pill">~35 mi from 19063 (≈45 min)</span>
-    <span class="pill">Clean title preferred</span>
-    <span class="pill">No accidents preferred</span>
-  </div>
-
   <div class="tabs" id="tabs">
-    <button class="tab active" data-tab="top10"    >★ Top 10 Picks</button>
-    <button class="tab"        data-tab="manual10" >⚙️ Manual Top 10</button>
-    <button class="tab"        data-tab="mustangs" >🐎 Mustangs</button>
+    <button class="tab active" data-tab="top10"    >Top 10 Picks</button>
+    <button class="tab"        data-tab="manual10" >Manual Only</button>
+    <button class="tab"        data-tab="mustangs" >Mustangs</button>
     <button class="tab"        data-tab="carscom"  >Cars.com</button>
     <button class="tab"        data-tab="cargurus" >CarGurus</button>
     <button class="tab"        data-tab="autotrader">AutoTrader</button>
     <button class="tab"        data-tab="truecar"  >TrueCar</button>
     <button class="tab"        data-tab="othersites">Other Sites</button>
-    <button class="tab"        data-tab="checklist" >Buyer Checklist</button>
+    <button class="tab"        data-tab="checklist" >Buyer's Checklist</button>
   </div>
 
   <!-- Top 10 Picks (default tab) -->
   <div class="tab-panel active" id="panel-top10">
     <div class="note-box" id="top10-intro"></div>
     <div id="content-top10"></div>
-    <div class="warn-box" style="margin-top: 16px"><b>Important caveat:</b> No web listing replaces a pre-purchase inspection by an independent mechanic ($100–200). These rankings reflect the data on the listing card — a real test drive, OBD-II scan, and undercarriage check can flip any of these. Every recommendation here assumes a clean PPI.</div>
+    <div class="warn-box" style="margin-top: 18px"><b>Important caveat:</b> No web listing replaces a pre-purchase inspection by an independent mechanic ($100–200). These rankings reflect the data on the listing card — a real test drive, OBD-II scan, and undercarriage check can flip any of these. Every recommendation here assumes a clean PPI.</div>
   </div>
 
   <!-- Manual Top 10 -->
   <div class="tab-panel" id="panel-manual10">
     <div class="note-box" id="manual10-intro"></div>
     <div id="content-manual10"></div>
-    <div class="warn-box" style="margin-top: 16px"><b>Manual-transmission PPI tips:</b> Check the clutch engagement point (a high bite point means a worn clutch), slow-shift into 2nd and 3rd to test synchros, listen for throw-out bearing chirp with the clutch depressed, and confirm the clutch hydraulics (master/slave cylinder) aren’t weeping. Listings sometimes mislabel transmissions — confirm with the dealer before driving out.</div>
+    <div class="warn-box" style="margin-top: 18px"><b>Manual-transmission PPI tips:</b> Check the clutch engagement point (a high bite point means a worn clutch), slow-shift into 2nd and 3rd to test synchros, listen for throw-out bearing chirp with the clutch depressed, and confirm the clutch hydraulics (master/slave cylinder) aren’t weeping. Listings sometimes mislabel transmissions — confirm with the dealer before driving out.</div>
   </div>
 
   <!-- Mustangs Only -->
   <div class="tab-panel" id="panel-mustangs">
     <div class="note-box" id="mustangs-intro"></div>
     <div id="content-mustangs"></div>
-    <div class="warn-box" style="margin-top: 16px"><b>Mustang convertible PPI tips (2005+ only per filter):</b> S197 (2005–2014) — listen for 3-valve 4.6 cam-phaser rattle on 05–10 GTs, inspect spring perches for rust, and test top-latch wear. S550 (2015+) — check MT-82 shifter feel and rear-camera function. All years — 8.8 rear-axle clunk on takeoff and water staining on rear seats from top-seal failure. The convertible top boot color fades — set expectations on cosmetics.</div>
+    <div class="warn-box" style="margin-top: 18px"><b>Mustang convertible PPI tips (2005+ only per filter):</b> S197 (2005–2014) — listen for 3-valve 4.6 cam-phaser rattle on 05–10 GTs, inspect spring perches for rust, and test top-latch wear. S550 (2015+) — check MT-82 shifter feel and rear-camera function. All years — 8.8 rear-axle clunk on takeoff and water staining on rear seats from top-seal failure. The convertible top boot color fades — set expectations on cosmetics.</div>
   </div>
 
   <!-- Cars.com -->
@@ -521,6 +522,7 @@
   <div class="tab-panel" id="panel-checklist">
     <div class="checklist">
       <h3>Pre-purchase checklist</h3>
+      <p class="lead">Convertibles hide their sins in the top and the floors. Work this list before any deposit.</p>
       <ul>
         <li><b>Run the VIN through NMVTIS first</b> — free, catches salvage/flood/junk titles even when listing claims "clean." Convertibles get totaled in side hits more often than coupes/sedans — this matters here.</li>
         <li><b>Operate the top through a full cycle</b> — twice, from fully closed to fully open and back. Listen for hydraulic groans, motor whining, or fabric binding. A broken power top can be $1,500+.</li>
@@ -532,7 +534,7 @@
         <li><b>Get a pre-purchase inspection ($100–$200)</b> from an independent mechanic — non-negotiable on private-party convertibles. Many shops have specialists for specific marques (Miata, BMW, Porsche).</li>
       </ul>
     </div>
-    <h2>VIN check tools</h2>
+    <h2 class="sec">VIN check tools</h2>
     <div class="vin-tools">
       <a target="_blank" rel="noopener" href="https://vehiclehistory.bja.ojp.gov/">
         <span class="t">NMVTIS (free)</span>
@@ -555,6 +557,10 @@
 
 </div>
 
+<footer class="foot">
+  <div class="fl">Refreshed each morning by a scheduled task · Cars.com · CarGurus · AutoTrader · TrueCar · Not affiliated with any listing site.</div>
+</footer>
+
 <script id="LISTINGS_DATA" type="application/json"></script>
 
 <script>
@@ -574,8 +580,8 @@
 
   // Date pill — show last refreshed time
   var d = DATA.lastRefreshed ? new Date(DATA.lastRefreshed) : new Date();
-  document.getElementById("datePill").textContent =
-    "Refreshed " + d.toLocaleDateString("en-US", { month: "short", day: "numeric" }) + " · " + d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+  document.getElementById("datePill").innerHTML =
+    '<span class="live"></span> Refreshed ' + d.toLocaleDateString("en-US", { month: "short", day: "numeric" }) + " · " + d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
 
   // Tabs
   var tabs = document.querySelectorAll(".tab");
@@ -590,12 +596,7 @@
     });
   });
 
-  
-
   // Helpers
-  // toNum: accepts a number (returns it) or a string like "$11,485" / "82,450 mi" (strips
-  // non-digits and parses). Returns null if no usable digits found, so callers can fall back
-  // gracefully instead of rendering "$NaN".
   function toNum(v) {
     if (v == null) return null;
     if (typeof v === "number") return Number.isFinite(v) ? v : null;
@@ -604,25 +605,18 @@
     var n = Number(s);
     return Number.isFinite(n) ? n : null;
   }
-  function nfmt(n) {
-    var x = toNum(n);
-    return x == null ? "" : x.toLocaleString("en-US");
-  }
-  function dollar(n) {
-    var x = toNum(n);
-    return x == null ? "—" : "$" + x.toLocaleString("en-US");
-  }
-  // Inline SVG placeholder for listings with no image (renders as a generic car silhouette card)
+  function nfmt(n) { var x = toNum(n); return x == null ? "" : x.toLocaleString("en-US"); }
+  function dollar(n) { var x = toNum(n); return x == null ? "—" : "$" + x.toLocaleString("en-US"); }
   var IMG_PLACEHOLDER = "data:image/svg+xml;utf8,"
     + encodeURIComponent(
       '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180">'
-      + '<rect width="320" height="180" fill="%23eef2f7"/>'.replace(/%23/g, "#")
-      + '<g fill="#c2cad6">'
+      + '<rect width="320" height="180" fill="#dfe4ec"/>'
+      + '<g fill="#b3bccb">'
       + '<path d="M60 110 q20 -40 60 -40 h80 q40 0 60 40 v18 h-200z"/>'
-      + '<circle cx="100" cy="130" r="14" fill="#1a1d24"/>'
-      + '<circle cx="220" cy="130" r="14" fill="#1a1d24"/>'
+      + '<circle cx="100" cy="130" r="14" fill="#14171d"/>'
+      + '<circle cx="220" cy="130" r="14" fill="#14171d"/>'
       + '</g>'
-      + '<text x="160" y="170" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#5b6472">No photo on listing</text>'
+      + '<text x="160" y="170" text-anchor="middle" font-family="monospace" font-size="11" fill="#616a79">No photo on listing</text>'
       + '</svg>'
     );
   function escapeHtml(s) {
@@ -632,7 +626,7 @@
   }
   function dealClass(r) {
     if (!r) return "";
-    var word = r.split(" ")[0]; // Great/Good/Fair/High/Excellent
+    var word = r.split(" ")[0];
     return "deal-" + word;
   }
 
@@ -695,7 +689,7 @@
     };
     setBadge(t.length);
     var totalNote = src.totalFound ? src.totalFound + " total found · " : "";
-    meta.innerHTML = '<span class="stat">' + totalNote + '</span>showing top ' + t.length + ' under $13,000';
+    meta.innerHTML = '<span class="stat">' + totalNote + '</span>showing top ' + t.length;
     content.innerHTML = '<div class="listing-grid">' + t.map(function (l) { return renderListing(l, key); }).join("") + '</div>';
   }
 
@@ -710,6 +704,14 @@
     }
     introEl.classList.add("top10-intro");
     introEl.innerHTML = src.introHtml || "";
+    var setBadge = function (n) {
+      var btn = document.querySelector('.tab[data-tab="' + dataKey + '"]');
+      if (!btn) return;
+      var b = btn.querySelector(".badge-count");
+      if (!b) { b = document.createElement("span"); b.className = "badge-count"; btn.appendChild(b); }
+      b.textContent = n;
+    };
+    setBadge(src.picks.length);
     var html = "";
     src.picks.forEach(function (p) {
       var ymm = (p.year ? p.year + " " : "") + (p.make ? p.make + " " : "") + (p.model || "") || (p.title || "");
@@ -721,8 +723,10 @@
       var transTag = p.transmission ? '<span class="meta-tag">' + escapeHtml(p.transmission) + '</span>' : "";
       var imgSrc = p.imageUrl || IMG_PLACEHOLDER;
       html += '<div class="pick rank-' + p.rank + '">'
-        +   '<div class="rank">' + p.rank + '</div>'
-        +   '<div class="photo"><img loading="lazy" src="' + escapeHtml(imgSrc) + '" alt="' + escapeHtml(ymm) + '"></div>'
+        +   '<div class="photo">'
+        +     '<img loading="lazy" src="' + escapeHtml(imgSrc) + '" alt="' + escapeHtml(ymm) + '" onerror="this.onerror=null;this.src=\'' + IMG_PLACEHOLDER + '\'">'
+        +     '<div class="rank"><span class="lbl">Rank</span>' + p.rank + '</div>'
+        +   '</div>'
         +   '<div class="body">'
         +     '<div class="title-row">'
         +       '<span class="ymm">' + escapeHtml(ymm) + '</span>'
@@ -752,7 +756,6 @@
     contentEl.innerHTML = html;
   }
 
-  // Render every tab
   renderRankedPicks("top10", "top10-intro", "content-top10", "Top 10 analysis not available — will populate after the next refresh.");
   renderRankedPicks("manual10", "manual10-intro", "content-manual10", "No manual-transmission convertibles on the latest refresh — this tab populates once the daily task captures transmission data.");
   renderRankedPicks("mustangs", "mustangs-intro", "content-mustangs", "No Ford Mustang convertibles in budget on the latest refresh.");
