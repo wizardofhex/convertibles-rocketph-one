@@ -402,6 +402,7 @@
 
   <div class="filter-bar">
     <span class="pill">Convertibles (all makes)</span>
+    <span class="pill">4+ seats</span>
     <span class="pill">$7,000 – $15,000</span>
     <span class="pill">~35 mi from 19063 (≈45 min)</span>
     <span class="pill">Clean title preferred</span>
@@ -410,6 +411,7 @@
 
   <div class="tabs" id="tabs">
     <button class="tab active" data-tab="top10"    >★ Top 10 Picks</button>
+    <button class="tab"        data-tab="manual10" >⚙️ Manual Top 10</button>
     <button class="tab"        data-tab="mustangs" >🐎 Mustangs</button>
     <button class="tab"        data-tab="carscom"  >Cars.com</button>
     <button class="tab"        data-tab="cargurus" >CarGurus</button>
@@ -426,11 +428,18 @@
     <div class="warn-box" style="margin-top: 16px"><b>Important caveat:</b> No web listing replaces a pre-purchase inspection by an independent mechanic ($100–200). These rankings reflect the data on the listing card — a real test drive, OBD-II scan, and undercarriage check can flip any of these. Every recommendation here assumes a clean PPI.</div>
   </div>
 
+  <!-- Manual Top 10 -->
+  <div class="tab-panel" id="panel-manual10">
+    <div class="note-box" id="manual10-intro"></div>
+    <div id="content-manual10"></div>
+    <div class="warn-box" style="margin-top: 16px"><b>Manual-transmission PPI tips:</b> Check the clutch engagement point (a high bite point means a worn clutch), slow-shift into 2nd and 3rd to test synchros, listen for throw-out bearing chirp with the clutch depressed, and confirm the clutch hydraulics (master/slave cylinder) aren’t weeping. Listings sometimes mislabel transmissions — confirm with the dealer before driving out.</div>
+  </div>
+
   <!-- Mustangs Only -->
   <div class="tab-panel" id="panel-mustangs">
     <div class="note-box" id="mustangs-intro"></div>
     <div id="content-mustangs"></div>
-    <div class="warn-box" style="margin-top: 16px"><b>Mustang convertible PPI tips:</b> SN-95 (1994–2004) frames can rust where the convertible top mechanism mounts to the rocker — get under the car. S197 (2005–2014) and S550 (2015+) are stiffer but watch for IRS clunk on equipped cars. T-3650 manuals had third-gear synchro issues — slow-shift into 3rd to test. The convertible top boot color fades — set expectations on cosmetics.</div>
+    <div class="warn-box" style="margin-top: 16px"><b>Mustang convertible PPI tips (2005+ only per filter):</b> S197 (2005–2014) — listen for 3-valve 4.6 cam-phaser rattle on 05–10 GTs, inspect spring perches for rust, and test top-latch wear. S550 (2015+) — check MT-82 shifter feel and rear-camera function. All years — 8.8 rear-axle clunk on takeoff and water staining on rear seats from top-seal failure. The convertible top boot color fades — set expectations on cosmetics.</div>
   </div>
 
   <!-- Cars.com -->
@@ -643,6 +652,7 @@
     } else if (l.distanceMi != null) {
       specs.push(l.distanceMi + " mi away");
     }
+    if (l.transmission) specs.push(escapeHtml(l.transmission));
     var verifyChips = "";
     if (l.noAccidents || l.cleanTitle) {
       verifyChips = '<div class="verify-row">'
@@ -695,7 +705,7 @@
     var contentEl = document.getElementById(contentId);
     if (!src || !src.picks || !src.picks.length) {
       contentEl.innerHTML = '<div class="empty">' + emptyMsg + '</div>';
-      if (introEl) introEl.innerHTML = "";
+      if (introEl) introEl.innerHTML = (src && src.introHtml) || "";
       return;
     }
     introEl.classList.add("top10-intro");
@@ -708,6 +718,7 @@
       var verifyTags = (p.verified || []).map(function (v) { return '<span class="verify-tag">✓ ' + escapeHtml(v) + '</span>'; }).join("");
       var dealHtml = p.dealRating ? '<span class="deal-tag">' + escapeHtml(p.dealRating) + '</span>' : "";
       var locTag = p.location ? '<span class="meta-tag">' + escapeHtml(p.location) + '</span>' : "";
+      var transTag = p.transmission ? '<span class="meta-tag">' + escapeHtml(p.transmission) + '</span>' : "";
       var imgSrc = p.imageUrl || IMG_PLACEHOLDER;
       html += '<div class="pick rank-' + p.rank + '">'
         +   '<div class="rank">' + p.rank + '</div>'
@@ -721,6 +732,7 @@
         +       '<span class="price-tag">' + dollar(p.price) + '</span>'
         +       '<span class="meta-tag">' + escapeHtml(miles) + '</span>'
         +       locTag
+        +       transTag
         +       '<span class="source-tag">' + escapeHtml(p.source) + '</span>'
         +       verifyTags
         +       dealHtml
@@ -742,6 +754,7 @@
 
   // Render every tab
   renderRankedPicks("top10", "top10-intro", "content-top10", "Top 10 analysis not available — will populate after the next refresh.");
+  renderRankedPicks("manual10", "manual10-intro", "content-manual10", "No manual-transmission convertibles on the latest refresh — this tab populates once the daily task captures transmission data.");
   renderRankedPicks("mustangs", "mustangs-intro", "content-mustangs", "No Ford Mustang convertibles in budget on the latest refresh.");
   renderTab("carscom", "Cars.com");
   renderTab("cargurus", "CarGurus");
