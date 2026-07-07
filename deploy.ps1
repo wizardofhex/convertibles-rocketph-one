@@ -1,4 +1,4 @@
-#requires -Version 5.1
+﻿#requires -Version 5.1
 <#
 .SYNOPSIS
     Pushes the latest convertibles dashboard data to GitHub for Vercel auto-deploy.
@@ -116,21 +116,58 @@ try {
 
     # 8. Push (runs whether we just committed or had pre-existing unpushed commits)
     $branch = git rev-parse --abbrev-ref HEAD
-    Write-Step "git push origin $branch"
-    $pushResult = & { $ErrorActionPreference = "SilentlyContinue"; git push origin $branch 2>&1 }
-    $pushResult | ForEach-Object { Write-Host "    $_" }
+
+    # 8a. Load the GitHub PAT so scheduled (non-interactive) runs never depend
+    #     on a credential prompt. The token lives OUTSIDE the repo, so the
+    #     'git add -A' above can never commit it. Create/refresh it by running
+    #     setup-github-token.bat once.
+    $GitHubUser = "wizardofhex"
+    $RepoUrl    = "github.com/wizardofhex/convertibles-rocketph-one.git"
+    $TokenFile  = Join-Path $env:USERPROFILE ".convertibles-github-token"
+    $env:GIT_TERMINAL_PROMPT = "0"   # fail fast instead of hanging on a password prompt
+    $token      = ""
+    $pushTarget = "origin"
+    if (Test-Path $TokenFile) {
+        $token = (Get-Content $TokenFile -Raw).Trim()
+        if ($token) {
+            $pushTarget = "https://${GitHubUser}:${token}@${RepoUrl}"
+            Write-Ok "Pushing as $GitHubUser using PAT from $TokenFile"
+        } else {
+            Write-Warn "Token file $TokenFile is empty - falling back to stored credentials."
+        }
+    } else {
+        Write-Warn "No token file at $TokenFile - falling back to stored credentials."
+        Write-Warn "If the push fails with an auth error, run setup-github-token.bat once."
+    }
+    # Echo git output with the token masked, in case git ever prints the URL.
+    function Write-GitOutput($lines) {
+        foreach ($l in $lines) {
+            $line = "$l"
+            if ($token) { $line = $line.Replace($token, "***") }
+            Write-Host "    $line"
+        }
+    }
+
+    Write-Step "git push ($GitHubUser) $branch"
+    $pushResult = & { $ErrorActionPreference = "SilentlyContinue"; git push $pushTarget $branch 2>&1 }
+    Write-GitOutput $pushResult
     if ($LASTEXITCODE -ne 0) {
         # Most common cause: a new commit landed on origin between our pull
         # and our push. One retry with rebase usually fixes it.
         Write-Warn "Push rejected. Retrying with a fresh pull --rebase..."
         $retryResult = & { $ErrorActionPreference = "SilentlyContinue"; git pull --rebase --autostash 2>&1 }
-        $retryResult | ForEach-Object { Write-Host "    $_" }
-        $retryPush = & { $ErrorActionPreference = "SilentlyContinue"; git push origin $branch 2>&1 }
-        $retryPush | ForEach-Object { Write-Host "    $_" }
+        Write-GitOutput $retryResult
+        $retryPush = & { $ErrorActionPreference = "SilentlyContinue"; git push $pushTarget $branch 2>&1 }
+        Write-GitOutput $retryPush
         if ($LASTEXITCODE -ne 0) {
-            Write-Error "Push still failing after retry. Investigate manually."
+            Write-Error "Push still failing after retry. If the output shows an authentication error, create a fresh PAT (repo scope, account $GitHubUser) and re-run setup-github-token.bat."
             exit 1
         }
+    }
+    if ($pushTarget -ne "origin") {
+        # Pushing to an explicit URL doesn't update origin/main; sync it so the
+        # next run's ahead-count check (step 6) stays accurate.
+        & { $ErrorActionPreference = "SilentlyContinue"; git fetch origin 2>&1 } | Out-Null
     }
     Write-Ok "Pushed. Vercel will redeploy in ~30s. Visit https://convertibles.rocketph.one to verify."
 }
