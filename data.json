@@ -1054,29 +1054,23 @@
       }
     ]
   },
-  "mustangs": {
-    "totalFound": 1,
-    "introHtml": "<p>Only 1 qualifying Ford Mustang convertible found within 35 miles in budget that meets the 2005+ (S197/S550) requirement. The 1987 and 1994 Mustangs in the overall listings are Fox-body and SN-95 generations \u2014 classic fun but excluded from this section per criteria.</p>",
+  "manual10": {
+    "introHtml": "<p>Expanded to 100-mile radius from ZIP 19063 to find manual-transmission convertibles. Scanned 48 Cars.com results + 22 AutoTrader results (both filtered to manual transmission). After removing 2-seat roadsters (Miata, Z3, Boxster, S2000, Solstice, Corvette C4, SLK, MGB, MR2, 350Z, Crossfire, Saturn Sky), 22 qualifying 4-seat manual convertibles remain. Top 10 ranked below. Budget $7,000–$15,000.</p>",
     "picks": [
       {
         "rank": 1,
-        "year": 2012,
-        "make": "Ford",
-        "model": "Mustang",
-        "trim": "V6 Convertible RWD",
-        "price": 10995,
-        "mileage": 96539,
-        "location": "West Chester, PA",
-        "distanceMi": 12,
-        "dealer": "Jonathan's Auto Outlet",
-        "source": "cargurus",
-        "url": "https://www.cargurus.com/details/445737422",
+        "year": 1999,
+        "make": "Chevrolet",
+        "model": "Camaro",
+        "trim": "Z28 Convertible",
+        "price": 9499,
+        "mileage": 37205,
+        "location": "NJ (97 mi)",
+        "distanceMi": 97,
+        "dealer": "Auto Spot LLC",
+        "source": "autotrader",
+        "url": "https://www.autotrader.com/cars-for-sale/convertible/cars-between-7000-and-15000/media-pa?searchRadius=100&transmissionCode=MAN&zip=19063",
         "dealRating": null,
-        "imageUrl": "https://static.cargurus.com/images/forsale/2026/04/30/14/23/2012_ford_mustang-pic-2949931544508764713-1024x768.jpeg",
-        "whyGood": "The 2012 S197 V6 is one of the best-value Mustang convertibles ever made \u2014 305hp Cyclone V6 easily beats the old 4.6 V8 in economy and longevity, under $11k with ~97k miles. Sold 12 miles away. The S197 body style (2010\u20132014) is arguably the cleanest generation.",
-        "whatToVerify": "S197-specific: full top latch cycle and weather seal condition. Rear seat water staining from top seal failure. Check 8.8 rear axle for clunk on takeoff \u2014 fluid change often cures it. Inspect spring perches for rust (known S197 issue). Check for any cam phaser noise (V6 doesn't have this issue like the 3-valve V8, but verify).",
-        "bottomLine": "The only 2005+ Mustang convertible in budget within 35 miles \u2014 and it's a good one."
-      }
-    ]
-  }
-}
+        "imageUrl": null,
+        "whyGood": "37,205 miles on an LS1-powered Z28 is almost unheard of — the 5.7L V8 and Tremec T56 6-speed were refined by 1999 and hadn't even broken in yet at this odometer. The 4th-gen Camaro is a proper 4-seat convertible with real muscle-car presence. Under $9,500 for this mileage is the best dollars-per-LS1 ratio in the search.",
+        "whatToVerify": "With 37K miles at 27 years old, renew coolant, brake fluid, and differential fluid regardless. Check T56 for notchy 1-2 shift (common, usually minor). Inspect soft top for UV degradation and seal condition. Verify rear leaf spring mounts and torque arm bushings. Check for LS1 oil leaks at rear main and valve covers. Low miles on a classic means
