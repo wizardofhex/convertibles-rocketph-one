@@ -1,5 +1,5 @@
 {
-  "lastRefreshed": "2026-07-08T13:38:59Z",
+  "lastRefreshed": "2026-07-09T12:12:22Z",
   "filters": {
     "minPrice": 7000,
     "maxPrice": 15000,
@@ -9,7 +9,7 @@
     "mustangMinYear": 2005
   },
   "carscom": {
-    "totalFound": 26,
+    "totalFound": 48,
     "url": "https://www.cars.com/shopping/results/?stock_type=used&body_style_slugs[]=convertible&list_price_min=7000&list_price_max=15000&maximum_distance=35&zip=19063",
     "listings": [
       {
@@ -334,25 +334,6 @@
         "noAccidents": true,
         "url": "https://www.cars.com/vehicledetail/dabcb463-e945-41fc-b07c-dd08637d350a/",
         "source": "carscom"
-      },
-      {
-        "id": "f03acd34-87f2-4c8c-817b-161effd746f5",
-        "year": 2010,
-        "make": "Ford",
-        "model": "Mustang",
-        "trim": "Premium",
-        "price": 11996,
-        "mileage": 106021,
-        "location": "Reading, PA",
-        "distanceMi": 40,
-        "dealer": "McGinty Motorcars",
-        "dealRating": "Fair Deal",
-        "transmission": null,
-        "imageUrl": null,
-        "cleanTitle": true,
-        "noAccidents": true,
-        "url": "https://www.cars.com/vehicledetail/f03acd34-87f2-4c8c-817b-161effd746f5/",
-        "source": "carscom"
       }
     ]
   },
@@ -399,25 +380,6 @@
         "source": "cargurus"
       },
       {
-        "id": "447506755",
-        "year": 2007,
-        "make": "Audi",
-        "model": "A4",
-        "trim": "2.0T quattro Cabriolet AWD",
-        "price": 11480,
-        "mileage": 62185,
-        "location": "Willow Grove, PA",
-        "distanceMi": 23,
-        "dealer": "Selden Motors",
-        "dealRating": "Fair Deal",
-        "transmission": "Automatic",
-        "imageUrl": "https://static.cargurus.com/images/forsale/2026/05/07/20/20/2007_audi_a4-pic-4013484324645226743-1024x768.jpeg",
-        "cleanTitle": null,
-        "noAccidents": null,
-        "url": "https://www.cargurus.com/Cars/listing/l447506755",
-        "source": "cargurus"
-      },
-      {
         "id": "452755967",
         "year": 2011,
         "make": "Audi",
@@ -456,6 +418,25 @@
         "source": "cargurus"
       },
       {
+        "id": "452805177",
+        "year": 2008,
+        "make": "BMW",
+        "model": "3 Series",
+        "trim": "335i Convertible RWD",
+        "price": 7999,
+        "mileage": 91522,
+        "location": "Burlington, NJ",
+        "distanceMi": 31,
+        "dealer": null,
+        "dealRating": "Good Deal",
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/07/07/08/45/2008_bmw_3_series-pic-3088756476358766474-1024x768.jpeg",
+        "cleanTitle": null,
+        "noAccidents": null,
+        "url": "https://www.cargurus.com/Cars/listing/l452805177",
+        "source": "cargurus"
+      },
+      {
         "id": "451367312",
         "year": 2010,
         "make": "BMW",
@@ -472,25 +453,6 @@
         "cleanTitle": null,
         "noAccidents": null,
         "url": "https://www.cargurus.com/Cars/listing/l451367312",
-        "source": "cargurus"
-      },
-      {
-        "id": "446981957",
-        "year": 2011,
-        "make": "Volvo",
-        "model": "C70",
-        "trim": "T5",
-        "price": 9990,
-        "mileage": 93899,
-        "location": "Vineland, NJ",
-        "distanceMi": 35,
-        "dealer": null,
-        "dealRating": "Fair Deal",
-        "transmission": "Automatic",
-        "imageUrl": "https://static.cargurus.com/images/forsale/2026/05/01/19/22/2011_volvo_c70-pic-5280690002271591302-1024x768.jpeg",
-        "cleanTitle": null,
-        "noAccidents": null,
-        "url": "https://www.cargurus.com/Cars/listing/l446981957",
         "source": "cargurus"
       },
       {
@@ -513,22 +475,41 @@
         "source": "cargurus"
       },
       {
-        "id": "452805177",
-        "year": 2008,
-        "make": "BMW",
-        "model": "3 Series",
-        "trim": "335i Convertible RWD",
-        "price": 7999,
-        "mileage": 91522,
-        "location": "Burlington, NJ",
-        "distanceMi": 31,
+        "id": "450845685",
+        "year": 2015,
+        "make": "INFINITI",
+        "model": "Q60",
+        "trim": "Sport Convertible RWD",
+        "price": 13513,
+        "mileage": 108038,
+        "location": "Cherry Hill, NJ",
+        "distanceMi": 21,
         "dealer": null,
         "dealRating": "Good Deal",
         "transmission": "Automatic",
-        "imageUrl": "https://static.cargurus.com/images/forsale/2026/07/07/08/45/2008_bmw_3_series-pic-3088756476358766474-1024x768.jpeg",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/06/23/02/28/2015_infiniti_q60-pic-1413849881431671998-1024x768.jpeg",
         "cleanTitle": null,
         "noAccidents": null,
-        "url": "https://www.cargurus.com/Cars/listing/l452805177",
+        "url": "https://www.cargurus.com/Cars/listing/l450845685",
+        "source": "cargurus"
+      },
+      {
+        "id": "445737422",
+        "year": 2012,
+        "make": "Ford",
+        "model": "Mustang",
+        "trim": "V6 Convertible RWD",
+        "price": 11459,
+        "mileage": 96539,
+        "location": "West Chester, PA",
+        "distanceMi": 9,
+        "dealer": null,
+        "dealRating": "Fair Deal",
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/04/30/14/23/2012_ford_mustang-pic-2949931544508764713-1024x768.jpeg",
+        "cleanTitle": null,
+        "noAccidents": null,
+        "url": "https://www.cargurus.com/Cars/listing/l445737422",
         "source": "cargurus"
       },
       {
@@ -548,25 +529,6 @@
         "cleanTitle": null,
         "noAccidents": null,
         "url": "https://www.cargurus.com/Cars/listing/l447819611",
-        "source": "cargurus"
-      },
-      {
-        "id": "450845685",
-        "year": 2015,
-        "make": "INFINITI",
-        "model": "Q60",
-        "trim": "Sport Convertible RWD",
-        "price": 13513,
-        "mileage": 108038,
-        "location": "Cherry Hill, NJ",
-        "distanceMi": 21,
-        "dealer": null,
-        "dealRating": "Good Deal",
-        "transmission": "Automatic",
-        "imageUrl": "https://static.cargurus.com/images/forsale/2026/06/23/02/28/2015_infiniti_q60-pic-1413849881431671998-1024x768.jpeg",
-        "cleanTitle": null,
-        "noAccidents": null,
-        "url": "https://www.cargurus.com/Cars/listing/l450845685",
         "source": "cargurus"
       },
       {
@@ -646,25 +608,6 @@
         "source": "cargurus"
       },
       {
-        "id": "445737422",
-        "year": 2012,
-        "make": "Ford",
-        "model": "Mustang",
-        "trim": "V6 Convertible RWD",
-        "price": 11459,
-        "mileage": 96539,
-        "location": "West Chester, PA",
-        "distanceMi": 9,
-        "dealer": null,
-        "dealRating": "Fair Deal",
-        "transmission": "Automatic",
-        "imageUrl": "https://static.cargurus.com/images/forsale/2026/04/30/14/23/2012_ford_mustang-pic-2949931544508764713-1024x768.jpeg",
-        "cleanTitle": null,
-        "noAccidents": null,
-        "url": "https://www.cargurus.com/Cars/listing/l445737422",
-        "source": "cargurus"
-      },
-      {
         "id": "447270039",
         "year": 2007,
         "make": "MINI",
@@ -672,7 +615,7 @@
         "trim": "S Convertible",
         "price": 8942,
         "mileage": 65594,
-        "location": "Gilbertsville, PA",
+        "location": "Roebling, NJ",
         "distanceMi": 29,
         "dealer": null,
         "dealRating": "Fair Deal",
@@ -1013,25 +956,6 @@
         "source": "autotrader"
       },
       {
-        "id": "780193901",
-        "year": 2016,
-        "make": "Audi",
-        "model": "A3",
-        "trim": "2.0T Premium",
-        "price": 11999,
-        "mileage": 83,
-        "location": null,
-        "distanceMi": 4,
-        "dealer": "Private Seller Exchange",
-        "dealRating": null,
-        "transmission": "Automatic",
-        "imageUrl": "https://assets.cai-media-management.com/ps-vehicle-media/a389f8cd-3305-4736-b9d7-ca0a9bb2a019.jpeg",
-        "cleanTitle": null,
-        "noAccidents": null,
-        "url": "https://www.autotrader.com/cars-for-sale/vehicle/780193901",
-        "source": "autotrader"
-      },
-      {
         "id": "780885942",
         "year": 2013,
         "make": "Mercedes-Benz",
@@ -1191,31 +1115,8 @@
     "listings": []
   },
   "top10": {
-    "introHtml": "<p>Refreshed 2026-07-08. Scanned 119 raw listings across Cars.com (26), CarGurus (66), and AutoTrader (27). After filtering 2-seat roadsters and deduplicating cross-site listings, 61 4-seat convertibles in the pool. TrueCar skipped (body-style filter broken). Top 10 ranked by recency, mileage, deal rating, and make reliability.</p>",
+    "introHtml": "<p>Refreshed 2026-07-09. Scanned 141 raw listings across Cars.com (48), CarGurus (66), and AutoTrader (27). After filtering 2-seat roadsters and deduplicating cross-site listings, 42 unique 4-seat convertibles in the pool. TrueCar skipped (body-style filter broken). Top 10 ranked by recency, mileage, deal rating, and make reliability.</p>",
     "picks": [
-      {
-        "id": "780193901",
-        "year": 2016,
-        "make": "Audi",
-        "model": "A3",
-        "trim": "2.0T Premium",
-        "price": 11999,
-        "mileage": 83,
-        "location": null,
-        "distanceMi": 4,
-        "dealer": "Private Seller Exchange",
-        "dealRating": null,
-        "transmission": "Automatic",
-        "imageUrl": "https://assets.cai-media-management.com/ps-vehicle-media/a389f8cd-3305-4736-b9d7-ca0a9bb2a019.jpeg",
-        "cleanTitle": null,
-        "noAccidents": null,
-        "url": "https://www.autotrader.com/cars-for-sale/vehicle/780193901",
-        "source": "autotrader",
-        "rank": 1,
-        "whyGood": "A 2016 Audi A3 Cabriolet with just 83 miles is essentially a new car at a used-car price \u2014 almost certainly a delivery-miles dealer transfer or concierge service vehicle. Clean 4-seat drop-top, modern 2.0T TFSI, MMI infotainment, and standard sport seats at $11,999 defies market logic.",
-        "whatToVerify": "Verify the odometer with CARFAX \u2014 83 miles on a 2016 warrants confirming this isn't a title-wash or odometer irregularity. Ask for a copy of the original registration. Confirm open recall status. Full top cycle test. Inspect for any hidden storage damage.",
-        "bottomLine": "If the mileage checks out, this is the standout find of the search \u2014 a nearly new 2016 A3 convertible at a price that makes sense."
-      },
       {
         "id": "c73c9af6-32ed-4289-b16b-fab9b3e278b1",
         "year": 2015,
@@ -1234,7 +1135,7 @@
         "noAccidents": true,
         "url": "https://www.cars.com/vehicledetail/c73c9af6-32ed-4289-b16b-fab9b3e278b1/",
         "source": "cars.com",
-        "rank": 2,
+        "rank": 1,
         "whyGood": "Newest MINI in the search on a modern F57 platform with only 55k miles, clean title and no accidents confirmed via Cars.com, and just 8 miles away in Easttown. The F57 is the most refined MINI convertible ever built \u2014 proper 4 seats, slick electric cloth top, and genuine driving character.",
         "whatToVerify": "Full top cycle test (MINI cloth tops can develop window separation at the seam). Check timing chain tensioner service history \u2014 F57 Cooper used Prince-family engines with known tensioner concerns at 60-80k. Rear seat headroom check. Verify no outstanding recalls.",
         "bottomLine": "Closest pick, newest platform, confirmed clean history \u2014 ideal urban fun-car."
@@ -1257,8 +1158,8 @@
         "noAccidents": null,
         "url": "https://www.autotrader.com/cars-for-sale/vehicle/784825719",
         "source": "autotrader",
-        "rank": 3,
-        "whyGood": "The Cascada is Opel-engineered beneath the Buick badge \u2014 one of the most undervalued 4-seat convertibles in America. Premium trim adds heated leather, Bose stereo, and IntelliLink nav. At 71k miles on a 2016 this is comparatively fresh and properly modern.",
+        "rank": 2,
+        "whyGood": "The Cascada is Opel-engineered beneath the Buick badge \u2014 one of the most undervalued 4-seat convertibles in America. At 71k miles on a 2016 this is comparatively fresh and properly modern, with heated leather, Bose stereo, and IntelliLink nav in the Premium trim.",
         "whatToVerify": "Full electric roof cycle (listen for hesitation). Check both front corner drain tubes for debris \u2014 blocked drains flood the trunk at the first rainstorm. Look for GM's 1.6T turbo actuator TSBs. Confirm TPMS and airbag lights clear. Transmission fluid check.",
         "bottomLine": "The overlooked gem \u2014 European-engineered refinement and spacious 4-seat comfort at a price that reflects the badge, not the build quality."
       },
@@ -1280,10 +1181,10 @@
         "noAccidents": true,
         "url": "https://www.cars.com/vehicledetail/a340b863-6d23-4fb9-aa1b-44173ef04f30/",
         "source": "cars.com",
-        "rank": 4,
-        "whyGood": "Clean title and no accidents confirmed (Cars.com filter). Private seller, 16 miles away in Whitemarsh. The B8.5 A3 Cabriolet is a modern 4-seat drop-top with Audi's 2.0T TFSI, proper infotainment, and a folding soft top that stows cleanly.",
+        "rank": 3,
+        "whyGood": "Clean title and no accidents confirmed via Cars.com, private seller 16 miles away in Whitemarsh. The B8.5 A3 Cabriolet is a modern 4-seat drop-top with Audi's 2.0T TFSI, proper infotainment, and a folding soft top that stows cleanly. At 83k miles on a 2016 this is the most current Audi in the search.",
         "whatToVerify": "Confirm DSG vs manual \u2014 the S tronic dual-clutch is smooth but check for shudder under 20 mph (mechatronic TSBs). Full soft-top cycle. Oil service records for the 2.0T TFSI chain-driven engine. Check for any water intrusion near the rear seat.",
-        "bottomLine": "Solid private-sale find with confirmed clean history \u2014 pays to see in person alongside the near-zero-mile example above."
+        "bottomLine": "Solid private-sale find with confirmed clean history \u2014 one of the newest cars in the search at a fair price."
       },
       {
         "id": "783436042",
@@ -1303,7 +1204,7 @@
         "noAccidents": null,
         "url": "https://www.autotrader.com/cars-for-sale/vehicle/783436042",
         "source": "autotrader",
-        "rank": 5,
+        "rank": 4,
         "whyGood": "Great Deal badge from a franchised Nissan dealer (Nissan 422 of Limerick). The E93 BMW 328i is the gold standard 4-seat BMW soft-top \u2014 balanced N52 inline-6, hydraulic power top, and real rear seats. 57k miles is genuinely low for a 2011 platform.",
         "whatToVerify": "N52 engine: valve cover gasket and oil filter housing are known leakers at this mileage. Check soft-top hydraulic rams (slow closure = low fluid or worn rams). Cooling system \u2014 thermostat and water pump often replaced together at 80-100k. Rear window de-fog function. Water staining on rear leather.",
         "bottomLine": "The definitive pick if you want a BMW convertible \u2014 Great Deal badge, low mileage, proven platform."
@@ -1326,7 +1227,7 @@
         "noAccidents": null,
         "url": "https://www.autotrader.com/cars-for-sale/vehicle/784924266",
         "source": "autotrader",
-        "rank": 6,
+        "rank": 5,
         "whyGood": "B8 A5 Cabriolet with 56k miles for under $10k with a Good Deal badge is the value standout. The A5's 2.0T TFSI is well-sorted by 2011 and paired with a 6-speed S tronic in a genuinely handsome body. 4-seat convertible at this price and mileage is rare.",
         "whatToVerify": "Full soft-top cycle (open AND close, watch for hesitation or rattle). Headliner and rear carpet for water stains \u2014 a reliable tell for top-seal failure. B8 2.0T timing chain tensioner inspection is worth the conversation at 56k. MMI screen and HVAC blend doors.",
         "bottomLine": "Best-value premium 4-seat convertible in the search \u2014 low mileage, great looking, under $10k."
@@ -1349,7 +1250,7 @@
         "noAccidents": null,
         "url": "https://www.autotrader.com/cars-for-sale/vehicle/782756492",
         "source": "autotrader",
-        "rank": 7,
+        "rank": 6,
         "whyGood": "The Eos has the most sophisticated top in this price bracket \u2014 a retractable hardtop with integrated sunroof that transforms from coupe to convertible to sunroof vehicle. Great Deal badge confirms pricing. Jeff D'Ambrosio is an established Downingtown multi-brand dealer.",
         "whatToVerify": "Full RHT (retractable hardtop) cycle twice \u2014 listen for mechanical binding or motor struggle. DSG fluid and filter service check (2.0T Eos is dual-clutch \u2014 critical maintenance at 40k intervals). Cam follower inspection if service history shows high-pressure fuel pump work. Check sunroof drains.",
         "bottomLine": "The engineering pick \u2014 best roof mechanism in the segment, proven 2.0T, Great Deal price."
@@ -1372,7 +1273,7 @@
         "noAccidents": null,
         "url": "https://www.cargurus.com/Cars/listing/l450845685",
         "source": "cargurus",
-        "rank": 8,
+        "rank": 7,
         "whyGood": "The Q60 Convertible (V36) is one of the most beautiful 4-seat convertibles ever sold in the US \u2014 long hood, flowing lines, and a VQ37VHR V6 that sounds like it costs twice as much. Good Deal badge. Retractable hardtop means no soft-top aging concerns.",
         "whatToVerify": "Full RHT cycle test \u2014 V36 hardtop motors can be slow or noisy when weak. VQ37 valve cover area for oil seeps (common). Check rear seat access and headroom. CVTC (continuous valve timing) service history. Confirm convertible-top module codes are clean.",
         "bottomLine": "Grand-touring beauty with a proven V6 \u2014 arguably the most striking car on this list for the money."
@@ -1395,10 +1296,10 @@
         "noAccidents": null,
         "url": "https://www.autotrader.com/cars-for-sale/vehicle/784478737",
         "source": "autotrader",
-        "rank": 9,
-        "whyGood": "One year fresher and 20k fewer miles than the 2015 Q60 above, at only $500 more. Same VQ37VHR V6 and gorgeous V36 styling. 88k miles on a hardtop convertible V6 is a reasonable ownership proposition for this price.",
-        "whatToVerify": "Same checklist as 2015 Q60 \u2014 full RHT cycle, VQ oil seep inspection, rear seat access, CVTC history. Confirm 2014 vs 2015 model year differences (2014 has slightly updated suspension). Verify no airbag recall backlog (Takata).",
-        "bottomLine": "Lower-mileage Q60 alternative \u2014 nearly identical car, fewer miles, very similar price."
+        "rank": 8,
+        "whyGood": "One year older than the 2015 Q60 above but 20k fewer miles for only $500 more, and just 10 miles away. Same VQ37VHR V6 and gorgeous V36 styling. 88k miles on a hardtop convertible V6 is a reasonable ownership proposition for this price.",
+        "whatToVerify": "Same checklist as 2015 Q60 \u2014 full RHT cycle, VQ oil seep inspection, rear seat access, CVTC history. Verify no airbag recall backlog (Takata). Confirm 2014 model year differences (slightly revised suspension vs. 2015).",
+        "bottomLine": "Lower-mileage Q60 alternative \u2014 nearly identical car, fewer miles, close to home."
       },
       {
         "id": "779393826",
@@ -1418,10 +1319,33 @@
         "noAccidents": null,
         "url": "https://www.autotrader.com/cars-for-sale/vehicle/779393826",
         "source": "autotrader",
-        "rank": 10,
-        "whyGood": "The F23 228i is the most modern BMW platform in this entire search \u2014 available with xDrive AWD, TwinPower Turbo inline-4, electric soft top, and active safety tech not found in older E-series. 2+2 seating covers the 4-seat requirement. Private Seller Exchange is AutoTrader's concierge resale service.",
+        "rank": 9,
+        "whyGood": "The F23 228i is the most modern BMW platform in this entire search \u2014 available with xDrive AWD, TwinPower Turbo inline-4, electric soft top, and active safety tech not found in older E-series. 2+2 seating covers the 4-seat requirement. Only 12 miles from Media.",
         "whatToVerify": "N20 engine: timing chain tensioner noise on cold start is a known failure mode \u2014 confirm cold-start quiet. Full soft-top cycle. Cooling system at 102k. xDrive transfer case fluid. Clarify Private Seller Exchange inspection scope (they do a basic check but not a PPI substitute).",
         "bottomLine": "Most modern platform in the search \u2014 AWD, turbo 4-cyl, current tech \u2014 at the top of the budget."
+      },
+      {
+        "id": "433875732",
+        "year": 2014,
+        "make": "BMW",
+        "model": "4 Series",
+        "trim": "428i xDrive Convertible AWD",
+        "price": 10555,
+        "mileage": 103444,
+        "location": "Philadelphia, PA",
+        "distanceMi": 19,
+        "dealer": null,
+        "dealRating": "Good Deal",
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/06/12/15/05/2014_bmw_4_series-pic-7438888840704462163-1024x768.jpeg",
+        "cleanTitle": null,
+        "noAccidents": null,
+        "url": "https://www.cargurus.com/Cars/listing/l433875732",
+        "source": "cargurus",
+        "rank": 10,
+        "whyGood": "The F33 428i xDrive convertible is the most capable BMW architecture in this search \u2014 proper 50/50 weight balance, xDrive AWD for year-round use, and the turbocharged N20 inline-4 with 240hp. At $10,555 and 103k miles this is a real F-series BMW drop-top at hatchback prices.",
+        "whatToVerify": "N20 engine: timing chain tensioner is the critical item \u2014 listen for cold-start rattle. Full open/close cycle on the electric soft top (F33 tops are reliable but check hydraulic pump health). xDrive front differential fluid. Check for codes related to active radiator shutters. Verify CARFAX for accidents.",
+        "bottomLine": "AWD drop-top for $10k \u2014 the most weather-capable convertible on this list and still a genuine BMW driving experience."
       }
     ]
   },
@@ -1500,7 +1424,7 @@
     ]
   },
   "mustangs": {
-    "introHtml": "<p>4 Ford Mustang convertibles (2005+, S197/S550 generations) found in range and budget. Fox-body (pre-1994) and SN-95 (1994\u20132004) generations excluded per criteria. Sorted by year ascending.</p>",
+    "introHtml": "<p>3 Ford Mustang convertibles (2005+, S197/S550 generations) found in range and budget. Fox-body (pre-1994) and SN-95 (1994\u20132004) generations excluded per criteria. Sorted by year ascending.</p>",
     "picks": [
       {
         "id": "451190817",
@@ -1526,29 +1450,6 @@
         "bottomLine": "The budget Mustang \u2014 enough car to enjoy at the lowest price point, but high miles demand a careful look."
       },
       {
-        "id": "f03acd34-87f2-4c8c-817b-161effd746f5",
-        "year": 2010,
-        "make": "Ford",
-        "model": "Mustang",
-        "trim": "Premium",
-        "price": 11996,
-        "mileage": 106021,
-        "location": "Reading, PA",
-        "distanceMi": 40,
-        "dealer": "McGinty Motorcars",
-        "dealRating": "Fair Deal",
-        "transmission": null,
-        "imageUrl": null,
-        "cleanTitle": true,
-        "noAccidents": true,
-        "url": "https://www.cars.com/vehicledetail/f03acd34-87f2-4c8c-817b-161effd746f5/",
-        "source": "cars.com",
-        "rank": 2,
-        "whyGood": "The 2010 S197 Mustang convertible with 4.6 or V6 at $11,996 hits the sweet spot of S197 refinement \u2014 post-2010 facelift with better interior. Note: this listing measured 40 miles from ZIP 19063 (Reading, PA), slightly outside the 35-mile radius.",
-        "whatToVerify": "Top condition and full latch cycle. S197 spring perch rust check. If 4.6 V8: 3-valve cam phaser rattle on cold start (common 05-10). 8.8 rear axle clunk. Rocker panel rust. Confirm seller's actual distance.",
-        "bottomLine": "Good mileage and price \u2014 confirm the distance is acceptable before making the trip to Reading."
-      },
-      {
         "id": "445737422",
         "year": 2012,
         "make": "Ford",
@@ -1566,7 +1467,7 @@
         "noAccidents": null,
         "url": "https://www.cargurus.com/Cars/listing/l445737422",
         "source": "cargurus",
-        "rank": 3,
+        "rank": 2,
         "whyGood": "The S197 2012 V6 is arguably the best-value Mustang convertible ever made \u2014 the 305hp Cyclone V6 is bulletproof, beats the old 4.6 V8 in fuel economy and longevity, and the 2010-2014 facelift body is the cleanest S197. At 96k miles and $11,459 it's reasonable.",
         "whatToVerify": "Full top latch cycle (S197 tops are mechanical and durable but check latch mechanism). Rear seat water staining. 8.8 rear axle fluid and clunk test. Spring perch rust \u2014 S197 weak spot. ABS module check.",
         "bottomLine": "The sensible Mustang pick \u2014 bulletproof V6, clean body style, priced right at 96k miles."
@@ -1589,7 +1490,7 @@
         "noAccidents": null,
         "url": "https://www.autotrader.com/cars-for-sale/vehicle/774473437",
         "source": "autotrader",
-        "rank": 4,
+        "rank": 3,
         "whyGood": "S550 Mustang convertible \u2014 the most modern Mustang in this search by far. Independent rear suspension, available Performance Package, and a 2018 cabin that's genuinely competitive with European rivals. Great Deal badge. 141k miles is high but the S550 Coyote V8 or EcoBoost are both robust.",
         "whatToVerify": "Confirm engine: 2.3L EcoBoost or 5.0L Coyote V8 (both are good). S550 MT-82 gearbox: if manual, check 3rd-gear grind (known MT-82 issue). IRS rear cradle bushing wear at this mileage. Power soft-top operation. Run CARFAX for any accidents at high mileage.",
         "bottomLine": "Most modern Mustang in the search \u2014 IRS, current platform, but high miles at the top of the budget."
