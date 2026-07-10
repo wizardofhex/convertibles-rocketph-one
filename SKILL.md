@@ -137,11 +137,22 @@ The Cowork artifact for this dashboard is `used-convertibles-near-media-pa`. If 
 4. Write to outputs as `convertibles-dashboard.html`.
 5. `mcp__cowork__update_artifact` with id, html_path, and a 1-line update_summary.
 
-### 6. Write `data.json` to the convertibles-site repo
+### 6. Write `data.json` and push to GitHub via API
 
 1. `mcp__cowork__request_cowork_directory` with path `C:\Users\billb\Documents\AI Agents\AI Agent Team\convertibles-site`.
-2. Write the JSON from step 4 to `C:\Users\billb\Documents\AI Agents\AI Agent Team\convertibles-site\data.json` (overwrite).
-3. Do NOT touch `index.html`, `vercel.json`, or any other file. The template is committed once.
+2. Write the JSON from step 4 to `C:\Users\billb\Documents\AI Agents\AI Agent Team\convertibles-site\data.json` (overwrite). Do NOT touch `index.html`, `vercel.json`, or any other file.
+3. Push to GitHub using the REST API (no git, no lock files):
+   ```bash
+   python3 /sessions/<current-session>/mnt/convertibles-site/github_push.py
+   ```
+   The script reads the token from `.github-token` in the repo folder (gitignored). It calls `PUT /repos/wizardofhex/convertibles-rocketph-one/contents/data.json`, which triggers Vercel to redeploy in ~30 seconds.
+4. **If the push fails** (token missing, network error): log the error, write `data.json` to the local folder anyway so the next manual deploy or scheduled `deploy.ps1` run will pick it up. Do not abort the task — the Cowork artifact is still updated.
+
+**Token setup (one-time):** Bill must copy `C:\Users\billb\.convertibles-github-token` into the repo as `.github-token`:
+```
+copy C:\Users\billb\.convertibles-github-token "C:\Users\billb\Documents\AI Agents\AI Agent Team\convertibles-site\.github-token"
+```
+This file is gitignored and will never be committed.
 
 ### 7. Cleanup
 Close the Chrome tab. Do NOT include any commentary about this task — just execute it.
