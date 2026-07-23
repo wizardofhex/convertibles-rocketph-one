@@ -1,0 +1,900 @@
+<!doctype html><script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Used Convertibles Near Media Pa",
+  "schemaVersion": 1,
+  "description": "Daily-refreshed used convertibles dashboard for Media, PA (ZIP 19063). 4-seat only, $7K–$15K, within 35 miles. Sources: Cars.com, CarGurus, AutoTrader. Refreshed each morning via scheduled task."
+}
+</script>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="description" content="Daily-refreshed dashboard of used convertibles under $15,000 within ~35 miles (about 45 min) of Media, PA. Top 10 picks ranked as a cheap fun second car - condition over miles."><meta property="og:title" content="Convertibles Under $15k - Near Media, PA"><meta property="og:description" content="Top convertibles under $15k near Media, PA, refreshed daily.">
+<title>Convertibles Under $15k · Near Media, PA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --ink: #14171d;
+    --ink-soft: #262b34;
+    --paper: #eef1f5;
+    --card: #ffffff;
+    --line: #dde2ea;
+    --line-soft: #e8ecf2;
+    --muted: #616a79;
+    --muted-2: #97a0b0;
+    --accent: #2f6df6;
+    --accent-deep: #1e51c9;
+    --green: #147a4a;
+    --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --display: "Bricolage Grotesque", var(--sans);
+    --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent-deep); text-decoration: none; }
+  a:hover { color: var(--accent); }
+
+  /* road-dash motif */
+  .roadline {
+    height: 3px;
+    background-image: repeating-linear-gradient(90deg, var(--accent) 0 20px, transparent 20px 34px);
+    opacity: .9;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    background: var(--ink);
+    color: #eef1f5;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: "";
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 3px;
+    background-image: repeating-linear-gradient(90deg, var(--accent) 0 26px, transparent 26px 44px);
+  }
+  .hero-inner {
+    max-width: 1120px; margin: 0 auto;
+    padding: 34px 28px 30px;
+  }
+  .kicker {
+    font-family: var(--mono);
+    font-size: 12px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600;
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 14px;
+  }
+  .kicker .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .hero-row {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 28px; flex-wrap: wrap;
+  }
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 800; letter-spacing: -0.02em;
+    font-size: clamp(34px, 6vw, 62px);
+    line-height: 0.98; margin: 0;
+    max-width: 15ch;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero .sub {
+    color: #a7afbd; font-size: 14.5px; max-width: 46ch;
+    margin-top: 16px;
+  }
+  .refreshed {
+    font-family: var(--mono);
+    font-size: 12px; color: #ccd2dc;
+    border: 1px solid #363c46;
+    border-radius: 4px; padding: 9px 13px;
+    display: inline-flex; align-items: center; gap: 9px;
+    white-space: nowrap;
+    background: rgba(255,255,255,0.02);
+  }
+  .refreshed .live {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #4ade80; box-shadow: 0 0 0 3px rgba(74,222,128,.18);
+  }
+  /* spec ribbon */
+  .spec-ribbon {
+    max-width: 1120px; margin: 0 auto;
+    padding: 0 28px;
+  }
+  .spec-ribbon-in {
+    display: flex; flex-wrap: wrap; gap: 0;
+    background: var(--ink-soft);
+    border-radius: 8px;
+    margin: 22px 0 0;
+    overflow: hidden;
+    transform: translateY(0);
+  }
+  .spec {
+    padding: 12px 18px;
+    border-right: 1px solid rgba(255,255,255,0.07);
+    flex: 1 1 auto; min-width: 130px;
+  }
+  .spec:last-child { border-right: none; }
+  .spec .sl {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .14em;
+    text-transform: uppercase; color: #8b93a1; margin-bottom: 3px;
+  }
+  .spec .sv { font-size: 13.5px; color: #eef1f5; font-weight: 600; }
+
+  /* ---------- SHELL ---------- */
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 26px 28px 60px; }
+
+  /* ---------- TABS ---------- */
+  .tabs {
+    display: flex; gap: 4px;
+    border-bottom: 1.5px solid var(--line);
+    margin: 30px 0 26px; overflow-x: auto;
+    scrollbar-width: none;
+    position: sticky; top: 0; z-index: 20;
+    background: var(--paper);
+    padding-top: 4px;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    background: none; border: none;
+    padding: 12px 15px 13px; font-size: 12px;
+    font-family: var(--mono); font-weight: 600;
+    letter-spacing: .06em; text-transform: uppercase;
+    cursor: pointer; color: var(--muted);
+    border-bottom: 2.5px solid transparent;
+    white-space: nowrap; margin-bottom: -1.5px;
+    display: inline-flex; align-items: center; gap: 7px;
+    transition: color .15s;
+  }
+  .tab:hover { color: var(--ink); }
+  .tab.active { color: var(--ink); border-bottom-color: var(--accent); }
+  .tab .badge-count {
+    display: inline-block;
+    background: var(--line); color: var(--muted);
+    border-radius: 3px; padding: 1px 7px;
+    font-size: 11px; font-weight: 700;
+    font-family: var(--mono);
+  }
+  .tab.active .badge-count { background: var(--accent); color: #fff; }
+  .tab-panel { display: none; animation: fade .3s ease; }
+  .tab-panel.active { display: block; }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  /* ---------- SECTION HEADERS + PANEL HEADERS ---------- */
+  h2.sec {
+    font-family: var(--mono); font-size: 12px;
+    text-transform: uppercase; letter-spacing: .12em;
+    color: var(--muted); font-weight: 600;
+    margin: 26px 0 12px; display: flex; align-items: center; gap: 12px;
+  }
+  h2.sec::after { content: ""; flex: 1; height: 2px;
+    background-image: repeating-linear-gradient(90deg, var(--line) 0 14px, transparent 14px 24px); }
+
+  .panel-header {
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 12px;
+    margin-bottom: 18px;
+  }
+  .panel-header .meta {
+    font-family: var(--mono); font-size: 12px; color: var(--muted-2);
+    letter-spacing: .02em;
+  }
+  .panel-header .meta .stat { color: var(--ink); font-weight: 600; }
+  .search-link {
+    background: var(--ink); border: 1px solid var(--ink);
+    border-radius: 5px; padding: 9px 15px;
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    letter-spacing: .04em; text-transform: uppercase;
+    cursor: pointer; color: #fff; text-decoration: none;
+    transition: background .15s;
+  }
+  .search-link:hover { background: var(--accent-deep); border-color: var(--accent-deep); color: #fff; }
+
+  /* ---------- INFO BOXES ---------- */
+  .note-box, .warn-box {
+    border-radius: 8px; padding: 13px 16px;
+    font-size: 13px; margin-bottom: 20px;
+    border-left: 3px solid;
+    line-height: 1.55;
+  }
+  .note-box { background: #eaf1ff; border-color: var(--accent); color: var(--ink-soft); }
+  .warn-box { background: #fdf4dd; border-color: #d99a1c; color: #6b5316; }
+  .note-box b, .warn-box b { color: var(--ink); }
+  .note-box p, .warn-box p { margin: 0 0 6px; }
+  .note-box p:last-child, .warn-box p:last-child { margin-bottom: 0; }
+
+  /* ---------- LISTING GRID CARDS ---------- */
+  .listing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(268px, 1fr));
+    gap: 16px;
+  }
+  .listing {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 10px; padding: 0 0 15px;
+    display: flex; flex-direction: column; gap: 6px;
+    transition: transform .18s, box-shadow .18s, border-color .18s;
+    position: relative; overflow: hidden;
+  }
+  .listing:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 10px 24px rgba(23,23,26,.09); }
+  .listing .photo {
+    aspect-ratio: 16 / 10; width: 100%;
+    background: #dfe4ec; overflow: hidden; display: block;
+  }
+  .listing .photo img { width: 100%; height: 100%; object-fit: cover; display: block; background: #dfe4ec; }
+  .listing > .hd, .listing > .trim, .listing > .price,
+  .listing > .specs, .listing > .verify-row, .listing > .loc { padding-left: 15px; padding-right: 15px; }
+  .listing > a.view { margin: 6px 15px 0; }
+  .deal-badge {
+    position: absolute; top: 11px; right: 11px;
+    font-family: var(--mono); font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .05em;
+    padding: 4px 9px; border-radius: 4px;
+    backdrop-filter: blur(2px);
+  }
+  .deal-Great, .deal-Excellent { background: #d1fae5; color: #065f46; }
+  .deal-Good  { background: #dbeafe; color: #1e40af; }
+  .deal-Fair  { background: #fef3c7; color: #92400e; }
+  .deal-High  { background: #fee2e2; color: #991b1b; }
+  .listing .hd {
+    font-family: var(--display); font-size: 17px; font-weight: 700;
+    color: var(--ink); line-height: 1.12; margin: 10px 70px 0 0;
+    letter-spacing: -.01em;
+  }
+  .listing .trim { font-size: 12px; color: var(--muted); }
+  .listing .price {
+    font-family: var(--mono); font-size: 23px; font-weight: 700;
+    color: var(--green); margin: 6px 0 0; letter-spacing: -.02em;
+  }
+  .listing .specs { display: flex; gap: 6px; flex-wrap: wrap; font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
+  .listing .specs span {
+    background: #eef1f6; padding: 3px 9px; border-radius: 4px;
+    font-family: var(--mono); font-size: 11px;
+  }
+  .verify-row { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 5px; }
+  .verify-row .vchip {
+    font-family: var(--mono); font-size: 10px; font-weight: 600;
+    background: #e7f4e4; color: #2f6b2a; padding: 3px 7px; border-radius: 3px;
+  }
+  .listing .loc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  a.view {
+    display: block; text-align: center;
+    background: var(--ink); color: #fff;
+    padding: 10px 12px; border-radius: 6px;
+    font-family: var(--mono); font-size: 12px; font-weight: 600;
+    letter-spacing: .04em; text-transform: uppercase;
+    transition: background .15s;
+  }
+  a.view:hover { background: var(--accent-deep); color: #fff; }
+
+  .empty {
+    text-align: center; padding: 46px 22px;
+    color: var(--muted); font-size: 14px;
+    background: var(--card); border: 1px dashed var(--line);
+    border-radius: 10px;
+  }
+
+  /* ---------- RANKED PICKS ---------- */
+  .top10-intro p { margin: 0 0 6px; font-size: 13px; line-height: 1.55; }
+  .top10-intro p:last-child { margin-bottom: 0; }
+  .top10-intro b { color: var(--ink); }
+
+  .pick {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; overflow: hidden;
+    margin-bottom: 16px;
+    display: grid; grid-template-columns: 300px 1fr;
+    transition: box-shadow .18s, border-color .18s;
+  }
+  .pick:hover { border-color: var(--accent); box-shadow: 0 12px 30px rgba(23,23,26,.08); }
+  @media (max-width: 760px) { .pick { grid-template-columns: 1fr; } }
+
+  .pick .photo {
+    position: relative; background: #dfe4ec;
+    min-height: 230px;
+  }
+  .pick .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+  .pick .rank {
+    position: absolute; top: 0; left: 0;
+    font-family: var(--display); font-weight: 800;
+    font-size: 30px; line-height: 1;
+    background: var(--ink); color: #fff;
+    padding: 12px 15px 13px; border-bottom-right-radius: 12px;
+    min-width: 62px; text-align: center;
+  }
+  .pick .rank .lbl { display:block; font-family: var(--mono); font-size: 8px; letter-spacing: .16em; font-weight: 600; color: #a49b8c; margin-bottom: 2px; }
+  .pick.rank-1 .rank { background: var(--accent); color: #fff; }
+  .pick.rank-1 .rank .lbl { color: #ffd9c6; }
+  .pick.rank-2 .rank, .pick.rank-3 .rank { background: var(--ink-soft); }
+
+  .pick .body { display: flex; flex-direction: column; gap: 11px; min-width: 0; padding: 17px 19px 18px; }
+  .pick .title-row { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .pick .title-row .ymm { font-family: var(--display); font-size: 22px; font-weight: 700; color: var(--ink); letter-spacing: -.015em; line-height: 1.05; }
+  .pick .title-row .trim { font-size: 13px; color: var(--muted); }
+  .pick .meta-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .pick .price-tag { font-family: var(--mono); font-size: 21px; font-weight: 700; color: var(--green); letter-spacing: -.02em; margin-right: 4px; }
+  .pick .meta-tag { background: #eef1f6; color: var(--ink-soft); padding: 4px 10px; border-radius: 4px; font-family: var(--mono); font-size: 11px; }
+  .pick .source-tag {
+    background: var(--ink); color: #fff; padding: 4px 10px; border-radius: 4px;
+    font-family: var(--mono); font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .06em;
+  }
+  .pick .verify-tag { background: #e7f4e4; color: #2f6b2a; padding: 4px 10px; border-radius: 4px; font-family: var(--mono); font-size: 11px; font-weight: 600; }
+  .pick .deal-tag { background: #d1fae5; color: #065f46; padding: 4px 10px; border-radius: 4px; font-family: var(--mono); font-size: 11px; font-weight: 600; }
+
+  .pick .section-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 2px; }
+  @media (max-width: 760px) { .pick .section-grid { grid-template-columns: 1fr; } }
+  .pick .section { background: #f5f8fd; border-radius: 8px; padding: 11px 13px; border-top: 2.5px solid var(--line); }
+  .pick .section.good   { border-top-color: var(--green); }
+  .pick .section.verify { border-top-color: #d99a1c; }
+  .pick .section.bottom { border-top-color: var(--accent); }
+  .pick .section .lbl { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; margin-bottom: 5px; }
+  .pick .section p { margin: 0; font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; }
+  .pick .actions { display: flex; gap: 9px; margin-top: 3px; flex-wrap: wrap; }
+  .pick .actions a {
+    background: var(--ink); color: #fff; padding: 9px 16px; border-radius: 6px;
+    font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+    transition: background .15s;
+  }
+  .pick .actions a:hover { background: var(--accent-deep); color: #fff; }
+  .pick .actions a.secondary { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+  .pick .actions a.secondary:hover { border-color: var(--accent); color: var(--accent-deep); background: transparent; }
+
+  /* ---------- LAUNCH CARDS / CHECKLIST / VIN TOOLS ---------- */
+  .launch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(272px, 1fr)); gap: 16px; margin-top: 6px; }
+  .launch-card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 17px; display: flex; flex-direction: column; gap: 11px; transition: border-color .18s, box-shadow .18s; }
+  .launch-card:hover { border-color: var(--accent); box-shadow: 0 10px 24px rgba(23,23,26,.07); }
+  .launch-card .nm { font-family: var(--display); font-weight: 700; font-size: 17px; letter-spacing: -.01em; }
+  .launch-card .why { font-size: 12.5px; color: var(--muted); flex-grow: 1; line-height: 1.5; }
+  .launch-card .links { display: flex; gap: 7px; flex-wrap: wrap; }
+  .launch-card a { flex: 1; min-width: 90px; text-align: center; background: var(--ink); color: #fff; padding: 9px 10px; border-radius: 6px; font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; transition: background .15s; }
+  .launch-card a:hover { background: var(--accent-deep); color: #fff; }
+
+  .checklist { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 22px 24px; }
+  .checklist h3 { font-family: var(--display); margin: 0 0 6px; font-size: 20px; letter-spacing: -.01em; }
+  .checklist .lead { color: var(--muted); font-size: 13px; margin: 0 0 16px; }
+  .checklist ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+  .checklist li { font-size: 13.5px; color: var(--ink-soft); line-height: 1.5; padding-left: 30px; position: relative; }
+  .checklist li::before {
+    content: counter(ci, decimal-leading-zero);
+    counter-increment: ci;
+    position: absolute; left: 0; top: 1px;
+    font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--accent);
+  }
+  .checklist ul { counter-reset: ci; }
+  .checklist li b { color: var(--ink); }
+  .vin-tools { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; margin-top: 10px; }
+  .vin-tools a { background: var(--card); border: 1px solid var(--line); border-radius: 9px; padding: 13px 15px; color: var(--ink); transition: border-color .18s, transform .18s; }
+  .vin-tools a:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .vin-tools a .t { font-family: var(--display); font-weight: 700; display: block; font-size: 15px; }
+  .vin-tools a .d { color: var(--muted); font-size: 11.5px; }
+
+  footer.foot { max-width: 1120px; margin: 0 auto; padding: 0 28px 44px; }
+  footer.foot .fl { font-family: var(--mono); font-size: 11px; color: var(--muted-2); letter-spacing: .04em; border-top: 1px solid var(--line); padding-top: 16px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="kicker"><span class="dot"></span> Top-Down · Media, PA · 19063</div>
+    <div class="hero-row">
+      <div>
+        <h1>Cheap, fun <em>drop&#8209;tops</em> under $15k.</h1>
+        <div class="sub">A daily-refreshed shortlist of used convertibles within ~35 miles (about a 45-minute drive) of Media, PA — ranked as a fun second car, condition over miles.</div>
+      </div>
+      <div class="refreshed" id="datePill"><span class="live"></span> —</div>
+    </div>
+  </div>
+  <div class="spec-ribbon">
+    <div class="spec-ribbon-in">
+      <div class="spec"><div class="sl">Body</div><div class="sv">Convertible · 4+ seats</div></div>
+      <div class="spec"><div class="sl">Budget</div><div class="sv">$7,000 – $15,000</div></div>
+      <div class="spec"><div class="sl">Radius</div><div class="sv">~35 mi from 19063</div></div>
+      <div class="spec"><div class="sl">Title</div><div class="sv">Clean preferred</div></div>
+      <div class="spec"><div class="sl">History</div><div class="sv">No accidents preferred</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-tab="top10"    >Top 10 Picks</button>
+    <button class="tab"        data-tab="manual10" >Manual Only</button>
+    <button class="tab"        data-tab="mustangs" >Mustangs</button>
+    <button class="tab"        data-tab="carscom"  >Cars.com</button>
+    <button class="tab"        data-tab="cargurus" >CarGurus</button>
+    <button class="tab"        data-tab="autotrader">AutoTrader</button>
+    <button class="tab"        data-tab="truecar"  >TrueCar</button>
+    <button class="tab"        data-tab="othersites">Other Sites</button>
+    <button class="tab"        data-tab="checklist" >Buyer's Checklist</button>
+  </div>
+
+  <!-- Top 10 Picks (default tab) -->
+  <div class="tab-panel active" id="panel-top10">
+    <div class="note-box" id="top10-intro"></div>
+    <div id="content-top10"></div>
+    <div class="warn-box" style="margin-top: 18px"><b>Important caveat:</b> No web listing replaces a pre-purchase inspection by an independent mechanic ($100–200). These rankings reflect the data on the listing card — a real test drive, OBD-II scan, and undercarriage check can flip any of these. Every recommendation here assumes a clean PPI.</div>
+  </div>
+
+  <!-- Manual Top 10 -->
+  <div class="tab-panel" id="panel-manual10">
+    <div class="note-box" id="manual10-intro"></div>
+    <div id="content-manual10"></div>
+    <div class="warn-box" style="margin-top: 18px"><b>Manual-transmission PPI tips:</b> Check the clutch engagement point (a high bite point means a worn clutch), slow-shift into 2nd and 3rd to test synchros, listen for throw-out bearing chirp with the clutch depressed, and confirm the clutch hydraulics (master/slave cylinder) aren’t weeping. Listings sometimes mislabel transmissions — confirm with the dealer before driving out.</div>
+  </div>
+
+  <!-- Mustangs Only -->
+  <div class="tab-panel" id="panel-mustangs">
+    <div class="note-box" id="mustangs-intro"></div>
+    <div id="content-mustangs"></div>
+    <div class="warn-box" style="margin-top: 18px"><b>Mustang convertible PPI tips (2005+ only per filter):</b> S197 (2005–2014) — listen for 3-valve 4.6 cam-phaser rattle on 05–10 GTs, inspect spring perches for rust, and test top-latch wear. S550 (2015+) — check MT-82 shifter feel and rear-camera function. All years — 8.8 rear-axle clunk on takeoff and water staining on rear seats from top-seal failure. The convertible top boot color fades — set expectations on cosmetics.</div>
+  </div>
+
+  <!-- Cars.com -->
+  <div class="tab-panel" id="panel-carscom">
+    <div class="note-box">Cars.com filters honor "no accidents" and "clean title" automatically — every listing here meets those criteria. <b>Requires Chrome to be open</b> when the morning refresh runs.</div>
+    <div class="panel-header">
+      <div class="meta" id="meta-carscom">—</div>
+      <a class="search-link" target="_blank" rel="noopener" href="https://www.cars.com/shopping/results/?stock_type=used&body_style_slugs[]=convertible&list_price_min=7000&list_price_max=15000&maximum_distance=35&zip=19063&no_accidents=true&clean_title=true&sort=list_price">Open full search →</a>
+    </div>
+    <div id="content-carscom"></div>
+  </div>
+
+  <!-- CarGurus -->
+  <div class="tab-panel" id="panel-cargurus">
+    <div class="warn-box">CarGurus URL doesn't auto-filter "no accidents" or "clean title" — verify on each listing page. Deal rating shown in the badge.</div>
+    <div class="panel-header">
+      <div class="meta" id="meta-cargurus">—</div>
+      <a class="search-link" target="_blank" rel="noopener" href="https://www.cargurus.com/Cars/l-Used-Convertible-bg1?zip=19063&distance=35&minPrice=7000&maxPrice=15000">Open full search →</a>
+    </div>
+    <div id="content-cargurus"></div>
+  </div>
+
+  <!-- AutoTrader -->
+  <div class="tab-panel" id="panel-autotrader">
+    <div class="warn-box">AutoTrader URL doesn't auto-filter "no accidents" or "clean title" — toggle them on the page or verify each listing. "Price rating" badge shown when available.</div>
+    <div class="panel-header">
+      <div class="meta" id="meta-autotrader">—</div>
+      <a class="search-link" target="_blank" rel="noopener" href="https://www.autotrader.com/cars-for-sale/all-cars/convertible/media-pa?maxPrice=15000&searchRadius=35&zip=19063&sortBy=derivedpriceASC">Open full search →</a>
+    </div>
+    <div id="content-autotrader"></div>
+  </div>
+
+  <!-- TrueCar -->
+  <div class="tab-panel" id="panel-truecar">
+    <div class="note-box">TrueCar shows "No accidents" and "Clean title" badges on each qualifying listing — those are tagged below. Each TrueCar listing also has a Carfax button on the detail page.</div>
+    <div class="panel-header">
+      <div class="meta" id="meta-truecar">—</div>
+      <a class="search-link" target="_blank" rel="noopener" href="https://www.truecar.com/used-cars-for-sale/listings/body-style-convertible/location-media-pa/?searchRadius=35&listPriceMax=15000&hasNoAccidents=true">Open full search →</a>
+    </div>
+    <div id="content-truecar"></div>
+  </div>
+
+  <!-- Other sites launchpad -->
+  <div class="tab-panel" id="panel-othersites">
+    <div class="warn-box"><b>Sites that block automated fetching:</b> Facebook and Craigslist work fine in your browser, but their bot protection blocks our automated daily refresh — these cards link to pre-filtered searches you can run manually. For convertibles, private-party listings on Facebook and Craigslist often have the best prices because dealers mark them up assuming a "fun car" premium.</div>
+    <div class="launch-grid">
+      <div class="launch-card">
+        <div class="nm">Facebook Marketplace</div>
+        <div class="why">Private sellers — best deals on convertibles where dealers mark up "fun cars." Requires login. Always run the VIN and inspect the top.</div>
+        <div class="links">
+          <a target="_blank" rel="noopener" href="https://www.facebook.com/marketplace/107616379263823/cars/?maxPrice=15000&radius=56000&query=convertible&exact=false">Convertibles ≤$15k</a>
+        </div>
+      </div>
+      <div class="launch-card">
+        <div class="nm">Craigslist Philadelphia</div>
+        <div class="why">Private + small dealers. Filtered to convertible body, clean title only. Read each post — describe the soft-top condition and any leaks.</div>
+        <div class="links">
+          <a target="_blank" rel="noopener" href="https://philadelphia.craigslist.org/search/cta?postal=19063&search_distance=35&max_price=15000&auto_bodytype=2&auto_title_status=1#search=1~gallery~0~0">Convertibles ≤$15k</a>
+        </div>
+      </div>
+      <div class="launch-card">
+        <div class="nm">eBay Motors</div>
+        <div class="why">Mix of dealers and private. Verify location filter applies — many ship from afar. Convertibles auction-style can go cheap if you're patient.</div>
+        <div class="links">
+          <a target="_blank" rel="noopener" href="https://www.ebay.com/b/Convertibles/6001/bn_580277?LH_BIN=1&LH_ItemCondition=3000&_udhi=15000&_stpos=19063&_sadis=50">Convertibles ≤$15k</a>
+        </div>
+      </div>
+      <div class="launch-card">
+        <div class="nm">CarMax</div>
+        <div class="why">No-haggle dealer. Most convertibles here will exceed the $15k cap, but worth a glance for low-mile examples.</div>
+        <div class="links">
+          <a target="_blank" rel="noopener" href="https://www.carmax.com/cars?bodyTypes=convertible&zip=19063">Convertibles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Buyer Checklist -->
+  <div class="tab-panel" id="panel-checklist">
+    <div class="checklist">
+      <h3>Pre-purchase checklist</h3>
+      <p class="lead">Convertibles hide their sins in the top and the floors. Work this list before any deposit.</p>
+      <ul>
+        <li><b>Run the VIN through NMVTIS first</b> — free, catches salvage/flood/junk titles even when listing claims "clean." Convertibles get totaled in side hits more often than coupes/sedans — this matters here.</li>
+        <li><b>Operate the top through a full cycle</b> — twice, from fully closed to fully open and back. Listen for hydraulic groans, motor whining, or fabric binding. A broken power top can be $1,500+.</li>
+        <li><b>Inspect the headliner and carpet for water stains</b> — even if the top looks clean. Leaky tops drain into the rear footwells; pull up the floor mat and feel for damp padding.</li>
+        <li><b>Check rear-window seal on fabric tops</b> — plastic windows yellow and crack first. A new top can be $1,000–$2,500.</li>
+        <li><b>Hardtop convertibles (BMW E46, Chrysler Crossfire, etc.):</b> watch for clicking from the trunk during the roof cycle — failing micro-switches strand the roof half-deployed.</li>
+        <li><b>Look for chassis rust around the rocker panels and rear-shock mounts</b> — convertibles have less structural rigidity than coupes and rust eats them faster.</li>
+        <li><b>Demand a Carfax or AutoCheck before any deposit.</b> If the seller refuses, walk away.</li>
+        <li><b>Get a pre-purchase inspection ($100–$200)</b> from an independent mechanic — non-negotiable on private-party convertibles. Many shops have specialists for specific marques (Miata, BMW, Porsche).</li>
+      </ul>
+    </div>
+    <h2 class="sec">VIN check tools</h2>
+    <div class="vin-tools">
+      <a target="_blank" rel="noopener" href="https://vehiclehistory.bja.ojp.gov/">
+        <span class="t">NMVTIS (free)</span>
+        <span class="d">Federal title-history check</span>
+      </a>
+      <a target="_blank" rel="noopener" href="https://www.carfax.com/">
+        <span class="t">Carfax</span>
+        <span class="d">Paid — full accident, service history</span>
+      </a>
+      <a target="_blank" rel="noopener" href="https://www.autocheck.com/">
+        <span class="t">AutoCheck</span>
+        <span class="d">Paid — alternative to Carfax</span>
+      </a>
+      <a target="_blank" rel="noopener" href="https://www.iihs.org/ratings">
+        <span class="t">IIHS Safety Ratings</span>
+        <span class="d">Crash test scores by model/year</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="foot">
+  <div class="fl">Refreshed each morning by a scheduled task · Cars.com · CarGurus · AutoTrader · TrueCar · Not affiliated with any listing site.</div>
+</footer>
+
+<script id="LISTINGS_DATA" type="application/json">{
+  "lastRefreshed": "2026-07-22T12:00:00Z",
+  "filters": {
+    "minPrice": 7000,
+    "maxPrice": 15000,
+    "radiusMi": 35,
+    "zip": "19063",
+    "minSeats": 4,
+    "mustangMinYear": 2005
+  },
+  "carscom": {
+    "totalFound": 29,
+    "url": "https://www.cars.com/shopping/results/?stock_type=used&body_style_slugs[]=convertible&list_price_min=7000&list_price_max=15000&maximum_distance=35&zip=19063&no_accidents=true&clean_title=true&sort=list_price",
+    "listings": [
+      {"id":"81d39f41-5daf-4096-9280-6704c2126b1b","year":2006,"make":"Audi","model":"S4","trim":"quattro AWD Convertible","price":7204,"mileage":96924,"location":"Warminster, PA","distanceMi":28,"url":"https://www.cars.com/vehicledetail/81d39f41-5daf-4096-9280-6704c2126b1b/","dealer":"PA Auto Liquidators","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":"Automatic","imageUrl":"https://platform.cstatic-images.com/large/in/v2/002825a0-a9a8-4a84-81f9-2b9f5eb0680e/fe1275b2-6fd0-450b-a535-006d1cb2592b/zgaU1m_CJWUN-2SmM3mrQbOhWDY.jpg","source":"cars.com"},
+      {"id":"694f6973-d4bb-4d70-bc8a-0cd406b2d160","year":2012,"make":"MINI","model":"Cooper","trim":"Convertible","price":8389,"mileage":112117,"location":null,"distanceMi":null,"url":"https://www.cars.com/vehicledetail/694f6973-d4bb-4d70-bc8a-0cd406b2d160/","dealer":"Legacy Used Auto LLC","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":null,"imageUrl":"https://platform.cstatic-images.com/large/in/v2/368a5253-cda5-46bf-9f9e-786a51b409e5/c54eb0c6-311d-4ba7-bcad-27017e9d9963/0l7Kk7dYDOV65-RcINhJpsCi4A0.jpg","source":"cars.com"},
+      {"id":"c822098f-4e48-4053-ac80-cac595d90b63","year":2011,"make":"BMW","model":"128i","trim":"Convertible SULEV","price":8995,"mileage":147552,"location":"Bristol, PA","distanceMi":25,"url":"https://www.cars.com/vehicledetail/c822098f-4e48-4053-ac80-cac595d90b63/","dealer":"Bristol Auto Mall","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":null,"imageUrl":"https://platform.cstatic-images.com/large/in/v2/66aedd22-5f4c-571c-bcc9-9a6e5d5a07c7/9ad95780-0702-412c-b31e-e44fa24094aa/VzajC8Oo11oD-uHgdt9QaZM7B48.jpg","source":"cars.com"},
+      {"id":"f12cf7c6-8ae1-4690-8661-4f3f45b34d4f","year":1987,"make":"Ford","model":"Mustang","trim":"GT Convertible","price":9500,"mileage":98916,"location":null,"distanceMi":null,"url":"https://www.cars.com/vehicledetail/f12cf7c6-8ae1-4690-8661-4f3f45b34d4f/","dealer":"Corsinos Service Station","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":null,"imageUrl":"https://platform.cstatic-images.com/large/in/v2/fba58d6f-4505-4338-955e-5ae6f5b3a641/acbc2a2f-58bc-4c87-8389-4cbd574c25d8/OB6tUeCORiCg507Dt21ZMQOIvH4.jpeg","source":"cars.com"},
+      {"id":"d8ef5f09-eb2f-4fd2-83ae-c7eea05881cd","year":2004,"make":"Audi","model":"A4","trim":"1.8T Cabriolet","price":9950,"mileage":45587,"location":null,"distanceMi":null,"url":"https://www.cars.com/vehicledetail/d8ef5f09-eb2f-4fd2-83ae-c7eea05881cd/","dealer":"Car Cheer","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":null,"imageUrl":"https://platform.cstatic-images.com/large/in/v2/a733be78-f490-4868-adbe-201a3d056e0c/73978ca8-644e-4561-9459-7f22e426ea7e/azPniDeNgOeCRg9cn8mKoQU3188.jpg","source":"cars.com"},
+      {"id":"d108c4ab-9423-4d63-ba08-da5ad8a63615","year":2011,"make":"Volvo","model":"C70","trim":"T5 Convertible","price":9990,"mileage":93899,"location":"Vineland, NJ","distanceMi":35,"url":"https://www.cars.com/vehicledetail/d108c4ab-9423-4d63-ba08-da5ad8a63615/","dealer":"JC Miller Auto Sales","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":null,"imageUrl":"https://platform.cstatic-images.com/large/in/v2/5ba3cb38-9313-46f4-bf2a-09e8e250c34b/0e18d3f1-3925-475f-904e-edc38e24e0f9/LQ1-JbzItZBIDWtQCVv91Sm5FZY.jpg","source":"cars.com"},
+      {"id":"f4b4f6f7-483a-49d4-8d6c-a46ba71beb10","year":2009,"make":"BMW","model":"328i","trim":"Convertible","price":9995,"mileage":70358,"location":"Feasterville-Trevose, PA","distanceMi":29,"url":"https://www.cars.com/vehicledetail/f4b4f6f7-483a-49d4-8d6c-a46ba71beb10/","dealer":"Staden Auto","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":null,"imageUrl":"https://platform.cstatic-images.com/large/in/v2/e050fe8e-1c8e-46df-b5ba-d7cbb32d1e81/0cd6b315-d1c0-470c-a0c9-85baf0da0de4/DZOlulkf_FyeparMn8dM1OeLe6c.jpg","source":"cars.com"},
+      {"id":"c73c9af6-32ed-4289-b16b-fab9b3e278b1","year":2015,"make":"MINI","model":"Cooper Convertible","trim":"Cooper","price":9999,"mileage":55000,"location":null,"distanceMi":null,"url":"https://www.cars.com/vehicledetail/c73c9af6-32ed-4289-b16b-fab9b3e278b1/","dealer":"Private Seller","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":null,"imageUrl":"https://platform.cstatic-images.com/large/in/v2/p2p/7c218327-0c22-43ec-ba78-96ef5e726111/519f581a-e182-4041-9b51-5ef13606b3b4.jpg","source":"cars.com"},
+      {"id":"b0d2447b-d13c-4bd6-bed2-0f89f633794a","year":2008,"make":"Toyota","model":"Camry Solara","trim":"SLE Convertible","price":10395,"mileage":91693,"location":null,"distanceMi":null,"url":"https://www.cars.com/vehicledetail/b0d2447b-d13c-4bd6-bed2-0f89f633794a/","dealer":"100 Motors LLC","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":null,"imageUrl":"https://platform.cstatic-images.com/large/in/v2/e3805803-b54e-48d7-bcb4-e3835346414c/0887e92d-5147-4bc3-a722-e5a6c9aeb734/UWdhghpbsIxt24-Sum_Qp244FYI.jpg","source":"cars.com"},
+      {"id":"15ab7fb3-236c-47bc-baf5-c775e701d490","year":1994,"make":"Ford","model":"Mustang","trim":"GT Convertible","price":10500,"mileage":44000,"location":null,"distanceMi":null,"url":"https://www.cars.com/vehicledetail/15ab7fb3-236c-47bc-baf5-c775e701d490/","dealer":"Private Seller","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":null,"imageUrl":"https://platform.cstatic-images.com/large/in/v2/p2p/9e815461-6dc3-4712-8c5b-23b8d83d3cf3/37ae3543-f590-449f-8be0-58d7dd71217a.JPG","source":"cars.com"},
+      {"id":"11a59567-1e64-4f4b-a04a-6708a153e1ad","year":1995,"make":"Jaguar","model":"XJS","trim":"2+2 Convertible","price":10897,"mileage":46103,"location":null,"distanceMi":null,"url":"https://www.cars.com/vehicledetail/11a59567-1e64-4f4b-a04a-6708a153e1ad/","dealer":"Avi Auto Sales","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":null,"imageUrl":"https://platform.cstatic-images.com/large/in/v2/2a9ff44c-1d8c-572a-b85a-e2c017e560ce/eec71dc7-9fe7-4cbe-86f1-4f071ac06ac8/uDIu0L8GLJu1FM_qrVpDQjhb3kk.jpg","source":"cars.com"},
+      {"id":"2ef5601d-4f79-468e-835e-ccccfaea71e8","year":2012,"make":"Audi","model":"S5","trim":"3.0 Premium Plus Cabriolet","price":10900,"mileage":91900,"location":null,"distanceMi":null,"url":"https://www.cars.com/vehicledetail/2ef5601d-4f79-468e-835e-ccccfaea71e8/","dealer":"Driven Imports","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":null,"imageUrl":"https://platform.cstatic-images.com/large/in/v2/e38c73e1-af87-4f69-aaab-26acff7cbf95/f11b1101-2596-40e7-833d-2e81bcbd282d/6P60FbvLh8BPheQdVl2NKq6FuqA.jpg","source":"cars.com"},
+      {"id":"9fa3f6eb-7ef8-4a2e-90c7-e978ff2b8a79","year":2007,"make":"Audi","model":"A4","trim":"2.0T Cabriolet quattro","price":11480,"mileage":62185,"location":null,"distanceMi":null,"url":"https://www.cars.com/vehicledetail/9fa3f6eb-7ef8-4a2e-90c7-e978ff2b8a79/","dealer":"Selden Motors","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":null,"imageUrl":"https://platform.cstatic-images.com/large/in/v2/41500c3b-0278-565b-b8aa-8a53ec151e79/67c17dcd-1350-4c8a-8e3c-f91c251b9c4f/F6kI3u8dODREG2uu3pajYdPGx5I.jpg","source":"cars.com"},
+      {"id":"df471089-c272-4c80-9b74-3c8c9cf54630","year":1989,"make":"Jaguar","model":"XJS","trim":"Convertible","price":11799,"mileage":48524,"location":null,"distanceMi":null,"url":"https://www.cars.com/vehicledetail/df471089-c272-4c80-9b74-3c8c9cf54630/","dealer":"Tifosi Motors","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":null,"imageUrl":"https://platform.cstatic-images.com/large/in/v2/2eec0c2a-b564-4ede-b5ab-e6f85ba386dd/373f8811-504e-46d0-a8c7-36411569977e/MgYgV1X-Mc0wqxYCjFALc8mCEF4.jpg","source":"cars.com"},
+      {"id":"168e7196-5cc3-49bb-8faf-622353175793","year":2013,"make":"Mercedes-Benz","model":"E-Class","trim":"E 350 Cabriolet","price":11995,"mileage":119433,"location":"Spring City, PA","distanceMi":19,"url":"https://www.cars.com/vehicledetail/168e7196-5cc3-49bb-8faf-622353175793/","dealer":"Premier Motor Group","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":null,"imageUrl":"https://platform.cstatic-images.com/large/in/v2/687e2a1f-ebc7-5430-89f7-b9a52e6185f9/f3f63d52-5d12-42b0-98bb-b1240058acd8/aOEatydVFsvUrrSZ9U83SKz6byo.jpg","source":"cars.com"},
+      {"id":"a340b863-6d23-4fb9-aa1b-44173ef04f30","year":2016,"make":"Audi","model":"A3","trim":"2.0T Premium Cabriolet","price":11999,"mileage":83000,"location":null,"distanceMi":null,"url":"https://www.cars.com/vehicledetail/a340b863-6d23-4fb9-aa1b-44173ef04f30/","dealer":"Private Seller","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":null,"imageUrl":"https://platform.cstatic-images.com/large/in/v2/p2p/0cb11156-d4b9-4b04-b292-c2f8153b0994/a868667f-4021-4b17-9e2d-ba6d653f48ab.JPG","source":"cars.com"},
+      {"id":"29d1912d-f3ab-4305-bdb0-f98772e51d59","year":1987,"make":"Chevrolet","model":"Camaro","trim":"Z28 Convertible","price":12900,"mileage":57438,"location":null,"distanceMi":null,"url":"https://www.cars.com/vehicledetail/29d1912d-f3ab-4305-bdb0-f98772e51d59/","dealer":"Perfection Auto Sales","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":null,"imageUrl":"https://platform.cstatic-images.com/large/in/v2/0181f6bf-f47f-4436-9dc2-6adfb9485030/f83c6fc9-3b80-4263-8a4f-af8d7b329fdb/TpAbDYFqLrNaDfkUiE7ZtmxaNfg.jpg","source":"cars.com"},
+      {"id":"f7d54151-c2eb-4bbb-a4f7-710d3cfe2836","year":2010,"make":"Lexus","model":"IS 250C","trim":"Base Convertible","price":13450,"mileage":124762,"location":"Norristown, PA","distanceMi":14,"url":"https://www.cars.com/vehicledetail/f7d54151-c2eb-4bbb-a4f7-710d3cfe2836/","dealer":"New Concept Inc","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":null,"imageUrl":"https://platform.cstatic-images.com/large/in/v2/5631252c-0139-5d87-8647-26d44957f0e7/d35e8904-3dc0-469b-9e8f-e5091f2e12a4/VOyBnZtgK6xfBPE7yxnVu8esqFs.jpg","source":"cars.com"},
+      {"id":"dabcb463-e945-41fc-b07c-dd08637d350a","year":2011,"make":"Audi","model":"S5","trim":"3.0 Premium Plus Cabriolet","price":13642,"mileage":69156,"location":"Haddon Township, NJ","distanceMi":17,"url":"https://www.cars.com/vehicledetail/dabcb463-e945-41fc-b07c-dd08637d350a/","dealer":"Royal Auto Group","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":"Automatic","imageUrl":"https://platform.cstatic-images.com/large/in/v2/220992f4-6d7b-5a84-999a-0c3c413cdc94/564cee7d-5505-4712-8a54-7f364740f431/TWUJbSHF9Ip8hGWCmQukBmMLH-E.jpg","source":"cars.com"},
+      {"id":"00cac7bc-c0fa-4f0a-bfef-0f75aaf371ad","year":2008,"make":"Mercedes-Benz","model":"CLK-Class","trim":"CLK 350 Cabriolet","price":13970,"mileage":91414,"location":"Kutztown, PA","distanceMi":34,"url":"https://www.cars.com/vehicledetail/00cac7bc-c0fa-4f0a-bfef-0f75aaf371ad/","dealer":"Miracle Buick GMC of Kutztown","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":"Automatic","imageUrl":"https://platform.cstatic-images.com/large/in/v2/5dd01d75-ef1e-4e98-9357-0e59a453131e/dd49eabe-9de2-44ce-89d5-72757e292cf1/PM1_LXC56eUDfPGQAuz1VDX6UgA.jpg","source":"cars.com"},
+      {"id":"dfb318f8-94a2-450b-b2a1-2a765c6b13ec","year":2000,"make":"Ford","model":"Mustang","trim":"Base Convertible","price":13996,"mileage":52728,"location":null,"distanceMi":null,"url":"https://www.cars.com/vehicledetail/dfb318f8-94a2-450b-b2a1-2a765c6b13ec/","dealer":"McGinty Motorcars","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":null,"imageUrl":"https://platform.cstatic-images.com/large/in/v2/80d63288-568b-4b7b-b727-2d54ecf08f7c/2a16a382-d23f-48b4-8e13-b612ed33e93b/_jGgw2JGcyLGeopjUHdSbrsRTeI.jpg","source":"cars.com"},
+      {"id":"dd0a13f2-3715-4534-ae41-ca772cb37e49","year":2003,"make":"BMW","model":"330Ci","trim":"Convertible","price":14859,"mileage":75618,"location":null,"distanceMi":null,"url":"https://www.cars.com/vehicledetail/dd0a13f2-3715-4534-ae41-ca772cb37e49/","dealer":"Dera-Lee Auto Company","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":null,"imageUrl":"https://platform.cstatic-images.com/large/in/v2/27a24539-3b3e-4349-81e5-44b0636b4759/e38ff187-60ff-445c-8919-41bcd8dd7749/0rULyvODctEUV-T5XGfEEb8Syjs.jpg","source":"cars.com"},
+      {"id":"66709a08-2ab1-4622-a63e-0c08dfbfb7a2","year":1994,"make":"Pontiac","model":"Firebird","trim":"Trans Am GT Convertible","price":14900,"mileage":33887,"location":null,"distanceMi":null,"url":"https://www.cars.com/vehicledetail/66709a08-2ab1-4622-a63e-0c08dfbfb7a2/","dealer":"Perfection Auto Sales","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":null,"imageUrl":"https://platform.cstatic-images.com/large/in/v2/0181f6bf-f47f-4436-9dc2-6adfb9485030/28ffe544-ab16-4bfe-94ec-6cc5ee576230/B74VCLxrQLKrAC8ii33GfsIfkjM.jpg","source":"cars.com"},
+      {"id":"844a2265-3119-4fd6-90a5-bdc078c33633","year":2014,"make":"BMW","model":"428i","trim":"xDrive Convertible","price":14990,"mileage":98054,"location":"Vineland, NJ","distanceMi":35,"url":"https://www.cars.com/vehicledetail/844a2265-3119-4fd6-90a5-bdc078c33633/","dealer":"JC Miller Auto Sales","dealRating":null,"cleanTitle":true,"noAccidents":true,"transmission":null,"imageUrl":"https://platform.cstatic-images.com/large/in/v2/5ba3cb38-9313-46f4-bf2a-09e8e250c34b/6f9cff97-4e79-4cc3-9b5a-f92ac40aa875/oRd-QiMn6qF7fvKgHfz8A0VIDWE.jpg","source":"cars.com"}
+    ]
+  },
+  "cargurus": {
+    "totalFound": 70,
+    "url": "https://www.cargurus.com/Cars/l-Used-Convertible-bg1?zip=19063&distance=35&minPrice=7000&maxPrice=15000",
+    "listings": [
+      {"id":"447408669","year":2011,"make":"Audi","model":"S5","trim":"3.0T quattro Prestige Cabriolet","price":13642,"mileage":69156,"location":"Haddon Township, NJ","distanceMi":17,"url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=447408669","dealer":"Royal Auto Group","dealRating":"Fair Deal","cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/05/06/23/37/2011_audi_s5-pic-3807763922415203099-1024x768.jpeg","source":"cargurus"},
+      {"id":"433875732","year":2014,"make":"BMW","model":"4 Series","trim":"428i xDrive Convertible","price":9991,"mileage":103444,"location":"Philadelphia, PA","distanceMi":19,"url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=433875732","dealer":"Speedy Automotive","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/06/12/15/05/2014_bmw_4_series-pic-7438888840704462163-1024x768.jpeg","source":"cargurus"},
+      {"id":"451367312","year":2010,"make":"BMW","model":"3 Series","trim":"328i Convertible","price":10410,"mileage":80232,"location":"West Chester, PA","distanceMi":9,"url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=451367312","dealer":"Sky Motor Cars","dealRating":"Fair Deal","cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/06/20/14/22/2010_bmw_3_series-pic-2956539671150296942-1024x768.jpeg","source":"cargurus"},
+      {"id":"453151346","year":2009,"make":"BMW","model":"3 Series","trim":"328i Convertible","price":9995,"mileage":70358,"location":"Feasterville-Trevose, PA","distanceMi":29,"url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=453151346","dealer":"Staden Auto","dealRating":"Fair Deal","cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/07/11/17/42/2009_bmw_3_series-pic-6112470507466916675-1024x768.jpeg","source":"cargurus"},
+      {"id":"453922117","year":2010,"make":"Saab","model":"9-3","trim":"Aero Convertible","price":7495,"mileage":160601,"location":"Conshohocken, PA","distanceMi":13,"url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=453922117","dealer":"Allen Brothers Auto","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Manual","imageUrl":"https://static.cargurus.com/images/forsale/2026/07/21/17/01/2010_saab_9-3-pic-2118427027559670303-1024x768.jpeg","source":"cargurus"},
+      {"id":"446981957","year":2011,"make":"Volvo","model":"C70","trim":"T5 Convertible","price":9990,"mileage":93899,"location":"Vineland, NJ","distanceMi":35,"url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=446981957","dealer":"JC Miller Auto Sales","dealRating":"Fair Deal","cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/05/01/19/22/2011_volvo_c70-pic-5280690002271591302-1024x768.jpeg","source":"cargurus"},
+      {"id":"452805177","year":2008,"make":"BMW","model":"3 Series","trim":"335i Convertible","price":7500,"mileage":91522,"location":"Burlington, NJ","distanceMi":31,"url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=452805177","dealer":"GTA Motors LLC","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/07/07/08/45/2008_bmw_3_series-pic-3088756476358766474-1024x768.jpeg","source":"cargurus"},
+      {"id":"453847462","year":2011,"make":"BMW","model":"3 Series","trim":"335i Convertible","price":7900,"mileage":122724,"location":"Burlington, NJ","distanceMi":31,"url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=453847462","dealer":"GTA Motors LLC","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/07/19/06/49/2011_bmw_3_series-pic-8088305759153916485-1024x768.jpeg","source":"cargurus"},
+      {"id":"442353754","year":2017,"make":"Buick","model":"Cascada","trim":"Premium FWD","price":11995,"mileage":78750,"location":"Media, PA","distanceMi":2,"url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=442353754","dealer":"Prime Autohaus","dealRating":"Great Price","cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/07/03/07/03/2017_buick_cascada-pic-2097145318556603529-1024x768.jpeg","source":"cargurus"},
+      {"id":"453249815","year":2009,"make":"Mercedes-Benz","model":"CLK","trim":"350 Cabriolet","price":11995,"mileage":65450,"location":"Media, PA","distanceMi":2,"url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=453249815","dealer":"Prime Autohaus","dealRating":"Fair Deal","cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/07/12/06/37/2009_mercedes-benz_clk-pic-5147648557516517479-1024x768.jpeg","source":"cargurus"},
+      {"id":"447787678","year":2014,"make":"Nissan","model":"Murano CrossCabriolet","trim":"AWD","price":8452,"mileage":97107,"location":"Gilbertsville, PA","distanceMi":29,"url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=447787678","dealer":"Josie's Auto Sales","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":null,"imageUrl":"https://static.cargurus.com/images/forsale/2026/06/08/05/33/2014_nissan_murano_crosscabriolet-pic-35340187767206375-1024x768.jpeg","source":"cargurus"},
+      {"id":"453381484","year":2012,"make":"Lexus","model":"IS","trim":"250C Convertible","price":11490,"mileage":141087,"location":"Hatboro, PA","distanceMi":24,"url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=453381484","dealer":"Glanzmann Subaru","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/07/18/06/23/2012_lexus_is-pic-4438736629996438202-1024x768.jpeg","source":"cargurus"},
+      {"id":"445737422","year":2012,"make":"Ford","model":"Mustang","trim":"V6 Convertible","price":9995,"mileage":96539,"location":"West Chester, PA","distanceMi":9,"url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=445737422","dealer":"Jonathan's Auto Outlet","dealRating":"Fair Deal","cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/04/30/14/23/2012_ford_mustang-pic-2949931544508764713-1024x768.jpeg","source":"cargurus"},
+      {"id":"447270039","year":2007,"make":"MINI","model":"Cooper","trim":"S Convertible","price":8452,"mileage":65594,"location":"Gilbertsville, PA","distanceMi":29,"url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=447270039","dealer":"Josie's Auto Sales","dealRating":"Fair Deal","cleanTitle":null,"noAccidents":null,"transmission":"Manual","imageUrl":"https://static.cargurus.com/images/forsale/2026/05/08/05/34/2007_mini_cooper-pic-2043758708695550607-1024x768.jpeg","source":"cargurus"},
+      {"id":"448587287","year":2013,"make":"Mercedes-Benz","model":"E-Class","trim":"E 350 Cabriolet","price":11995,"mileage":119433,"location":"Spring City, PA","distanceMi":19,"url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=448587287","dealer":"Premier Motor Group","dealRating":"Fair Deal","cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/05/20/21/48/2013_mercedes-benz_e-class-pic-4259229858412416228-1024x768.jpeg","source":"cargurus"},
+      {"id":"445030972","year":2010,"make":"Lexus","model":"IS","trim":"250C Convertible","price":13450,"mileage":124762,"location":"Norristown, PA","distanceMi":14,"url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=445030972","dealer":"New Concept Inc","dealRating":"Fair Deal","cleanTitle":null,"noAccidents":null,"transmission":null,"imageUrl":"https://static.cargurus.com/images/forsale/2026/06/06/06/03/2010_lexus_is-pic-5588792168135260060-1024x768.jpeg","source":"cargurus"},
+      {"id":"453994757","year":2014,"make":"Chrysler","model":"200","trim":"Limited Convertible","price":7500,"mileage":87605,"location":"Franklinville, NJ","distanceMi":28,"url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=453994757","dealer":"Wally's Autoland","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/07/21/20/36/2014_chrysler_200-pic-1119358157575017665-1024x768.jpeg","source":"cargurus"},
+      {"id":"453995015","year":2011,"make":"Volvo","model":"C70","trim":"T5 Convertible","price":9995,"mileage":70279,"location":"Feasterville-Trevose, PA","distanceMi":29,"url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=453995015","dealer":"Staden Auto","dealRating":"Fair Deal","cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/07/21/20/24/2011_volvo_c70-pic-1261094733085695952-1024x768.jpeg","source":"cargurus"},
+      {"id":"452684457","year":2002,"make":"Chrysler","model":"Sebring","trim":"Limited Convertible","price":9691,"mileage":22370,"location":"West Chester, PA","distanceMi":10,"url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=452684457","dealer":"Landmark Automotive Services","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/07/04/07/06/2002_chrysler_sebring-pic-4651692829208708165-1024x768.jpeg","source":"cargurus"},
+      {"id":"451274438","year":1995,"make":"Chevrolet","model":"Camaro","trim":"Z28 Convertible","price":12900,"mileage":119892,"location":"Wilmington, DE","distanceMi":18,"url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=451274438","dealer":"Wolf's Elite Autos","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/06/19/04/28/1995_chevrolet_camaro-pic-5135345199632196551-1024x768.jpeg","source":"cargurus"},
+      {"id":"452846072","year":2003,"make":"BMW","model":"3 Series","trim":"330Ci Convertible","price":14859,"mileage":75618,"location":"Blue Bell, PA","distanceMi":20,"url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=452846072","dealer":"Motor Car Makeover","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Manual","imageUrl":"https://static.cargurus.com/images/forsale/2026/07/07/20/35/2003_bmw_3_series-pic-4943283138466830540-1024x768.jpeg","source":"cargurus"}
+    ]
+  },
+  "autotrader": {
+    "totalFound": 40,
+    "url": "https://www.autotrader.com/cars-for-sale/all-cars/convertible/media-pa?minPrice=7000&maxPrice=15000&searchRadius=35&zip=19063&sortBy=derivedpriceASC",
+    "listings": [
+      {"id":"691838857","year":2013,"make":"BMW","model":"328i","trim":"Convertible","price":8326,"mileage":144928,"location":"Gilbertsville, PA","distanceMi":29,"url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=691838857","dealer":"Josie's Auto Sales","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://images.autotrader.com/hn/c/a58d247ecc5f47f6b836d98326a74238.jpg","source":"autotrader"},
+      {"id":"724093944","year":1995,"make":"Jaguar","model":"XJS","trim":"4.0 Convertible","price":9998,"mileage":46103,"location":null,"distanceMi":null,"url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=724093944","dealer":"Avi Auto Sales","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://images.autotrader.com/hn/c/b6ed0cf3d79146b8907e264b2e0590f2.jpg","source":"autotrader"},
+      {"id":"754834213","year":2015,"make":"BMW","model":"435i xDrive","trim":"Convertible","price":8500,"mileage":140389,"location":null,"distanceMi":null,"url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=754834213","dealer":"Private Seller","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://assets.cai-media-management.com/ps-vehicle-media/640316c0-126a-41a5-997b-6ae6b6bd6dd2.jpeg","source":"autotrader"},
+      {"id":"758394780","year":2012,"make":"BMW","model":"650i xDrive","trim":"Convertible","price":10895,"mileage":106070,"location":null,"distanceMi":null,"url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=758394780","dealer":"MERIC AUTO GROUP LLC","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://images.autotrader.com/hn/c/c82c39b36c454fffbee77dc7bd80f059.jpg","source":"autotrader"},
+      {"id":"774295178","year":2011,"make":"BMW","model":"128i","trim":"Convertible","price":8995,"mileage":147552,"location":"Bristol, PA","distanceMi":25,"url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=774295178","dealer":"Bristol Auto Mall","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":null,"imageUrl":"https://images.autotrader.com/hn/c/e080f33db3ef4251989984026e977283.jpg","source":"autotrader"},
+      {"id":"776291796","year":2014,"make":"Volkswagen","model":"Beetle","trim":"2.5 Convertible","price":9200,"mileage":127956,"location":null,"distanceMi":null,"url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=776291796","dealer":"American Auto Group LLC","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://images.autotrader.com/hn/c/5250988373cc47bd804d0fecf85999fc.jpg","source":"autotrader"},
+      {"id":"777472503","year":2012,"make":"MINI","model":"Cooper","trim":"S Convertible","price":9400,"mileage":98500,"location":null,"distanceMi":null,"url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=777472503","dealer":"Private Seller","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":null,"imageUrl":"https://assets.cai-media-management.com/ps-vehicle-media/3794377d-adea-46b7-93da-26eb2b3f4466.jpeg","source":"autotrader"},
+      {"id":"778854923","year":2007,"make":"MINI","model":"Cooper","trim":"S Convertible","price":8452,"mileage":65594,"location":"Gilbertsville, PA","distanceMi":29,"url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=778854923","dealer":"Josie's Auto Sales","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Manual","imageUrl":"https://images.autotrader.com/hn/c/938a412733d64cb88c70012dc1d8d4a5.jpg","source":"autotrader"},
+      {"id":"779890992","year":2007,"make":"Audi","model":"A4","trim":"2.0T Cabriolet","price":10990,"mileage":62185,"location":null,"distanceMi":null,"url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=779890992","dealer":"Selden Motors","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://images.autotrader.com/hn/c/8509c442d599433a848fa46e8983bd06.jpg","source":"autotrader"},
+      {"id":"781590811","year":2010,"make":"Lexus","model":"IS 250C","trim":"Convertible","price":12000,"mileage":91340,"location":null,"distanceMi":null,"url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=781590811","dealer":"Private Seller","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":null,"imageUrl":"https://assets.cai-media-management.com/ps-vehicle-media/5380fad3-243a-4fa3-ae3d-ebac920dc5b4.jpeg","source":"autotrader"},
+      {"id":"781593445","year":2010,"make":"BMW","model":"328i","trim":"Convertible","price":10900,"mileage":80232,"location":"West Chester, PA","distanceMi":9,"url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=781593445","dealer":"Sky Motor Cars","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":null,"imageUrl":"https://images.autotrader.com/hn/c/482b14d62ff64466b384137668321915.jpg","source":"autotrader"},
+      {"id":"784323009","year":1993,"make":"Jaguar","model":"XJS","trim":"4.0 Convertible","price":11000,"mileage":110280,"location":null,"distanceMi":null,"url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=784323009","dealer":"Private Seller","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://assets.cai-media-management.com/ps-vehicle-media/1cabc523-37e4-49ad-b6e0-a9f48a54f1cf.jpeg","source":"autotrader"},
+      {"id":"784825719","year":2016,"make":"Buick","model":"Cascada","trim":"Premium FWD","price":11195,"mileage":71211,"location":"Sewell, NJ","distanceMi":22,"url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=784825719","dealer":"Automotive Avenues of Sewell","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://images.autotrader.com/hn/c/94c4fa85cebf456c92f618f01a4f20b5.jpg","source":"autotrader"},
+      {"id":"786071404","year":2004,"make":"BMW","model":"330Ci","trim":"Convertible","price":11000,"mileage":64687,"location":null,"distanceMi":null,"url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=786071404","dealer":"Private Seller","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":null,"imageUrl":"https://assets.cai-media-management.com/ps-vehicle-media/e29e8deb-1d1d-4d4c-a6a0-7e64acac95fa.jpeg","source":"autotrader"},
+      {"id":"774473437","year":2018,"make":"Ford","model":"Mustang","trim":"Premium Convertible","price":12992,"mileage":141767,"location":null,"distanceMi":null,"url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=774473437","dealer":"Keystone Auto Group-Berlin","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://images.autotrader.com/hn/c/1ba1f7b1446c463d83e6c38555c0bd6b.jpg","source":"autotrader"},
+      {"id":"779674708","year":1989,"make":"Jaguar","model":"XJS","trim":"V12 Convertible","price":11500,"mileage":48524,"location":null,"distanceMi":null,"url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=779674708","dealer":"Tifosi Motors","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://images.autotrader.com/hn/c/398ac1864ca74ad9a9f1dbf766d71ce4.jpg","source":"autotrader"},
+      {"id":"780193901","year":2016,"make":"Audi","model":"A3","trim":"2.0T Premium Cabriolet","price":11999,"mileage":83000,"location":null,"distanceMi":null,"url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=780193901","dealer":"Private Seller","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://assets.cai-media-management.com/ps-vehicle-media/81ec9b8f-0542-4349-a1ea-1486c391b6c5.JPG","source":"autotrader"},
+      {"id":"780885942","year":2013,"make":"Mercedes-Benz","model":"E-Class","trim":"E 350 Cabriolet","price":11995,"mileage":119433,"location":"Spring City, PA","distanceMi":19,"url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=780885942","dealer":"Premier Motor Group","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://images.autotrader.com/hn/c/071a50b6344449bba249af4004ea6477.jpg","source":"autotrader"},
+      {"id":"782476875","year":1997,"make":"Chevrolet","model":"Camaro","trim":"Z28 Convertible","price":11895,"mileage":73590,"location":null,"distanceMi":null,"url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=782476875","dealer":"Dealer","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Manual","imageUrl":"https://images.autotrader.com/hn/c/b37fef06d8a94c1fa4e0d3d9d09eccc0.jpg","source":"autotrader"},
+      {"id":"783468945","year":1995,"make":"Chevrolet","model":"Camaro","trim":"Z28 Convertible","price":12900,"mileage":119892,"location":"Wilmington, DE","distanceMi":18,"url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=783468945","dealer":"Wolf's Elite Autos","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":null,"imageUrl":"https://images.autotrader.com/hn/c/784ec3cd15254f189033309ae95e88ad.jpg","source":"autotrader"},
+      {"id":"785650963","year":2012,"make":"Lexus","model":"IS 250C","trim":"Convertible","price":11490,"mileage":141087,"location":"Hatboro, PA","distanceMi":24,"url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=785650963","dealer":"Glanzmann Subaru","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://images.autotrader.com/hn/c/f5593012167a40838f09393c85034291.jpg","source":"autotrader"},
+      {"id":"785763600","year":2005,"make":"Toyota","model":"Solara","trim":"SE Convertible","price":13779,"mileage":52505,"location":null,"distanceMi":null,"url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=785763600","dealer":"Weathers Motors","dealRating":null,"cleanTitle":null,"noAccidents":null,"transmission":"Automatic","imageUrl":"https://images.autotrader.com/hn/c/05ee0164c891451caef7e3d714813e88.jpg","source":"autotrader"}
+    ]
+  },
+  "truecar": {
+    "totalFound": 0,
+    "url": "",
+    "listings": []
+  },
+  "top10": {
+    "introHtml": "<p>Ranked July 22, 2026. All 4+ seat convertibles within 35 miles of Media PA, $7k–$15k. Two-seater roadsters excluded per deny-list. <strong>29 Cars.com + 70 CarGurus + ~40 AutoTrader = ~139 total raw results; ~67 unique 4-seat listings after filtering.</strong> Image coverage: Cars.com 24/24 (100%), CarGurus 21/21 (100%), AutoTrader 22/22 (100%). Note: a 2013 MINI Cooper S (Manual, 40k mi, Mini of Mt. Laurel) had no listing photos — substituted with rank 7 Mustang. Source diversity: 5 CarGurus, 2 AutoTrader, 1 Cars.com.</p>",
+    "picks": [
+      {"rank":1,"year":2017,"make":"Buick","model":"Cascada","trim":"Premium","price":11995,"mileage":78750,"location":"Media, PA","distanceMi":2,"dealer":"Prime Autohaus","source":"cargurus","url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=442353754","dealRating":"Great Price","transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/07/03/07/03/2017_buick_cascada-pic-2097145318556603529-1024x768.jpeg","whyGood":"CarGurus Great Price badge, 2 miles from Media PA. Modern 4-seat soft-top on Opel Astra platform; 1.6T turbo, 78k miles is low for this bracket. Power-only folding top, generally reliable when maintained. Apple CarPlay-ready.","whatToVerify":"Full convertible top cycle — no hesitation or binding. Headliner and rear-seat footwell for water stains (drain clog is main failure). Turbo for oil seep at intercooler hose. Open recalls. All electronics: infotainment, backup camera, parking sensors.","bottomLine":"Best deal in the batch: great price, closest car, modern Buick fun right in your backyard."},
+      {"rank":2,"year":2009,"make":"Mercedes-Benz","model":"CLK","trim":"350 Cabriolet","price":11995,"mileage":65450,"location":"Media, PA","distanceMi":2,"dealer":"Prime Autohaus","source":"cargurus","url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=453249815","dealRating":"Fair Deal","transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/07/12/06/37/2009_mercedes-benz_clk-pic-5147648557516517479-1024x768.jpeg","whyGood":"Same Prime Autohaus lot as rank 1 — compare both in one visit. W209 CLK350 V6 is one of Mercedes’ most bulletproof engines; 65k miles is genuinely low. Hydraulic top is reliable at this mileage.","whatToVerify":"Full top cycle twice. Soft-top fabric for UV cracks along seams. Rear plastic window — confirm clear, no yellowing. Under rear seat cushions for water. Front window seals. M272 V6 needs regular oil changes to avoid balance shaft wear.","bottomLine":"Low-mile luxury cabriolet at your local dealer — elegant, practical, and rare."},
+      {"rank":3,"year":2010,"make":"BMW","model":"3 Series","trim":"328i Convertible","price":10410,"mileage":80232,"location":"West Chester, PA","distanceMi":9,"dealer":"Sky Motor Cars","source":"cargurus","url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=451367312","dealRating":"Fair Deal","transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/06/20/14/22/2010_bmw_3_series-pic-2956539671150296942-1024x768.jpeg","whyGood":"E93 328i with the naturally aspirated N52 inline-6 — more reliable than the turbocharged N54/N55. 80k miles is mid-life. 9 miles in West Chester. The E93 has a folding hardtop, eliminating soft-top fabric concerns entirely.","whatToVerify":"Hardtop roof: full open/close cycle, listen for latch click. Water seals around roof seams. N52: coolant hose cracks, VANOS rattle cold start, valve cover gasket leak. Brake rotors.","bottomLine":"Folding hardtop E93 with bulletproof N52 — the BMW you can actually maintain without breaking the bank."},
+      {"rank":4,"year":2009,"make":"BMW","model":"3 Series","trim":"328i Convertible","price":9995,"mileage":70358,"location":"Feasterville-Trevose, PA","distanceMi":29,"dealer":"Staden Auto","source":"cargurus","url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=453151346","dealRating":"Fair Deal","transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/07/11/17/42/2009_bmw_3_series-pic-6112470507466916675-1024x768.jpeg","whyGood":"Same E93 328i as rank 3 but lower price ($9,995) and fewer miles (70k). Staden Auto also has the 2011 Volvo C70 — two good picks on the same lot.","whatToVerify":"Same as rank 3. Confirm original timing chain guides intact (tensioner noise cold start = walk away). Hardtop storage area for water pooling. Power folding mirrors and heated seats.","bottomLine":"Fewer miles, lower price than rank 3 — buy this one if the PPI is clean."},
+      {"rank":5,"year":2008,"make":"Toyota","model":"Camry Solara","trim":"SLE Convertible","price":10395,"mileage":91693,"location":null,"distanceMi":null,"dealer":"100 Motors LLC","source":"cars.com","url":"https://www.cars.com/vehicledetail/b0d2447b-d13c-4bd6-bed2-0f89f633794a/","dealRating":null,"transmission":"Automatic","imageUrl":"https://platform.cstatic-images.com/large/in/v2/e3805803-b54e-48d7-bcb4-e3835346414c/0887e92d-5147-4bc3-a722-e5a6c9aeb734/UWdhghpbsIxt24-Sum_Qp244FYI.jpg","whyGood":"Near-bulletproof Toyota 2GR-FE 3.5L V6 in SLE trim. 91k is mid-life for this engine — it will run to 200k if oil changes were regular. The most mechanically reliable convertible in this entire price range.","whatToVerify":"Top fabric seams and rear window bond for cracks. Strut mounts — common Solara failure above 90k (clunking over bumps). A-pillar tops for water intrusion. Any rust on rocker panels.","bottomLine":"Bring a reliable boring friend who also loves convertibles — the Solara is that friend, and it’s a compliment."},
+      {"rank":6,"year":2011,"make":"Audi","model":"S5","trim":"3.0T quattro Prestige Cabriolet","price":13642,"mileage":69156,"location":"Haddon Township, NJ","distanceMi":17,"dealer":"Royal Auto Group","source":"cargurus","url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=447408669","dealRating":"Fair Deal","transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/05/06/23/37/2011_audi_s5-pic-3807763922415203099-1024x768.jpeg","whyGood":"3.0 TFSI supercharged V6 (333 hp), AWD, 69k miles for $13.6k. The performance outlier on this list. More reliable than the earlier 4.2 V8 S5. AWD adds year-round confidence.","whatToVerify":"Supercharger belt and tensioner (chirp on cold start). Oil consumption check (3.0 TFSI can consume). CVT/tiptronic shift quality. Hydraulic convertible top full cycle. Rear window defroster. HPFP code history. Budget $200–400/yr above Toyota for service.","bottomLine":"Best performance-per-dollar on the list if you’re comfortable with Audi upkeep."},
+      {"rank":7,"year":2012,"make":"Ford","model":"Mustang","trim":"V6 Convertible","price":9995,"mileage":96539,"location":"West Chester, PA","distanceMi":9,"dealer":"Jonathan's Auto Outlet","source":"cargurus","url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=445737422","dealRating":"Fair Deal","transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/04/30/14/23/2012_ford_mustang-pic-2949931544508764713-1024x768.jpeg","whyGood":"S197 Mustang (2010–14 refresh) with the 3.7L Cyclone V6 (305 hp). Reliable, cheap to maintain, 9 miles away. 96k miles is fine. Parts everywhere, any mechanic can work on it.","whatToVerify":"Top latch operation and full cycle. Rear quarter windows for UV yellowing. Rear-seat carpet for water intrusion. 8.8 rear axle clunk on takeoff. Rocker panel and wheel arch rust. All 4 power windows.","bottomLine":"Classic American convertible — V6 is no penalty in everyday driving, and it’s right in West Chester."},
+      {"rank":8,"year":2007,"make":"MINI","model":"Cooper","trim":"S Convertible","price":8452,"mileage":65594,"location":"Gilbertsville, PA","distanceMi":29,"dealer":"Josie's Auto Sales","source":"autotrader","url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=778854923","dealRating":null,"transmission":"Manual","imageUrl":"https://images.autotrader.com/hn/c/938a412733d64cb88c70012dc1d8d4a5.jpg","whyGood":"Manual-transmission MINI Cooper S, 65k miles, $8,452 — the fun-per-dollar leader. R57 MINI S with the 6-speed manual is pure joy to drive. Fits 4 (snugly). 65k miles should have plenty of life if timing chain tensioner was serviced.","whatToVerify":"Timing chain tensioner — critical. Cold-start rattle = walk away. Oil in coolant (head gasket on older N14s). Clutch engagement point (high bite = worn). Soft-top rear window defroster grid. Water drains under trunk floor.","bottomLine":"The most driving fun per dollar on this list."},
+      {"rank":9,"year":2011,"make":"Volvo","model":"C70","trim":"T5 Convertible","price":9995,"mileage":70279,"location":"Feasterville-Trevose, PA","distanceMi":29,"dealer":"Staden Auto","source":"cargurus","url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=453995015","dealRating":"Fair Deal","transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/07/21/20/24/2011_volvo_c70-pic-1261094733085695952-1024x768.jpeg","whyGood":"Most sophisticated folding hardtop on this list — 3-piece electro-hydraulic system stowing under a seamless trunk lid. 70k miles on the 2.5T turbo inline-5 is low. Excellent Volvo safety record. Same lot as rank 4 BMW.","whatToVerify":"3-piece hardtop must complete full cycle without binding or error codes (hydraulic rams can be $500+ each — this is the key PPI item). Sunroof motor noise. T5 turbo: intercooler hose cracks, PCV oil trap issues. Rear window defroster.","bottomLine":"The most elegant roof mechanism in this price range — just make sure it still knows all its moves."},
+      {"rank":10,"year":2016,"make":"Buick","model":"Cascada","trim":"Premium","price":11195,"mileage":71211,"location":"Sewell, NJ","distanceMi":22,"dealer":"Automotive Avenues of Sewell","source":"autotrader","url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=784825719","dealRating":null,"transmission":"Automatic","imageUrl":"https://images.autotrader.com/hn/c/94c4fa85cebf456c92f618f01a4f20b5.jpg","whyGood":"Same Cascada platform as rank 1 but a year older, $800 cheaper, 7,500 fewer miles. If the rank 1 Cascada sells before you get there, this Sewell NJ backup is even better value per mile.","whatToVerify":"Same checklist as rank 1: full top cycle, headliner/footwell water check, turbo hose inspection, infotainment function. Confirm first-year 2016 has no open unaddressed recalls.","bottomLine":"The backup Cascada — same fun, slightly better miles-per-dollar."}
+    ]
+  },
+  "manual10": {
+    "totalFound": 5,
+    "introHtml": "<p>Manual-transmission convertibles are rare in this price band and radius. This refresh found <strong>5 confirmed manuals</strong>: 2007 MINI Cooper S, 1997 Camaro Z28, 2003 BMW 330Ci, 2010 Saab 9-3 Aero, and a 2013 MINI Cooper S from Mini of Mt. Laurel (excluded from picks — no listing photos yet). If you want a clutch pedal, the 2007 MINI S is the clear buy.</p>",
+    "picks": [
+      {"rank":1,"year":2007,"make":"MINI","model":"Cooper","trim":"S Convertible","price":8452,"mileage":65594,"location":"Gilbertsville, PA","distanceMi":29,"dealer":"Josie's Auto Sales","source":"autotrader","url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=778854923","dealRating":null,"transmission":"Manual","imageUrl":"https://images.autotrader.com/hn/c/938a412733d64cb88c70012dc1d8d4a5.jpg","whyGood":"Best manual pick by a wide margin: affordable, reasonable miles, MINI S performance. See Top 10 rank 8 for full notes.","whatToVerify":"Timing chain tensioner (critical — cold-start rattle = walk away). Clutch engagement point (high = worn). 2nd/3rd synchro slow-shift test. Throw-out bearing chirp. Clutch hydraulics. Soft-top rear window condition.","bottomLine":"Manual MINI Cooper S convertible at $8,452 — the answer to ‘what’s the most fun I can have for this money.’"},
+      {"rank":2,"year":1997,"make":"Chevrolet","model":"Camaro","trim":"Z28 Convertible","price":11895,"mileage":73590,"location":null,"distanceMi":null,"dealer":"Dealer","source":"autotrader","url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=782476875","dealRating":null,"transmission":"Manual","imageUrl":"https://images.autotrader.com/hn/c/b37fef06d8a94c1fa4e0d3d9d09eccc0.jpg","whyGood":"1997 Z28 means LT1 or LS1 V8 mated to the T56 6-speed — one of the best manual gearboxes ever bolted to an American V8. 73k miles is modest for this drivetrain. Old-school muscle car fun at a reasonable price.","whatToVerify":"Clutch engagement point, 2nd/3rd synchro slow-shift test (T56 3rd synchro wears at high miles). Throw-out bearing chirp. Clutch hydraulics at master/slave. Rocker panel rust — critical on 90s Camaros, inspect underneath. Convertible top boot and rear glass.","bottomLine":"LS1-era V8 muscle with a T56 — a great driver’s car if the rockers are solid."},
+      {"rank":3,"year":2003,"make":"BMW","model":"3 Series","trim":"330Ci Convertible","price":14859,"mileage":75618,"location":"Blue Bell, PA","distanceMi":20,"dealer":"Motor Car Makeover","source":"cargurus","url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=452846072","dealRating":null,"transmission":"Manual","imageUrl":"https://static.cargurus.com/images/forsale/2026/07/07/20/35/2003_bmw_3_series-pic-4943283138466830540-1024x768.jpeg","whyGood":"E46 330Ci with M54 inline-6 and 5-speed ZF manual — widely considered the last ‘pure’ BMW driving experience. 75k miles is genuinely low for an E46. 20 miles in Blue Bell.","whatToVerify":"Clutch engagement point, 2nd/3rd synchro test. Throw-out bearing chirp. E46 subframe reinforcement — inspect for cracks around rear subframe mounts (well-known E46 issue). M54 oil leaks at valve cover and rear main seal. Cooling system: plastic expansion tank and thermostat housing both crack. Soft-top hydraulic rams and top fabric.","bottomLine":"The purist’s pick — an E46 with a rowing stick at $14,859 is still worth every penny if the subframe is clean."},
+      {"rank":4,"year":2010,"make":"Saab","model":"9-3","trim":"Aero Convertible","price":7495,"mileage":160601,"location":"Conshohocken, PA","distanceMi":13,"dealer":"Allen Brothers Auto","source":"cargurus","url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=453922117","dealRating":null,"transmission":"Manual","imageUrl":"https://static.cargurus.com/images/forsale/2026/07/21/17/01/2010_saab_9-3-pic-2118427027559670303-1024x768.jpeg","whyGood":"Aero trim = 2.0T 210 hp + 6-speed manual. Cheapest 3-pedal car on the list. B207 engine goes well past 200k with regular oil changes. 160k is high but the price reflects it.","whatToVerify":"Clutch engagement point and throw-out bearing chirp. Parts availability — Saab bankrupt, seek a Saab specialist for PPI. Oil leaks at turbo lines. Soft-top fabric condition. Budget carefully for parts.","bottomLine":"$7,495 for a turbo convertible with a clutch — buy with eyes open on parts availability."}
+    ]
+  },
+  "mustangs": {
+    "totalFound": 2,
+    "introHtml": "<p>Only <strong>2 post-2004 Mustang convertibles</strong> surfaced within 35 miles at $7k–$15k this refresh (all pre-2005 Fox/SN-95 cars excluded per spec). The 2012 V6 in West Chester is the clear buy; the 2018 Premium is tempting but high-mileage.</p>",
+    "picks": [
+      {"rank":1,"year":2012,"make":"Ford","model":"Mustang","trim":"V6 Convertible","price":9995,"mileage":96539,"location":"West Chester, PA","distanceMi":9,"dealer":"Jonathan's Auto Outlet","source":"cargurus","url":"https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?listing=445737422","dealRating":"Fair Deal","transmission":"Automatic","imageUrl":"https://static.cargurus.com/images/forsale/2026/04/30/14/23/2012_ford_mustang-pic-2949931544508764713-1024x768.jpeg","whyGood":"S197 third-gen refresh (2010–14) with the 3.7L Cyclone V6 (305 hp). Reliable, cheap to maintain. 9 miles in West Chester. 96k miles is well within the engine’s comfort zone.","whatToVerify":"S197 PPI: top latch engagement and full cycle, rear quarter window UV yellowing, rear-seat carpet water stain, 8.8 rear axle clunk on takeoff, rocker/wheel-arch rust, all 4 power windows, no check-engine codes.","bottomLine":"Closest 2005+ Mustang convertible, right generation, priced where it should be."},
+      {"rank":2,"year":2018,"make":"Ford","model":"Mustang","trim":"Premium Convertible","price":12992,"mileage":141767,"location":null,"distanceMi":null,"dealer":"Keystone Auto Group-Berlin","source":"autotrader","url":"https://www.autotrader.com/cars-for-sale/vehicledetails.xhtml?listingId=774473437","dealRating":null,"transmission":"Automatic","imageUrl":"https://images.autotrader.com/hn/c/1ba1f7b1446c463d83e6c38555c0bd6b.jpg","whyGood":"S550 Mustang — independent rear suspension, much improved handling vs S197. 2018 Premium likely has the 2.3L EcoBoost (310 hp) or 5.0 GT. Premium trim adds Shaker audio, SYNC3, leather.","whatToVerify":"Confirm engine (EcoBoost vs GT — GT adds significant value). S550 top latch and fabric seal. Water staining on rear seat. Cooling system at 141k if EcoBoost. MT-82 shifter feel if manual.","bottomLine":"Most modern Mustang on the list — demand a PPI at 141k miles before buying."}
+    ]
+  }
+}</script>
+
+<script>
+(async function () {
+  // Load data: embedded blob (Cowork artifact) takes precedence, else fetch external JSON (public site)
+  var DATA = {};
+  var embedded = document.getElementById("LISTINGS_DATA");
+  var embeddedText = embedded ? embedded.textContent.trim() : "";
+  if (embeddedText.length > 50) {
+    try { DATA = JSON.parse(embeddedText); } catch (e) { console.error("Embedded data parse failed", e); }
+  } else {
+    try {
+      var res = await fetch("./data.json?v=" + Date.now(), { cache: "no-store" });
+      if (res.ok) DATA = await res.json();
+    } catch (e) { console.error("data.json fetch failed", e); }
+  }
+
+  // Date pill
+  var d = DATA.lastRefreshed ? new Date(DATA.lastRefreshed) : new Date();
+  document.getElementById("datePill").innerHTML =
+    '<span class="live"></span> Refreshed ' + d.toLocaleDateString("en-US", { month: "short", day: "numeric" }) + " · " + d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+
+  // Tabs
+  var tabs = document.querySelectorAll(".tab");
+  var panels = document.querySelectorAll(".tab-panel");
+  tabs.forEach(function (t) {
+    t.addEventListener("click", function () {
+      tabs.forEach(function (x) { x.classList.remove("active"); });
+      panels.forEach(function (p) { p.classList.remove("active"); });
+      t.classList.add("active");
+      var p = document.getElementById("panel-" + t.dataset.tab);
+      if (p) p.classList.add("active");
+    });
+  });
+
+  // Helpers
+  function toNum(v) {
+    if (v == null) return null;
+    if (typeof v === "number") return Number.isFinite(v) ? v : null;
+    var s = String(v).replace(/[^\d.]/g, "");
+    if (!s) return null;
+    var n = Number(s);
+    return Number.isFinite(n) ? n : null;
+  }
+  function nfmt(n) { var x = toNum(n); return x == null ? "" : x.toLocaleString("en-US"); }
+  function dollar(n) { var x = toNum(n); return x == null ? "\u2014" : "$" + x.toLocaleString("en-US"); }
+  var IMG_PLACEHOLDER = "data:image/svg+xml;utf8,"
+    + encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180">'
+      + '<rect width="320" height="180" fill="#dfe4ec"/>'
+      + '<g fill="#b3bccb">'
+      + '<path d="M60 110 q20 -40 60 -40 h80 q40 0 60 40 v18 h-200z"/>'
+      + '<circle cx="100" cy="130" r="14" fill="#14171d"/>'
+      + '<circle cx="220" cy="130" r="14" fill="#14171d"/>'
+      + '</g>'
+      + '<text x="160" y="170" text-anchor="middle" font-family="monospace" font-size="11" fill="#616a79">No photo on listing</text>'
+      + '</svg>'
+    );
+  function escapeHtml(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function dealClass(r) {
+    if (!r) return "";
+    var word = r.split(" ")[0];
+    return "deal-" + word;
+  }
+
+  function renderListing(l, source) {
+    var title = (l.year ? l.year + " " : "") + (l.make ? l.make + " " : "") + (l.model || "");
+    var dealHtml = l.dealRating ? '<div class="deal-badge ' + dealClass(l.dealRating) + '">' + escapeHtml(l.dealRating) + '</div>' : "";
+    var priceNum = toNum(l.price);
+    var priceHtml = priceNum != null ? dollar(priceNum) : (l.price ? escapeHtml(l.price) : "\u2014");
+    var specs = [];
+    var mileNum = toNum(l.mileage);
+    if (mileNum != null && mileNum > 0) specs.push(nfmt(mileNum) + " mi");
+    if (l.location) specs.push(escapeHtml(l.location));
+    else if (l.zip) specs.push("ZIP " + escapeHtml(l.zip));
+    if (l.distance) {
+      var distStr = String(l.distance).replace(/\s*mi\.?\s*(away)?$/i, "");
+      specs.push(escapeHtml(distStr) + " mi away");
+    } else if (l.distanceMi != null) {
+      specs.push(l.distanceMi + " mi away");
+    }
+    if (l.transmission) specs.push(escapeHtml(l.transmission));
+    var verifyChips = "";
+    if (l.noAccidents || l.cleanTitle) {
+      verifyChips = '<div class="verify-row">'
+        + (l.noAccidents ? '<span class="vchip">\u2713 No accidents</span>' : "")
+        + (l.cleanTitle ? '<span class="vchip">\u2713 Clean title</span>' : "")
+        + '</div>';
+    }
+    var actionUrl = l.url || (DATA[source] && DATA[source].url) || "#";
+    var btnLabel = l.url ? "View listing" : "Open " + source + " search";
+    var imgSrc = l.imageUrl || IMG_PLACEHOLDER;
+    var imgAlt = title || "vehicle photo";
+    return '<div class="listing">'
+      + '<div class="photo"><img loading="lazy" src="' + escapeHtml(imgSrc) + '" alt="' + escapeHtml(imgAlt) + '" onerror="this.onerror=null;this.src=\'' + IMG_PLACEHOLDER + '\'"></div>'
+      + dealHtml
+      + '<div class="hd">' + escapeHtml(title) + '</div>'
+      + (l.trim ? '<div class="trim">' + escapeHtml(l.trim) + '</div>' : "")
+      + '<div class="price">' + priceHtml + '</div>'
+      + (specs.length ? '<div class="specs">' + specs.map(function (s) { return '<span>' + s + '</span>'; }).join("") + '</div>' : "")
+      + verifyChips
+      + '<a class="view" target="_blank" rel="noopener" href="' + escapeHtml(actionUrl) + '">' + btnLabel + '</a>'
+      + '</div>';
+  }
+
+  function renderTab(key, sourceName) {
+    var content = document.getElementById("content-" + key);
+    var meta = document.getElementById("meta-" + key);
+    var src = DATA[key];
+    if (!src || !src.listings || !src.listings.length) {
+      content.innerHTML = '<div class="empty">No listings on the last refresh. Try the "Open full search" link or refresh.</div>';
+      meta.textContent = "0 listings";
+      return;
+    }
+    var t = src.listings.slice(0, 10);
+    var setBadge = function (n) {
+      var btn = document.querySelector('.tab[data-tab="' + key + '"]');
+      if (!btn) return;
+      var b = btn.querySelector(".badge-count");
+      if (!b) { b = document.createElement("span"); b.className = "badge-count"; btn.appendChild(b); }
+      b.textContent = n;
+    };
+    setBadge(t.length);
+    var totalNote = src.totalFound ? src.totalFound + " total found · " : "";
+    meta.innerHTML = '<span class="stat">' + totalNote + '</span>showing top ' + t.length;
+    content.innerHTML = '<div class="listing-grid">' + t.map(function (l) { return renderListing(l, key); }).join("") + '</div>';
+  }
+
+  function renderRankedPicks(dataKey, introId, contentId, emptyMsg) {
+    var src = DATA[dataKey];
+    var introEl = document.getElementById(introId);
+    var contentEl = document.getElementById(contentId);
+    if (!src || !src.picks || !src.picks.length) {
+      contentEl.innerHTML = '<div class="empty">' + emptyMsg + '</div>';
+      if (introEl) introEl.innerHTML = (src && src.introHtml) || "";
+      return;
+    }
+    introEl.classList.add("top10-intro");
+    introEl.innerHTML = src.introHtml || "";
+    var setBadge = function (n) {
+      var btn = document.querySelector('.tab[data-tab="' + dataKey + '"]');
+      if (!btn) return;
+      var b = btn.querySelector(".badge-count");
+      if (!b) { b = document.createElement("span"); b.className = "badge-count"; btn.appendChild(b); }
+      b.textContent = n;
+    };
+    setBadge(src.picks.length);
+    var html = "";
+    src.picks.forEach(function (p) {
+      var ymm = (p.year ? p.year + " " : "") + (p.make ? p.make + " " : "") + (p.model || "") || (p.title || "");
+      var mileNum = toNum(p.mileage);
+      var miles = mileNum != null && mileNum > 0 ? nfmt(mileNum) + " mi" : (p.mileage ? String(p.mileage) : "Mileage on listing");
+      var verifyTags = (p.verified || []).map(function (v) { return '<span class="verify-tag">\u2713 ' + escapeHtml(v) + '</span>'; }).join("");
+      var dealHtml = p.dealRating ? '<span class="deal-tag">' + escapeHtml(p.dealRating) + '</span>' : "";
+      var locTag = p.location ? '<span class="meta-tag">' + escapeHtml(p.location) + '</span>' : "";
+      var transTag = p.transmission ? '<span class="meta-tag">' + escapeHtml(p.transmission) + '</span>' : "";
+      var imgSrc = p.imageUrl || IMG_PLACEHOLDER;
+      html += '<div class="pick rank-' + p.rank + '">' 
+        +   '<div class="photo">'
+        +     '<img loading="lazy" src="' + escapeHtml(imgSrc) + '" alt="' + escapeHtml(ymm) + '" onerror="this.onerror=null;this.src=\'' + IMG_PLACEHOLDER + '\'">'
+        +     '<div class="rank"><span class="lbl">Rank</span>' + p.rank + '</div>'
+        +   '</div>'
+        +   '<div class="body">'
+        +     '<div class="title-row">'
+        +       '<span class="ymm">' + escapeHtml(ymm) + '</span>'
+        +       (p.trim ? '<span class="trim">' + escapeHtml(p.trim) + '</span>' : "")
+        +     '</div>'
+        +     '<div class="meta-row">'
+        +       '<span class="price-tag">' + dollar(p.price) + '</span>'
+        +       '<span class="meta-tag">' + escapeHtml(miles) + '</span>'
+        +       locTag
+        +       transTag
+        +       '<span class="source-tag">' + escapeHtml(p.source) + '</span>'
+        +       verifyTags
+        +       dealHtml
+        +     '</div>'
+        +     '<div class="section-grid">'
+        +       '<div class="section good"><div class="lbl">Why it works</div><p>' + escapeHtml(p.whyGood) + '</p></div>'
+      +       '<div class="section verify"><div class="lbl">What to verify</div><p>' + escapeHtml(p.whatToVerify) + '</p></div>'
+      +       '<div class="section bottom"><div class="lbl">Bottom line</div><p>' + escapeHtml(p.bottomLine) + '</p></div>'
+      +     '</div>'
+      +     '<div class="actions">'
+      +       '<a target="_blank" rel="noopener" href="' + escapeHtml(p.url) + '">View listing</a>'
+      +       '<a class="secondary" target="_blank" rel="noopener" href="https://vehiclehistory.bja.ojp.gov/">VIN check (NMVTIS)</a>'
+      +     '</div>'
+      +   '</div>'
+      + '</div>';
+    });
+    contentEl.innerHTML = html;
+  }
+
+  renderRankedPicks("top10", "top10-intro", "content-top10", "Top 10 analysis not available.");
+  renderRankedPicks("manual10", "manual10-intro", "content-manual10", "No manual-transmission convertibles on the latest refresh.");
+  renderRankedPicks("mustangs", "mustangs-intro", "content-mustangs", "No Ford Mustang convertibles in budget on the latest refresh.");
+  renderTab("carscom", "Cars.com");
+  renderTab("cargurus", "CarGurus");
+  renderTab("autotrader", "AutoTrader");
+  renderTab("truecar", "TrueCar");
+})();
+</script>
+</body>
+</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
