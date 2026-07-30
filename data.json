@@ -1,13 +1,26 @@
 {
+<<<<<<< Updated upstream
   "lastRefreshed": "2026-07-29T12:14:30Z",
+=======
+  "lastRefreshed": "2026-07-30T11:53:09Z",
+>>>>>>> Stashed changes
   "filters": {
     "minPrice": 7000,
     "maxPrice": 15000,
     "radiusMi": 35,
+<<<<<<< Updated upstream
     "zip": "19063"
   },
   "carscom": {
     "totalFound": 27,
+=======
+    "zip": "19063",
+    "minSeats": 4,
+    "mustangMinYear": 2005
+  },
+  "carscom": {
+    "totalFound": 28,
+>>>>>>> Stashed changes
     "url": "https://www.cars.com/shopping/results/?stock_type=used&body_style_slugs[]=convertible&list_price_min=7000&list_price_max=15000&maximum_distance=35&zip=19063&no_accidents=true&clean_title=true&sort=list_price",
     "listings": [
       {
@@ -15,6 +28,7 @@
         "year": 2006,
         "make": "Audi",
         "model": "S4",
+<<<<<<< Updated upstream
         "trim": "quattro AWD Convertible 6A",
         "price": 7204,
         "mileage": 96924,
@@ -23,6 +37,16 @@
         "url": "https://www.cars.com/vehicledetail/81d39f41-5daf-4096-9280-6704c2126b1b/",
         "dealer": "PA Auto Liquidators",
         "dealRating": "Great Deal",
+=======
+        "trim": "quattro AWD 2dr Convertible 6A",
+        "price": 7204,
+        "mileage": 96924,
+        "location": "18974",
+        "distanceMi": null,
+        "url": "https://www.cars.com/vehicledetail/81d39f41-5daf-4096-9280-6704c2126b1b/",
+        "dealer": "PA Auto Liquidators",
+        "dealRating": null,
+>>>>>>> Stashed changes
         "cleanTitle": true,
         "noAccidents": true,
         "transmission": "Automatic",
@@ -33,12 +57,21 @@
         "id": "c822098f-4e48-4053-ac80-cac595d90b63",
         "year": 2011,
         "make": "BMW",
+<<<<<<< Updated upstream
         "model": "128i",
         "trim": "2dr Convertible SULEV",
         "price": 8995,
         "mileage": 147552,
         "location": "Levittown, PA",
         "distanceMi": 35,
+=======
+        "model": "128",
+        "trim": "128i 2dr Convertible SULEV",
+        "price": 8995,
+        "mileage": 147552,
+        "location": "19057",
+        "distanceMi": null,
+>>>>>>> Stashed changes
         "url": "https://www.cars.com/vehicledetail/c822098f-4e48-4053-ac80-cac595d90b63/",
         "dealer": "Bristol Auto Mall",
         "dealRating": null,
@@ -52,12 +85,21 @@
         "id": "f4b4f6f7-483a-49d4-8d6c-a46ba71beb10",
         "year": 2009,
         "make": "BMW",
+<<<<<<< Updated upstream
         "model": "328i",
         "trim": "2dr Convertible",
         "price": 9995,
         "mileage": 70358,
         "location": "Feasterville-Trevose, PA",
         "distanceMi": 29,
+=======
+        "model": "328",
+        "trim": "328i Convertible 2D",
+        "price": 9995,
+        "mileage": 70358,
+        "location": "19053",
+        "distanceMi": null,
+>>>>>>> Stashed changes
         "url": "https://www.cars.com/vehicledetail/f4b4f6f7-483a-49d4-8d6c-a46ba71beb10/",
         "dealer": "Staden Auto",
         "dealRating": null,
@@ -72,11 +114,19 @@
         "year": 1995,
         "make": "Jaguar",
         "model": "XJS",
+<<<<<<< Updated upstream
         "trim": "Convertible",
         "price": 10897,
         "mileage": 46103,
         "location": "Magnolia, NJ",
         "distanceMi": 21,
+=======
+        "trim": "2+2",
+        "price": 10897,
+        "mileage": 46103,
+        "location": "08049",
+        "distanceMi": null,
+>>>>>>> Stashed changes
         "url": "https://www.cars.com/vehicledetail/11a59567-1e64-4f4b-a04a-6708a153e1ad/",
         "dealer": "Avi Auto Sales",
         "dealRating": null,
@@ -91,11 +141,19 @@
         "year": 2012,
         "make": "Audi",
         "model": "S5",
+<<<<<<< Updated upstream
         "trim": "3.0T Premium Plus",
         "price": 10900,
         "mileage": 91900,
         "location": "Cornwells Heights, PA",
         "distanceMi": 28,
+=======
+        "trim": "3.0 Premium Plus",
+        "price": 10900,
+        "mileage": 91900,
+        "location": "19020",
+        "distanceMi": null,
+>>>>>>> Stashed changes
         "url": "https://www.cars.com/vehicledetail/2ef5601d-4f79-468e-835e-ccccfaea71e8/",
         "dealer": "Driven Imports",
         "dealRating": null,
@@ -110,11 +168,19 @@
         "year": 1989,
         "make": "Jaguar",
         "model": "XJS",
+<<<<<<< Updated upstream
         "trim": "V12 Convertible",
         "price": 11799,
         "mileage": 48524,
         "location": "Downingtown, PA",
         "distanceMi": 16,
+=======
+        "trim": "XJS 2dr Convertible",
+        "price": 11799,
+        "mileage": 48524,
+        "location": "19335",
+        "distanceMi": null,
+>>>>>>> Stashed changes
         "url": "https://www.cars.com/vehicledetail/df471089-c272-4c80-9b74-3c8c9cf54630/",
         "dealer": "Tifosi Motors",
         "dealRating": null,
@@ -125,10 +191,33 @@
         "source": "cars.com"
       },
       {
+<<<<<<< Updated upstream
+=======
+        "id": "168e7196-5cc3-49bb-8faf-622353175793",
+        "year": 2013,
+        "make": "Mercedes-Benz",
+        "model": "E-Class",
+        "trim": "E 350",
+        "price": 11995,
+        "mileage": 119433,
+        "location": "19475",
+        "distanceMi": null,
+        "url": "https://www.cars.com/vehicledetail/168e7196-5cc3-49bb-8faf-622353175793/",
+        "dealer": "Premier Motor Group",
+        "dealRating": null,
+        "cleanTitle": true,
+        "noAccidents": true,
+        "transmission": null,
+        "imageUrl": "https://platform.cstatic-images.com/large/in/v2/687e2a1f-ebc7-5430-89f7-b9a52e6185f9/f3f63d52-5d12-42b0-98bb-b1240058acd8/aOEatydVFsvUrrSZ9U83SKz6byo.jpg",
+        "source": "cars.com"
+      },
+      {
+>>>>>>> Stashed changes
         "id": "a340b863-6d23-4fb9-aa1b-44173ef04f30",
         "year": 2016,
         "make": "Audi",
         "model": "A3",
+<<<<<<< Updated upstream
         "trim": "1.8T Premium",
         "price": 11999,
         "mileage": 83000,
@@ -136,6 +225,15 @@
         "distanceMi": 16,
         "url": "https://www.cars.com/vehicledetail/a340b863-6d23-4fb9-aa1b-44173ef04f30/",
         "dealer": "Private seller: Justin",
+=======
+        "trim": "2.0T Premium",
+        "price": 11999,
+        "mileage": 83000,
+        "location": "19462",
+        "distanceMi": null,
+        "url": "https://www.cars.com/vehicledetail/a340b863-6d23-4fb9-aa1b-44173ef04f30/",
+        "dealer": null,
+>>>>>>> Stashed changes
         "dealRating": null,
         "cleanTitle": true,
         "noAccidents": true,
@@ -144,6 +242,7 @@
         "source": "cars.com"
       },
       {
+<<<<<<< Updated upstream
         "id": "f7d54151-c2eb-4bbb-a4f7-710d3cfe2836",
         "year": 2010,
         "make": "Lexus",
@@ -153,6 +252,36 @@
         "mileage": 124762,
         "location": "Norristown, PA",
         "distanceMi": 14,
+=======
+        "id": "b676f2a7-3adb-4354-a70a-41524da305fd",
+        "year": 2006,
+        "make": "BMW",
+        "model": "650",
+        "trim": "i",
+        "price": 12999,
+        "mileage": 44625,
+        "location": "19004",
+        "distanceMi": null,
+        "url": "https://www.cars.com/vehicledetail/b676f2a7-3adb-4354-a70a-41524da305fd/",
+        "dealer": null,
+        "dealRating": null,
+        "cleanTitle": true,
+        "noAccidents": true,
+        "transmission": null,
+        "imageUrl": "https://platform.cstatic-images.com/large/in/v2/p2p/4d296786-63fd-4282-8148-9bd3451379e7/cc1bce1e-f94a-4679-893a-f0f7e70788d9.jpeg",
+        "source": "cars.com"
+      },
+      {
+        "id": "f7d54151-c2eb-4bbb-a4f7-710d3cfe2836",
+        "year": 2010,
+        "make": "Lexus",
+        "model": "IS 250C",
+        "trim": "Base",
+        "price": 13450,
+        "mileage": 124762,
+        "location": "19401",
+        "distanceMi": null,
+>>>>>>> Stashed changes
         "url": "https://www.cars.com/vehicledetail/f7d54151-c2eb-4bbb-a4f7-710d3cfe2836/",
         "dealer": "New Concept Inc",
         "dealRating": null,
@@ -166,12 +295,21 @@
         "id": "844a2265-3119-4fd6-90a5-bdc078c33633",
         "year": 2014,
         "make": "BMW",
+<<<<<<< Updated upstream
         "model": "428i",
         "trim": "2dr Convertible",
         "price": 13990,
         "mileage": 98054,
         "location": "Vineland, NJ",
         "distanceMi": 35,
+=======
+        "model": "428",
+        "trim": "i xDrive",
+        "price": 13990,
+        "mileage": 98054,
+        "location": "08360",
+        "distanceMi": null,
+>>>>>>> Stashed changes
         "url": "https://www.cars.com/vehicledetail/844a2265-3119-4fd6-90a5-bdc078c33633/",
         "dealer": "JC MILLER AUTO SALES INC",
         "dealRating": null,
@@ -185,19 +323,33 @@
         "id": "dd0a13f2-3715-4534-ae41-ca772cb37e49",
         "year": 2003,
         "make": "BMW",
+<<<<<<< Updated upstream
         "model": "330Ci",
         "trim": "2dr Convertible",
         "price": 14859,
         "mileage": 75618,
         "location": "Blue Bell, PA",
         "distanceMi": 20,
+=======
+        "model": "330",
+        "trim": "Ci",
+        "price": 14859,
+        "mileage": 75625,
+        "location": "19422",
+        "distanceMi": null,
+>>>>>>> Stashed changes
         "url": "https://www.cars.com/vehicledetail/dd0a13f2-3715-4534-ae41-ca772cb37e49/",
         "dealer": "Dera-Lee Auto Company Inc",
         "dealRating": null,
         "cleanTitle": true,
         "noAccidents": true,
+<<<<<<< Updated upstream
         "transmission": null,
         "imageUrl": "https://platform.cstatic-images.com/large/in/v2/27a24539-3b3e-4349-81e5-44b0636b4759/e38ff187-60ff-445c-8919-41bcd8dd7749/0rULyvODctEUV-T5XGfEEb8Syjs.jpg",
+=======
+        "transmission": "Manual",
+        "imageUrl": "https://platform.cstatic-images.com/large/in/v2/27a24539-3b3e-4349-81e5-44b0636b4759/e38ff187-60ff-455c-8919-41bcd8dd7749/0rULyvODctEUV-T5XGfEEb8Syjs.jpg",
+>>>>>>> Stashed changes
         "source": "cars.com"
       },
       {
@@ -205,6 +357,7 @@
         "year": 1994,
         "make": "Pontiac",
         "model": "Firebird",
+<<<<<<< Updated upstream
         "trim": "Formula Convertible",
         "price": 14900,
         "mileage": 33887,
@@ -212,6 +365,15 @@
         "distanceMi": 35,
         "url": "https://www.cars.com/vehicledetail/66709a08-2ab1-4622-a63e-0c08dfbfb7a2/",
         "dealer": "High Demand",
+=======
+        "trim": "Trans Am GT",
+        "price": 14900,
+        "mileage": 33887,
+        "location": "08360",
+        "distanceMi": null,
+        "url": "https://www.cars.com/vehicledetail/66709a08-2ab1-4622-a63e-0c08dfbfb7a2/",
+        "dealer": "Perfection Auto Sales",
+>>>>>>> Stashed changes
         "dealRating": null,
         "cleanTitle": true,
         "noAccidents": true,
@@ -227,11 +389,19 @@
         "trim": "3.0 Premium Plus",
         "price": 13642,
         "mileage": 69156,
+<<<<<<< Updated upstream
         "location": "Haddon Township, NJ",
         "distanceMi": 18,
         "url": "https://www.cars.com/vehicledetail/dabcb463-e945-41fc-b07c-dd08637d350a/",
         "dealer": "Royal Auto Group",
         "dealRating": "Fair Deal",
+=======
+        "location": "08107",
+        "distanceMi": null,
+        "url": "https://www.cars.com/vehicledetail/dabcb463-e945-41fc-b07c-dd08637d350a/",
+        "dealer": "Royal Auto Group",
+        "dealRating": null,
+>>>>>>> Stashed changes
         "cleanTitle": true,
         "noAccidents": true,
         "transmission": null,
@@ -246,11 +416,19 @@
         "trim": "S",
         "price": 9794,
         "mileage": 66009,
+<<<<<<< Updated upstream
         "location": "Millville, NJ",
         "distanceMi": 41,
         "url": "https://www.cars.com/vehicledetail/a26aaaaf-7789-4481-8339-0d0998e24cae/",
         "dealer": "High Demand",
         "dealRating": "Great Deal",
+=======
+        "location": "08332",
+        "distanceMi": null,
+        "url": "https://www.cars.com/vehicledetail/a26aaaaf-7789-4481-8339-0d0998e24cae/",
+        "dealer": "Lilliston Dodge Jeep Chrysler RAM",
+        "dealRating": null,
+>>>>>>> Stashed changes
         "cleanTitle": true,
         "noAccidents": true,
         "transmission": null,
@@ -262,11 +440,19 @@
         "year": 2006,
         "make": "Ford",
         "model": "Mustang",
+<<<<<<< Updated upstream
         "trim": "GT Premium Convertible",
         "price": 14500,
         "mileage": 42969,
         "location": "Shillington, PA",
         "distanceMi": 40,
+=======
+        "trim": "GT",
+        "price": 14500,
+        "mileage": 42969,
+        "location": "19607",
+        "distanceMi": null,
+>>>>>>> Stashed changes
         "url": "https://www.cars.com/vehicledetail/64aa30b9-6510-4218-9e63-c702b5421837/",
         "dealer": "Tom Masano Ford",
         "dealRating": null,
@@ -280,6 +466,7 @@
         "id": "766fe4de-174c-47d1-8a2a-5848163bd845",
         "year": 2006,
         "make": "BMW",
+<<<<<<< Updated upstream
         "model": "330Ci",
         "trim": "2dr Convertible",
         "price": 10000,
@@ -292,20 +479,80 @@
         "cleanTitle": true,
         "noAccidents": true,
         "transmission": null,
+=======
+        "model": "330",
+        "trim": "Ci",
+        "price": 10000,
+        "mileage": 64757,
+        "location": "19067",
+        "distanceMi": null,
+        "url": "https://www.cars.com/vehicledetail/766fe4de-174c-47d1-8a2a-5848163bd845/",
+        "dealer": null,
+        "dealRating": null,
+        "cleanTitle": true,
+        "noAccidents": true,
+        "transmission": "Manual",
+>>>>>>> Stashed changes
         "imageUrl": "https://platform.cstatic-images.com/large/in/v2/p2p/00b853a0-9446-4f40-9da2-1a31cc8598ba/6c92d05d-10a4-4967-8f21-6238c535813f",
         "source": "cars.com"
       }
     ]
   },
   "cargurus": {
+<<<<<<< Updated upstream
     "totalFound": 70,
     "url": "https://www.cargurus.com/Cars/l-Used-Convertible-bg1?zip=19063&distance=35&minPrice=7000&maxPrice=15000",
     "listings": [
       {
+=======
+    "totalFound": 69,
+    "url": "https://www.cargurus.com/Cars/l-Used-Convertible-bg1?zip=19063&distance=35&minPrice=7000&maxPrice=15000",
+    "listings": [
+      {
+        "id": "447408669",
+        "year": 2011,
+        "make": "Audi",
+        "model": "S5",
+        "trim": null,
+        "price": 14337,
+        "mileage": 69156,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.cargurus.com/details/447408669",
+        "dealer": null,
+        "dealRating": "Good Deal",
+        "cleanTitle": null,
+        "noAccidents": null,
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/05/06/23/37/2011_audi_s5-pic-3807763922415203099-1024x768.jpeg",
+        "source": "cargurus"
+      },
+      {
+        "id": "443962216",
+        "year": 2014,
+        "make": "Volkswagen",
+        "model": "Beetle",
+        "trim": null,
+        "price": 9855,
+        "mileage": 127956,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.cargurus.com/details/443962216",
+        "dealer": null,
+        "dealRating": "Good Deal",
+        "cleanTitle": null,
+        "noAccidents": null,
+        "transmission": "Automatic",
+        "imageUrl": "https://imagescdn.dealercarsearch.com/Media/7865/24116539/639209471938426018.jpg",
+        "source": "cargurus"
+      },
+      {
+>>>>>>> Stashed changes
         "id": "453403728",
         "year": 2008,
         "make": "Volkswagen",
         "model": "Eos",
+<<<<<<< Updated upstream
         "trim": "Komfort",
         "price": 7190,
         "mileage": 89092,
@@ -337,6 +584,20 @@
         "noAccidents": null,
         "transmission": null,
         "imageUrl": "https://static.cargurus.com/images/forsale/2026/05/20/21/48/2013_mercedes-benz_e-class-pic-4259229858412416228-1024x768.jpeg",
+=======
+        "trim": null,
+        "price": 7190,
+        "mileage": 89092,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.cargurus.com/details/453403728",
+        "dealer": null,
+        "dealRating": "Fair Deal",
+        "cleanTitle": null,
+        "noAccidents": null,
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/07/14/17/00/2008_volkswagen_eos-pic-8773195994890254748-1024x768.jpeg",
+>>>>>>> Stashed changes
         "source": "cargurus"
       },
       {
@@ -344,21 +605,34 @@
         "year": 2008,
         "make": "BMW",
         "model": "3 Series",
+<<<<<<< Updated upstream
         "trim": "335i Convertible RWD",
         "price": 7999,
         "mileage": 91522,
         "location": "Burlington, NJ",
         "distanceMi": 31,
+=======
+        "trim": null,
+        "price": 7999,
+        "mileage": 91522,
+        "location": null,
+        "distanceMi": null,
+>>>>>>> Stashed changes
         "url": "https://www.cargurus.com/details/452805177",
         "dealer": null,
         "dealRating": "Good Deal",
         "cleanTitle": null,
         "noAccidents": null,
+<<<<<<< Updated upstream
         "transmission": null,
+=======
+        "transmission": "Automatic",
+>>>>>>> Stashed changes
         "imageUrl": "https://static.cargurus.com/images/forsale/2026/07/07/08/45/2008_bmw_3_series-pic-3088756476358766474-1024x768.jpeg",
         "source": "cargurus"
       },
       {
+<<<<<<< Updated upstream
         "id": "451367312",
         "year": 2010,
         "make": "BMW",
@@ -378,44 +652,93 @@
         "source": "cargurus"
       },
       {
+=======
+>>>>>>> Stashed changes
         "id": "453151346",
         "year": 2009,
         "make": "BMW",
         "model": "3 Series",
+<<<<<<< Updated upstream
         "trim": "328i Convertible RWD",
         "price": 10472,
         "mileage": 70358,
         "location": "Feasterville-Trevose, PA",
         "distanceMi": 29,
+=======
+        "trim": null,
+        "price": 10472,
+        "mileage": 70358,
+        "location": null,
+        "distanceMi": null,
+>>>>>>> Stashed changes
         "url": "https://www.cargurus.com/details/453151346",
         "dealer": null,
         "dealRating": "Fair Deal",
         "cleanTitle": null,
         "noAccidents": null,
+<<<<<<< Updated upstream
         "transmission": null,
+=======
+        "transmission": "Automatic",
+>>>>>>> Stashed changes
         "imageUrl": "https://static.cargurus.com/images/forsale/2026/07/11/17/42/2009_bmw_3_series-pic-6112470507466916675-1024x768.jpeg",
         "source": "cargurus"
       },
       {
+<<<<<<< Updated upstream
+=======
+        "id": "451367312",
+        "year": 2010,
+        "make": "BMW",
+        "model": "3 Series",
+        "trim": null,
+        "price": 10480,
+        "mileage": 80232,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.cargurus.com/details/451367312",
+        "dealer": null,
+        "dealRating": "Fair Deal",
+        "cleanTitle": null,
+        "noAccidents": null,
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/06/20/14/22/2010_bmw_3_series-pic-2956539671150296942-1024x768.jpeg",
+        "source": "cargurus"
+      },
+      {
+>>>>>>> Stashed changes
         "id": "453994757",
         "year": 2014,
         "make": "Chrysler",
         "model": "200",
+<<<<<<< Updated upstream
         "trim": "Limited Convertible FWD",
         "price": 7799,
         "mileage": 87605,
         "location": "Franklinville, NJ",
         "distanceMi": 28,
+=======
+        "trim": null,
+        "price": 7799,
+        "mileage": 87605,
+        "location": null,
+        "distanceMi": null,
+>>>>>>> Stashed changes
         "url": "https://www.cargurus.com/details/453994757",
         "dealer": null,
         "dealRating": "Good Deal",
         "cleanTitle": null,
         "noAccidents": null,
+<<<<<<< Updated upstream
         "transmission": null,
+=======
+        "transmission": "Automatic",
+>>>>>>> Stashed changes
         "imageUrl": "https://static.cargurus.com/images/forsale/2026/07/21/20/36/2014_chrysler_200-pic-1119358157575017665-1024x768.jpeg",
         "source": "cargurus"
       },
       {
+<<<<<<< Updated upstream
         "id": "453249815",
         "year": 2009,
         "make": "Mercedes-Benz",
@@ -444,6 +767,17 @@
         "mileage": 97107,
         "location": "Gilbertsville, PA",
         "distanceMi": 29,
+=======
+        "id": "447787678",
+        "year": 2014,
+        "make": "Nissan",
+        "model": "Murano CrossCabriolet",
+        "trim": null,
+        "price": 8942,
+        "mileage": 97107,
+        "location": null,
+        "distanceMi": null,
+>>>>>>> Stashed changes
         "url": "https://www.cargurus.com/details/447787678",
         "dealer": null,
         "dealRating": "Good Deal",
@@ -454,6 +788,7 @@
         "source": "cargurus"
       },
       {
+<<<<<<< Updated upstream
         "id": "453847462",
         "year": 2011,
         "make": "BMW",
@@ -470,6 +805,24 @@
         "noAccidents": null,
         "transmission": null,
         "imageUrl": "https://static.cargurus.com/images/forsale/2026/07/19/06/49/2011_bmw_3_series-pic-8088305759153916485-1024x768.jpeg",
+=======
+        "id": "454589377",
+        "year": 2012,
+        "make": "BMW",
+        "model": "1 Series",
+        "trim": null,
+        "price": 13459,
+        "mileage": 51269,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.cargurus.com/details/454589377",
+        "dealer": null,
+        "dealRating": "Fair Deal",
+        "cleanTitle": null,
+        "noAccidents": null,
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/07/28/17/25/2012_bmw_1_series-pic-5869941908798995012-1024x768.jpeg",
+>>>>>>> Stashed changes
         "source": "cargurus"
       },
       {
@@ -477,40 +830,125 @@
         "year": 2012,
         "make": "Lexus",
         "model": "IS",
+<<<<<<< Updated upstream
         "trim": "250C Convertible RWD",
         "price": 11490,
         "mileage": 141087,
         "location": "Hatboro, PA",
         "distanceMi": 24,
+=======
+        "trim": null,
+        "price": 11490,
+        "mileage": 141087,
+        "location": null,
+        "distanceMi": null,
+>>>>>>> Stashed changes
         "url": "https://www.cargurus.com/details/453381484",
         "dealer": null,
         "dealRating": "Good Deal",
         "cleanTitle": null,
         "noAccidents": null,
+<<<<<<< Updated upstream
         "transmission": null,
+=======
+        "transmission": "Automatic",
+>>>>>>> Stashed changes
         "imageUrl": "https://static.cargurus.com/images/forsale/2026/07/18/06/23/2012_lexus_is-pic-4438736629996438202-1024x768.jpeg",
         "source": "cargurus"
       },
       {
+<<<<<<< Updated upstream
+=======
+        "id": "453847462",
+        "year": 2011,
+        "make": "BMW",
+        "model": "3 Series",
+        "trim": null,
+        "price": 8399,
+        "mileage": 122724,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.cargurus.com/details/453847462",
+        "dealer": null,
+        "dealRating": "Fair Deal",
+        "cleanTitle": null,
+        "noAccidents": null,
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/07/19/06/49/2011_bmw_3_series-pic-8088305759153916485-1024x768.jpeg",
+        "source": "cargurus"
+      },
+      {
+        "id": "453249815",
+        "year": 2009,
+        "make": "Mercedes-Benz",
+        "model": "CLK",
+        "trim": null,
+        "price": 12470,
+        "mileage": 65450,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.cargurus.com/details/453249815",
+        "dealer": null,
+        "dealRating": "Fair Deal",
+        "cleanTitle": null,
+        "noAccidents": null,
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/07/12/06/37/2009_mercedes-benz_clk-pic-5147648557516517479-1024x768.jpeg",
+        "source": "cargurus"
+      },
+      {
+        "id": "454648300",
+        "year": 2013,
+        "make": "Mercedes-Benz",
+        "model": "E-Class",
+        "trim": null,
+        "price": 8399,
+        "mileage": 152912,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.cargurus.com/details/454648300",
+        "dealer": null,
+        "dealRating": "Good Deal",
+        "cleanTitle": null,
+        "noAccidents": null,
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/07/29/07/56/2013_mercedes-benz_e-class-pic-3780741551422153063-1024x768.jpeg",
+        "source": "cargurus"
+      },
+      {
+>>>>>>> Stashed changes
         "id": "445737422",
         "year": 2012,
         "make": "Ford",
         "model": "Mustang",
+<<<<<<< Updated upstream
         "trim": "V6 Convertible RWD",
         "price": 10459,
         "mileage": 96539,
         "location": "West Chester, PA",
         "distanceMi": 9,
+=======
+        "trim": null,
+        "price": 10459,
+        "mileage": 96539,
+        "location": null,
+        "distanceMi": null,
+>>>>>>> Stashed changes
         "url": "https://www.cargurus.com/details/445737422",
         "dealer": null,
         "dealRating": "Fair Deal",
         "cleanTitle": null,
         "noAccidents": null,
+<<<<<<< Updated upstream
         "transmission": null,
+=======
+        "transmission": "Automatic",
+>>>>>>> Stashed changes
         "imageUrl": "https://static.cargurus.com/images/forsale/2026/04/30/14/23/2012_ford_mustang-pic-2949931544508764713-1024x768.jpeg",
         "source": "cargurus"
       },
       {
+<<<<<<< Updated upstream
         "id": "453908300",
         "year": 2020,
         "make": "Ford",
@@ -521,12 +959,238 @@
         "location": "Langhorne, PA",
         "distanceMi": 33,
         "url": "https://www.cargurus.com/details/453908300",
+=======
+        "id": "432395041",
+        "year": 2014,
+        "make": "Mercedes-Benz",
+        "model": "E-Class",
+        "trim": null,
+        "price": 9276,
+        "mileage": 162049,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.cargurus.com/details/432395041",
+        "dealer": null,
+        "dealRating": "Great Deal",
+        "cleanTitle": null,
+        "noAccidents": null,
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/05/26/06/57/2014_mercedes-benz_e-class-pic-1877711592319002530-1024x768.jpeg",
+        "source": "cargurus"
+      },
+      {
+        "id": "392045812",
+        "year": 2013,
+        "make": "BMW",
+        "model": "3 Series",
+        "trim": null,
+        "price": 8816,
+        "mileage": 144928,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.cargurus.com/details/392045812",
+>>>>>>> Stashed changes
         "dealer": null,
         "dealRating": "Fair Deal",
         "cleanTitle": null,
         "noAccidents": null,
+<<<<<<< Updated upstream
         "transmission": null,
         "imageUrl": "https://static.cargurus.com/images/forsale/2026/07/29/06/08/2020_ford_mustang-pic-2332344267636586473-1024x768.jpeg",
+=======
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2025/03/08/17/53/2013_bmw_3_series-pic-7084346172632332363-1024x768.jpeg",
+        "source": "cargurus"
+      },
+      {
+        "id": "445153504",
+        "year": 2012,
+        "make": "Audi",
+        "model": "S5",
+        "trim": null,
+        "price": 10900,
+        "mileage": 91900,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.cargurus.com/details/445153504",
+        "dealer": null,
+        "dealRating": "Fair Deal",
+        "cleanTitle": null,
+        "noAccidents": null,
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/05/13/16/21/2012_audi_s5-pic-3519218039846745028-1024x768.jpeg",
+        "source": "cargurus"
+      },
+      {
+        "id": "452684457",
+        "year": 2002,
+        "make": "Chrysler",
+        "model": "Sebring",
+        "trim": null,
+        "price": 9990,
+        "mileage": 22370,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.cargurus.com/details/452684457",
+        "dealer": null,
+        "dealRating": null,
+        "cleanTitle": null,
+        "noAccidents": null,
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/07/04/07/06/2002_chrysler_sebring-pic-4651692829208708165-1024x768.jpeg",
+        "source": "cargurus"
+      },
+      {
+        "id": "452846072",
+        "year": 2003,
+        "make": "BMW",
+        "model": "3 Series",
+        "trim": null,
+        "price": 14859,
+        "mileage": 75625,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.cargurus.com/details/452846072",
+        "dealer": null,
+        "dealRating": null,
+        "cleanTitle": null,
+        "noAccidents": null,
+        "transmission": "Manual",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/07/07/20/35/2003_bmw_3_series-pic-4943283138466830540-1024x768.jpeg",
+        "source": "cargurus"
+      },
+      {
+        "id": "449926318",
+        "year": 2014,
+        "make": "BMW",
+        "model": "4 Series",
+        "trim": null,
+        "price": 14589,
+        "mileage": 98054,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.cargurus.com/details/449926318",
+        "dealer": null,
+        "dealRating": null,
+        "cleanTitle": null,
+        "noAccidents": null,
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/06/03/19/21/2014_bmw_4_series-pic-6912880388122785181-1024x768.jpeg",
+        "source": "cargurus"
+      },
+      {
+        "id": "448587287",
+        "year": 2013,
+        "make": "Mercedes-Benz",
+        "model": "E-Class",
+        "trim": null,
+        "price": 12369,
+        "mileage": 119433,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.cargurus.com/details/448587287",
+        "dealer": null,
+        "dealRating": null,
+        "cleanTitle": null,
+        "noAccidents": null,
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/05/20/21/48/2013_mercedes-benz_e-class-pic-4259229858412416228-1024x768.jpeg",
+        "source": "cargurus"
+      },
+      {
+        "id": "454579686",
+        "year": 2014,
+        "make": "Ford",
+        "model": "Mustang",
+        "trim": null,
+        "price": 10485,
+        "mileage": 148307,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.cargurus.com/details/454579686",
+        "dealer": null,
+        "dealRating": null,
+        "cleanTitle": null,
+        "noAccidents": null,
+        "transmission": "Automatic",
+        "imageUrl": null,
+        "source": "cargurus"
+      },
+      {
+        "id": "416443505",
+        "year": 2018,
+        "make": "Ford",
+        "model": "Mustang",
+        "trim": null,
+        "price": 13887,
+        "mileage": 141767,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.cargurus.com/details/416443505",
+        "dealer": null,
+        "dealRating": null,
+        "cleanTitle": null,
+        "noAccidents": null,
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/03/08/05/25/2018_ford_mustang-pic-8593394937171371335-1024x768.jpeg",
+        "source": "cargurus"
+      },
+      {
+        "id": "453153109",
+        "year": 2010,
+        "make": "Ford",
+        "model": "Mustang",
+        "trim": null,
+        "price": 14459,
+        "mileage": 132158,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.cargurus.com/details/453153109",
+        "dealer": null,
+        "dealRating": null,
+        "cleanTitle": null,
+        "noAccidents": null,
+        "transmission": "Manual",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/07/20/14/25/2010_ford_mustang-pic-1000372153387180504-1024x768.jpeg",
+        "source": "cargurus"
+      },
+      {
+        "id": "447570038",
+        "year": 2012,
+        "make": "Audi",
+        "model": "A5",
+        "trim": null,
+        "price": 11790,
+        "mileage": 125807,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.cargurus.com/details/447570038",
+        "dealer": null,
+        "dealRating": null,
+        "cleanTitle": null,
+        "noAccidents": null,
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/06/11/22/55/2012_audi_a5-pic-8883459095437758791-1024x768.jpeg",
+        "source": "cargurus"
+      },
+      {
+        "id": "441897888",
+        "year": 2011,
+        "make": "BMW",
+        "model": "1 Series",
+        "trim": null,
+        "price": 9485,
+        "mileage": 147552,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.cargurus.com/details/441897888",
+        "dealer": null,
+        "dealRating": null,
+        "cleanTitle": null,
+        "noAccidents": null,
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/03/09/16/36/2011_bmw_1_series-pic-1731152021877460247-1024x768.jpeg",
+>>>>>>> Stashed changes
         "source": "cargurus"
       },
       {
@@ -534,6 +1198,7 @@
         "year": 2010,
         "make": "Lexus",
         "model": "IS",
+<<<<<<< Updated upstream
         "trim": "250C Convertible RWD",
         "price": 13450,
         "mileage": 124762,
@@ -541,6 +1206,15 @@
         "distanceMi": 14,
         "url": "https://www.cargurus.com/details/445030972",
         "dealer": "New Concept Inc",
+=======
+        "trim": null,
+        "price": 12950,
+        "mileage": 124762,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.cargurus.com/details/445030972",
+        "dealer": null,
+>>>>>>> Stashed changes
         "dealRating": "Fair Deal",
         "cleanTitle": null,
         "noAccidents": null,
@@ -551,8 +1225,13 @@
     ]
   },
   "autotrader": {
+<<<<<<< Updated upstream
     "totalFound": 19,
     "url": "https://www.autotrader.com/cars-for-sale/all-cars/convertible/cars-between-7000-and-15000/media-pa?searchRadius=35&sortBy=derivedpriceASC",
+=======
+    "totalFound": 36,
+    "url": "https://www.autotrader.com/cars-for-sale/all-cars/convertible/media-pa?minPrice=7000&maxPrice=15000&searchRadius=35&zip=19063&sortBy=derivedpriceASC",
+>>>>>>> Stashed changes
     "listings": [
       {
         "id": "691838857",
@@ -562,8 +1241,13 @@
         "trim": "Convertible",
         "price": 8326,
         "mileage": 144928,
+<<<<<<< Updated upstream
         "location": "Gilbertsville, PA",
         "distanceMi": 29,
+=======
+        "location": null,
+        "distanceMi": null,
+>>>>>>> Stashed changes
         "url": "https://www.autotrader.com/cars-for-sale/vehicle/691838857",
         "dealer": "Josie's Auto Sales",
         "dealRating": null,
@@ -574,6 +1258,28 @@
         "source": "autotrader"
       },
       {
+<<<<<<< Updated upstream
+=======
+        "id": "724093944",
+        "year": 1995,
+        "make": "Jaguar",
+        "model": "XJS",
+        "trim": "4.0 Convertible",
+        "price": 10497,
+        "mileage": 46103,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.autotrader.com/cars-for-sale/vehicle/724093944",
+        "dealer": "Avi Auto Sales",
+        "dealRating": null,
+        "cleanTitle": null,
+        "noAccidents": null,
+        "transmission": "Automatic",
+        "imageUrl": "https://images.autotrader.com/hn/c/b6ed0cf3d79146b8907e264b2e0590f2.jpg",
+        "source": "autotrader"
+      },
+      {
+>>>>>>> Stashed changes
         "id": "754834213",
         "year": 2015,
         "make": "BMW",
@@ -581,8 +1287,13 @@
         "trim": "Convertible",
         "price": 8500,
         "mileage": 140389,
+<<<<<<< Updated upstream
         "location": "Marlton, NJ",
         "distanceMi": 27,
+=======
+        "location": null,
+        "distanceMi": null,
+>>>>>>> Stashed changes
         "url": "https://www.autotrader.com/cars-for-sale/vehicle/754834213",
         "dealer": "Private Seller Exchange",
         "dealRating": null,
@@ -593,6 +1304,28 @@
         "source": "autotrader"
       },
       {
+<<<<<<< Updated upstream
+=======
+        "id": "758394780",
+        "year": 2012,
+        "make": "BMW",
+        "model": "650i xDrive",
+        "trim": "Convertible",
+        "price": 10895,
+        "mileage": 106070,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.autotrader.com/cars-for-sale/vehicle/758394780",
+        "dealer": "MERIC AUTO GROUP LLC",
+        "dealRating": null,
+        "cleanTitle": null,
+        "noAccidents": null,
+        "transmission": "Automatic",
+        "imageUrl": "https://images.autotrader.com/hn/c/c82c39b36c454fffbee77dc7bd80f059.jpg",
+        "source": "autotrader"
+      },
+      {
+>>>>>>> Stashed changes
         "id": "774295178",
         "year": 2011,
         "make": "BMW",
@@ -600,8 +1333,13 @@
         "trim": "Convertible",
         "price": 8995,
         "mileage": 147552,
+<<<<<<< Updated upstream
         "location": "Levittown, PA",
         "distanceMi": 34,
+=======
+        "location": null,
+        "distanceMi": null,
+>>>>>>> Stashed changes
         "url": "https://www.autotrader.com/cars-for-sale/vehicle/774295178",
         "dealer": "Bristol Auto Mall",
         "dealRating": null,
@@ -619,8 +1357,13 @@
         "trim": "2.5",
         "price": 9200,
         "mileage": 127956,
+<<<<<<< Updated upstream
         "location": "Maple Shade, NJ",
         "distanceMi": 22,
+=======
+        "location": null,
+        "distanceMi": null,
+>>>>>>> Stashed changes
         "url": "https://www.autotrader.com/cars-for-sale/vehicle/776291796",
         "dealer": "AMERICAN AUTO GROUP LLC",
         "dealRating": null,
@@ -631,6 +1374,7 @@
         "source": "autotrader"
       },
       {
+<<<<<<< Updated upstream
         "id": "786639819",
         "year": 2014,
         "make": "BMW",
@@ -650,6 +1394,8 @@
         "source": "autotrader"
       },
       {
+=======
+>>>>>>> Stashed changes
         "id": "781593445",
         "year": 2010,
         "make": "BMW",
@@ -657,8 +1403,13 @@
         "trim": "Convertible",
         "price": 10480,
         "mileage": 80232,
+<<<<<<< Updated upstream
         "location": "West Chester, PA",
         "distanceMi": 9,
+=======
+        "location": null,
+        "distanceMi": null,
+>>>>>>> Stashed changes
         "url": "https://www.autotrader.com/cars-for-sale/vehicle/781593445",
         "dealer": "Sky Motor Cars",
         "dealRating": null,
@@ -669,6 +1420,7 @@
         "source": "autotrader"
       },
       {
+<<<<<<< Updated upstream
         "id": "786773067",
         "year": 2014,
         "make": "Ford",
@@ -726,6 +1478,8 @@
         "source": "autotrader"
       },
       {
+=======
+>>>>>>> Stashed changes
         "id": "784323009",
         "year": 1993,
         "make": "Jaguar",
@@ -733,8 +1487,13 @@
         "trim": "4.0 Convertible",
         "price": 11000,
         "mileage": 110280,
+<<<<<<< Updated upstream
         "location": "Mount Laurel, NJ",
         "distanceMi": 27,
+=======
+        "location": null,
+        "distanceMi": null,
+>>>>>>> Stashed changes
         "url": "https://www.autotrader.com/cars-for-sale/vehicle/784323009",
         "dealer": "Private Seller Exchange",
         "dealRating": null,
@@ -745,6 +1504,7 @@
         "source": "autotrader"
       },
       {
+<<<<<<< Updated upstream
         "id": "785650963",
         "year": 2012,
         "make": "Lexus",
@@ -812,11 +1572,24 @@
         "location": "Springfield, PA",
         "distanceMi": 4,
         "url": "https://www.autotrader.com/cars-for-sale/vehicle/780193901",
+=======
+        "id": "786639819",
+        "year": 2014,
+        "make": "BMW",
+        "model": "428i xDrive",
+        "trim": "Convertible",
+        "price": 9300,
+        "mileage": 124000,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.autotrader.com/cars-for-sale/vehicle/786639819",
+>>>>>>> Stashed changes
         "dealer": "Private Seller Exchange",
         "dealRating": null,
         "cleanTitle": null,
         "noAccidents": null,
         "transmission": "Automatic",
+<<<<<<< Updated upstream
         "imageUrl": "https://assets.cai-media-management.com/ps-vehicle-media/81ec9b8f-0542-4349-a1ea-1486c391b6c5.JPG",
         "source": "autotrader"
       },
@@ -870,10 +1643,28 @@
         "distanceMi": 29,
         "url": "https://www.autotrader.com/cars-for-sale/vehicle/678637598",
         "dealer": "Josie's Auto Sales",
+=======
+        "imageUrl": "https://assets.cai-media-management.com/ps-vehicle-media/d5eee263-ba07-45d7-8990-a375ca5dbe99.jpeg",
+        "source": "autotrader"
+      },
+      {
+        "id": "786773067",
+        "year": 2014,
+        "make": "Ford",
+        "model": "Mustang",
+        "trim": "Convertible",
+        "price": 10485,
+        "mileage": 148307,
+        "location": null,
+        "distanceMi": null,
+        "url": "https://www.autotrader.com/cars-for-sale/vehicle/786773067",
+        "dealer": "Keyser Miller Ford",
+>>>>>>> Stashed changes
         "dealRating": null,
         "cleanTitle": null,
         "noAccidents": null,
         "transmission": "Automatic",
+<<<<<<< Updated upstream
         "imageUrl": "https://images.autotrader.com/hn/c/1797b079595f47cf84adf93176d5d703.jpg",
         "source": "autotrader"
       },
@@ -913,6 +1704,9 @@
         "noAccidents": null,
         "transmission": "Automatic",
         "imageUrl": "https://assets.cai-media-management.com/ps-vehicle-media/7fc32b2f-2bf0-45df-80e8-5a972296d197.jpeg",
+=======
+        "imageUrl": null,
+>>>>>>> Stashed changes
         "source": "autotrader"
       }
     ]
@@ -920,6 +1714,7 @@
   "truecar": {
     "totalFound": 0,
     "url": "",
+<<<<<<< Updated upstream
     "listings": [],
     "note": "TrueCar body-style filter currently broken \u2014 skipped this refresh"
   },
@@ -1125,22 +1920,287 @@
         "whyGood": "33,887 original miles on a 1994 Pontiac Firebird Formula Convertible \u2014 time-capsule territory. Verified clean title, no accidents. The Formula trim came with the 5.7L LT1 V8 (275hp), the same engine as the Corvette of the era. At 33k miles this car has barely been broken in.",
         "whatToVerify": "Verify the engine (Formula should have the LT1 V8 \u2014 confirm). Inspect rubber seals, weatherstripping, and soft-top fabric \u2014 even lightly used rubber deteriorates with age over 30 years. Check brake lines and fuel lines for age-related deterioration, test all electrical systems (window motors, gauges, A/C), and confirm there are no ethanol-related fuel system issues from long storage.",
         "bottomLine": "A genuine time capsule at the top of the budget \u2014 if the LT1 V8 checks out, this is the most unique car on the list."
-      }
-    ]
+=======
+    "listings": []
   },
-  "manual10": {
-    "introHtml": "<p>Manual-transmission convertibles from the current refresh \u2014 filtered for fun-to-drive character.</p>",
-    "picks": []
-  },
-  "mustangs": {
-    "totalFound": 5,
-    "introHtml": "<p>Ford Mustang convertibles (2005+) found in this refresh \u2014 S197 and S550 generations only. Ranked by trim, mileage, and proximity to Media, PA.</p>",
+  "top10": {
+    "introHtml": "<p>Refreshed <strong>July 30, 2026</strong>. Found <strong>28</strong> on Cars.com (clean-title/no-accident filter active), <strong>69</strong> on CarGurus, and <strong>36</strong> on AutoTrader before filtering. After removing 2-seat roadsters (Mercedes SL/SLK, BMW Z4, Miata, Thunderbird, Corvette, Lexus SC, Boxster, S2000, Smart, Solstice, Paseo, Crossfire, TT Roadster, 350Z/370Z Roadster) and personal excludes (MINI, Buick, Camaro, pre-2005 Mustang, Volvo, Solara), <strong>17 Cars.com</strong>, <strong>27 CarGurus</strong>, and <strong>10 AutoTrader</strong> listings remain. Rankings favor low-mileage, clean-top, 4-seat convertibles on reliable platforms. TrueCar skipped \u2014 body-style filter broken.</p>",
     "picks": [
       {
         "rank": 1,
         "year": 2006,
         "make": "Ford",
         "model": "Mustang",
+        "trim": "GT",
+        "price": 14500,
+        "mileage": 42969,
+        "location": "Reading, PA",
+        "dealer": "Tom Masano Ford",
+        "source": "cars.com",
+        "url": "https://www.cars.com/vehicledetail/64aa30b9-6510-4218-9e63-c702b5421837/",
+        "dealRating": null,
+        "transmission": null,
+        "imageUrl": "https://platform.cstatic-images.com/large/in/v2/cd15b401-af2f-4953-a200-4900b148241e/dd7d71a9-30a4-4973-8aca-45d1fd1a2807/f0VoSuBhx4pJqq_WCQBFDY1HRtw.jpg",
+        "whyGood": "S197 Mustang GT with 4.6L 3-valve V8 and just 43k miles \u2014 exceptional for a 2006. Dealer listing at a Ford store adds accountability. GT trim means upgraded brakes, V8 rumble, and sport suspension. The best value-per-fun pick in the batch if the top cycles cleanly.",
+        "whatToVerify": "Full convertible top cycle (raise/lower/latch); check headliner and rear carpets for water staining from top-seal failure; inspect rocker panels and rear wheel wells for spring-perch rust (common S197); 2005\u20132010 4.6L 3-valve can develop cam-phaser rattle on cold start; verify 8.8 rear axle for clunk on takeoff.",
+        "bottomLine": "Best V8 fun-per-dollar in the batch at only 43k miles."
+      },
+      {
+        "rank": 2,
+        "year": 2003,
+        "make": "BMW",
+        "model": "330",
+        "trim": "Ci",
+        "price": 14859,
+        "mileage": 75625,
+        "location": "Blue Bell, PA",
+        "dealer": "Dera-Lee Auto Company Inc",
+        "source": "cars.com",
+        "url": "https://www.cars.com/vehicledetail/dd0a13f2-3715-4534-ae41-ca772cb37e49/",
+        "dealRating": null,
+        "transmission": "Manual",
+        "imageUrl": "https://platform.cstatic-images.com/large/in/v2/27a24539-3b3e-4349-81e5-44b0636b4759/e38ff187-60ff-455c-8919-41bcd8dd7749/0rULyvODctEUV-T5XGfEEb8Syjs.jpg",
+        "whyGood": "E46 330Ci convertible with manual gearbox \u2014 one of the most celebrated driving machines of its era. 75k miles is modest for a 20-year-old BMW; Blue Bell is minutes from Media. The M54 inline-six is durable when maintained. Manual + open sky = driving therapy.",
+        "whatToVerify": "Full top cycle; rear-window plastic and defroster condition; cooling system (expansion tank, thermostat, water pump due around 100k); subframe mount rust behind rear wheels; oil leaks from valve cover and DISA valve; request full service history.",
+        "bottomLine": "Manual E46 cabriolet minutes from Media \u2014 a classic that still rewards every drive."
+      },
+      {
+        "rank": 3,
+        "year": 2016,
+        "make": "Audi",
+        "model": "A3",
+        "trim": "2.0T Premium",
+        "price": 11999,
+        "mileage": 83000,
+        "location": "Plymouth Meeting, PA",
+        "dealer": "Private Seller",
+        "source": "cars.com",
+        "url": "https://www.cars.com/vehicledetail/a340b863-6d23-4fb9-aa1b-44173ef04f30/",
+        "dealRating": null,
+        "transmission": null,
+        "imageUrl": "https://platform.cstatic-images.com/large/in/v2/p2p/0cb11156-d4b9-4b04-b292-c2f8153b0994/a868667f-4021-4b17-9e2d-ba6d653f48ab.JPG",
+        "whyGood": "2016 Audi A3 Cabriolet under $12k is the most modern pick in the batch. The 2.0T is smooth and reliable; 83k is well broken-in. Private sale 7 miles from Media. Real leather, dual-zone climate, Bluetooth standard \u2014 genuinely pleasant every day.",
+        "whatToVerify": "DSG/S-tronic service interval (fluid at 40k \u2014 confirm done); soft-top frame and hydraulic latch condition; MMI screen for error codes; confirm no open DSG recalls.",
+        "bottomLine": "Most modern and tech-loaded pick at a price that defies the badge."
+      },
+      {
+        "rank": 4,
+        "year": 2015,
+        "make": "BMW",
+        "model": "435i xDrive",
+        "trim": "Convertible",
+        "price": 8500,
+        "mileage": 140389,
+        "location": null,
+        "dealer": "Private Seller Exchange",
+        "source": "autotrader",
+        "url": "https://www.autotrader.com/cars-for-sale/vehicle/754834213",
+        "dealRating": null,
+        "transmission": "Automatic",
+        "imageUrl": "https://assets.cai-media-management.com/ps-vehicle-media/640316c0-126a-41a5-997b-6ae6b6bd6dd2.jpeg",
+        "whyGood": "F33 435i xDrive at $8,500 is genuinely startling. The N55 turbocharged inline-six makes 300hp and is more robust than the N54. AWD adds year-round usability. High miles but the price reflects it \u2014 even a $2k repair leaves you ahead of a higher-priced comparable.",
+        "whatToVerify": "Full top cycle (F33 hydraulic roof \u2014 check A-pillar seam for leaks); BMW oil analysis for bearing wear at this mileage; coolant hose inspection; iDrive for faults; near-term brake fluid flush and differential service budget.",
+        "bottomLine": "Cheapest way into a twin-scroll turbo six BMW convertible \u2014 budget for maintenance upfront."
+      },
+      {
+        "rank": 5,
+        "year": 2012,
+        "make": "BMW",
+        "model": "1 Series",
+        "trim": null,
+        "price": 13459,
+        "mileage": 51269,
+        "location": null,
+        "dealer": null,
+        "source": "cargurus",
+        "url": "https://www.cargurus.com/details/454589377",
+        "dealRating": "Fair Deal",
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/07/28/17/25/2012_bmw_1_series-pic-5869941908798995012-1024x768.jpeg",
+        "whyGood": "51k miles on a 2012 E88 1-series cabriolet is exceptional \u2014 this car has been barely used. 128i uses the bulletproof N52 naturally-aspirated six; 135i uses the N54 twin-turbo. Either way, extremely low mileage for year and price point.",
+        "whatToVerify": "Confirm 128i vs 135i (affects maintenance profile significantly); full top cycle; water ingress at C-pillars; N54: HPFP recall status; N52: valve cover oil leaks; request service records \u2014 verify low mileage reflects care, not neglect.",
+        "bottomLine": "Standout low-mileage E88 \u2014 confirm engine variant before getting excited."
+      },
+      {
+        "rank": 6,
+        "year": 2009,
+        "make": "BMW",
+        "model": "328",
+        "trim": "328i Convertible 2D",
+        "price": 9995,
+        "mileage": 70358,
+        "location": "Feasterville-Trevose, PA",
+        "dealer": "Staden Auto",
+        "source": "cars.com",
+        "url": "https://www.cars.com/vehicledetail/f4b4f6f7-483a-49d4-8d6c-a46ba71beb10/",
+        "dealRating": null,
+        "transmission": null,
+        "imageUrl": "https://platform.cstatic-images.com/large/in/v2/e050fe8e-1c8e-46df-b5ba-d7cbb32d1e81/0cd6b315-d1c0-470c-a0c9-85baf0da0de4/DZOlulkf_FyeparMn8dM1OeLe6c.jpg",
+        "whyGood": "E93 328i is the sweet spot of the E9x lineup \u2014 balanced, comfortable, reliable, and handsome with the top down. 70k miles, clean title, no accidents. The N52 I6 is one of BMW's most durable engines. Under 20 miles from Media.",
+        "whatToVerify": "Full E93 power-folding hardtop cycle (test twice); trunk latch mechanism; rear window gasket; coolant expansion tank; oil service history.",
+        "bottomLine": "Solid, reliable, near-perfect price-to-fun ratio for a well-maintained E93."
+      },
+      {
+        "rank": 7,
+        "year": 2010,
+        "make": "Lexus",
+        "model": "IS 250C",
+        "trim": "Base",
+        "price": 13450,
+        "mileage": 124762,
+        "location": "Norristown, PA",
+        "dealer": "New Concept Inc",
+        "source": "cars.com",
+        "url": "https://www.cars.com/vehicledetail/f7d54151-c2eb-4bbb-a4f7-710d3cfe2836/",
+        "dealRating": null,
+        "transmission": null,
+        "imageUrl": "https://platform.cstatic-images.com/large/in/v2/5631252c-0139-5d87-8647-26d44957f0e7/d35e8904-3dc0-469b-9e8f-e5091f2e12a4/VOyBnZtgK6xfBPE7yxnVu8esqFs.jpg",
+        "whyGood": "IS 250C is a retractable hardtop \u2014 no fabric to rot, no torn rear window. The 2.5L V6 is Toyota/Lexus reliable to 200k+. Clean title, no accidents. Norristown is 10 miles away.",
+        "whatToVerify": "Full RHT cycle; trunk seal for water intrusion; P0012/P0022 cam timing codes (common IS 250); confirm rear-seat usability for intended passengers.",
+        "bottomLine": "Lexus dependability with a maintenance-free hardtop \u2014 a genuine long-term advantage."
+      },
+      {
+        "rank": 8,
+        "year": 2009,
+        "make": "Mercedes-Benz",
+        "model": "CLK",
+        "trim": null,
+        "price": 12470,
+        "mileage": 65450,
+        "location": null,
+        "dealer": null,
+        "source": "cargurus",
+        "url": "https://www.cargurus.com/details/453249815",
+        "dealRating": "Fair Deal",
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/07/12/06/37/2009_mercedes-benz_clk-pic-5147648557516517479-1024x768.jpeg",
+        "whyGood": "CLK350 or CLK550 cabriolet at 65k miles is well-preserved. The W209 CLK is timeless; the 3.5L V6 (if CLK350) is smooth and dependable. 65k is low for a 2009 Mercedes.",
+        "whatToVerify": "Full top cycle (fully automatic \u2014 check hydraulic pressure); rear window plastic yellowing; valve cover oil seeps; confirm CLK350 vs CLK550; CarFax for ownership gaps or mileage discrepancy.",
+        "bottomLine": "Timeless German cabriolet with low miles \u2014 confirm which CLK variant before committing."
+      },
+      {
+        "rank": 9,
+        "year": 2014,
+        "make": "BMW",
+        "model": "428i xDrive",
+        "trim": "Convertible",
+        "price": 9300,
+        "mileage": 124000,
+        "location": null,
+        "dealer": "Private Seller Exchange",
+        "source": "autotrader",
+        "url": "https://www.autotrader.com/cars-for-sale/vehicle/786639819",
+        "dealRating": null,
+        "transmission": "Automatic",
+        "imageUrl": "https://assets.cai-media-management.com/ps-vehicle-media/d5eee263-ba07-45d7-8990-a375ca5dbe99.jpeg",
+        "whyGood": "F33 428i xDrive \u2014 modern BMW convertible with N20 2.0T and AWD. At $9,300 with 124k miles it undercuts most comparable F-series listings. Private seller means direct negotiation.",
+        "whatToVerify": "N20 timing chain service (critical \u2014 due around 100k; verify done); full top cycle; thermostat housing for coolant leaks; valve cover gasket and spark plugs if not recent.",
+        "bottomLine": "Modern AWD drop-top at a budget price \u2014 N20 timing chain history is the go/no-go question."
+      },
+      {
+        "rank": 10,
+        "year": 2006,
+        "make": "BMW",
+        "model": "650",
+        "trim": "i",
+        "price": 12999,
+        "mileage": 44625,
+        "location": "Bala Cynwyd, PA",
+        "dealer": "Private Seller",
+        "source": "cars.com",
+        "url": "https://www.cars.com/vehicledetail/b676f2a7-3adb-4354-a70a-41524da305fd/",
+        "dealRating": null,
+        "transmission": null,
+        "imageUrl": "https://platform.cstatic-images.com/large/in/v2/p2p/4d296786-63fd-4282-8148-9bd3451379e7/cc1bce1e-f94a-4679-893a-f0f7e70788d9.jpeg",
+        "whyGood": "44k miles on a 2006 BMW 650i is exceptional \u2014 clearly babied. E64 6-series has grand-tourer presence and the N62 V8 sounds glorious. Bala Cynwyd is 5 miles away; private sale leaves room to negotiate. Caveat: N62 Valvetronic is expensive to repair.",
+        "whatToVerify": "N62 V8 valve stem seal check (blue smoke on cold startup is a red flag); confirm SMG vs 6-speed manual; full top cycle; cooling system inspection; budget $500\u20131,000 for fluid flush and inspection given age.",
+        "bottomLine": "Head-turning V8 at a fraction of its original cost \u2014 gorgeous buy if the N62 checks out."
+>>>>>>> Stashed changes
+      }
+    ]
+  },
+  "manual10": {
+<<<<<<< Updated upstream
+    "introHtml": "<p>Manual-transmission convertibles from the current refresh \u2014 filtered for fun-to-drive character.</p>",
+    "picks": []
+  },
+  "mustangs": {
+    "totalFound": 5,
+    "introHtml": "<p>Ford Mustang convertibles (2005+) found in this refresh \u2014 S197 and S550 generations only. Ranked by trim, mileage, and proximity to Media, PA.</p>",
+=======
+    "totalFound": 3,
+    "introHtml": "<p>Only <strong>3 confirmed manual-transmission</strong> convertibles surfaced this refresh across all sources within 35 miles of Media, PA. Manual drop-tops in this price band are genuinely scarce. Two are BMW 330Ci E46 cabriolets (2003 at $14,859 confirmed manual via CarGurus cross-reference; 2006 at $10,000 private sale) and one is a 2010 Ford Mustang convertible at $14,459 confirmed manual on CarGurus. No automatics included here.</p>",
+    "picks": [
+      {
+        "rank": 1,
+        "year": 2003,
+        "make": "BMW",
+        "model": "330",
+        "trim": "Ci",
+        "price": 14859,
+        "mileage": 75625,
+        "location": "Blue Bell, PA",
+        "dealer": "Dera-Lee Auto Company Inc",
+        "source": "cars.com",
+        "url": "https://www.cars.com/vehicledetail/dd0a13f2-3715-4534-ae41-ca772cb37e49/",
+        "dealRating": null,
+        "transmission": "Manual",
+        "imageUrl": "https://platform.cstatic-images.com/large/in/v2/27a24539-3b3e-4349-81e5-44b0636b4759/e38ff187-60ff-455c-8919-41bcd8dd7749/0rULyvODctEUV-T5XGfEEb8Syjs.jpg",
+        "whyGood": "The definitive manual convertible in this search. E46 330Ci with 3 pedals and a naturally-aspirated inline-six \u2014 the combination BMW enthusiasts have treasured for two decades. 75k miles, dealer listed, minutes from Media.",
+        "whatToVerify": "Clutch engagement point (high bite = worn); 2nd/3rd synchro slow-shift test at operating temp; throw-out bearing chirp; hydraulic clutch line for weeping; top cycle; subframe mount condition.",
+        "bottomLine": "The only manual BMW convertible near Media \u2014 don't miss this one."
+      },
+      {
+        "rank": 2,
+        "year": 2010,
+        "make": "Ford",
+        "model": "Mustang",
+        "trim": null,
+        "price": 14459,
+        "mileage": 132158,
+        "location": null,
+        "dealer": null,
+        "source": "cargurus",
+        "url": "https://www.cargurus.com/details/453153109",
+        "dealRating": null,
+        "transmission": "Manual",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/07/20/14/25/2010_ford_mustang-pic-1000372153387180504-1024x768.jpeg",
+        "whyGood": "Manual S197 Mustang convertible \u2014 exactly the cheap fun car this search is for. 132k miles is on the higher side but Mustang drivetrains are agricultural in the best sense. Confirm GT vs V6 for expectations.",
+        "whatToVerify": "Clutch engagement and pedal feel; 2nd/3rd synchro; throw-out bearing noise; top condition and rear window clarity; spring-perch rust; cam-phaser rattle if GT; 8.8 axle clunk.",
+        "bottomLine": "Manual Mustang convertible \u2014 rare find at any price. Confirm GT trim for the full experience."
+      },
+      {
+        "rank": 3,
+        "year": 2006,
+        "make": "BMW",
+        "model": "330",
+        "trim": "Ci",
+        "price": 10000,
+        "mileage": 64757,
+        "location": "Yardley, PA",
+        "dealer": "Private Seller",
+        "source": "cars.com",
+        "url": "https://www.cars.com/vehicledetail/766fe4de-174c-47d1-8a2a-5848163bd845/",
+        "dealRating": null,
+        "transmission": "Manual",
+        "imageUrl": "https://platform.cstatic-images.com/large/in/v2/p2p/00b853a0-9446-4f40-9da2-1a31cc8598ba/6c92d05d-10a4-4967-8f21-6238c535813f",
+        "whyGood": "2006 BMW 330Ci convertible private-sale at $10,000 with 65k miles is strong value. E46 body, M54 inline-six, 6-speed manual. Private seller in Yardley (~15mi) leaves room to negotiate below asking.",
+        "whatToVerify": "Clutch and synchro feel; confirm 6-speed (not SMG); top cycle; cooling system; DISA valve; subframe mounts; valve cover oil leaks.",
+        "bottomLine": "Best-value E46 manual in the batch \u2014 private seller price leaves negotiating room."
+      }
+    ]
+  },
+  "mustangs": {
+    "totalFound": 4,
+    "introHtml": "<p>Found <strong>4 Ford Mustang convertibles (2005+)</strong> with photos across all sources this refresh (a 5th 2014 listing had no dealer photos uploaded \u2014 excluded per rules). The standout is the 2006 GT at just 43k miles from a Ford dealer. One 2010 manual is the only stick-shift in the group. All pre-2005 Mustangs excluded.</p>",
+>>>>>>> Stashed changes
+    "picks": [
+      {
+        "rank": 1,
+        "year": 2006,
+        "make": "Ford",
+        "model": "Mustang",
+<<<<<<< Updated upstream
         "trim": "GT Premium Convertible",
         "price": 14500,
         "mileage": 42969,
@@ -1175,12 +2235,47 @@
         "whyGood": "Only 9 miles from Media \u2014 the most convenient Mustang on the list. The V6 Convertible trim at $10,459 leaves room in the budget. Late S197 generation (2010\u20132014 refresh) with updated front fascia and improved interior over the early cars.",
         "whatToVerify": "V6 engine \u2014 verify it's the 3.7L V6 (305hp, not the older 4.0L). Test soft-top full operation, check rear seat for water damage, rear window defogging. Ask about any open recalls. CarFax recommended \u2014 dealer information is not listed so source context is limited.",
         "bottomLine": "Closest Mustang to Media at the lowest price \u2014 quick local test drive possible."
+=======
+        "trim": "GT",
+        "price": 14500,
+        "mileage": 42969,
+        "location": "Reading, PA",
+        "dealer": "Tom Masano Ford",
+        "source": "cars.com",
+        "url": "https://www.cars.com/vehicledetail/64aa30b9-6510-4218-9e63-c702b5421837/",
+        "dealRating": null,
+        "transmission": null,
+        "imageUrl": "https://platform.cstatic-images.com/large/in/v2/cd15b401-af2f-4953-a200-4900b148241e/dd7d71a9-30a4-4973-8aca-45d1fd1a2807/f0VoSuBhx4pJqq_WCQBFDY1HRtw.jpg",
+        "whyGood": "Lowest-mileage S197 in the batch. GT trim: 4.6L 3-valve V8, limited-slip diff, upgraded brakes. Dealer at a Ford store is a good sign. $14,500 for 43k miles is the top Mustang pick by a wide margin.",
+        "whatToVerify": "Full top cycle; water staining on rear seats; spring-perch and rocker rust; cam-phaser cold-start rattle; 8.8 axle clunk; confirm automatic or manual.",
+        "bottomLine": "The one to beat \u2014 low miles, V8, dealer listed."
+      },
+      {
+        "rank": 2,
+        "year": 2010,
+        "make": "Ford",
+        "model": "Mustang",
+        "trim": null,
+        "price": 14459,
+        "mileage": 132158,
+        "location": null,
+        "dealer": null,
+        "source": "cargurus",
+        "url": "https://www.cargurus.com/details/453153109",
+        "dealRating": null,
+        "transmission": "Manual",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/07/20/14/25/2010_ford_mustang-pic-1000372153387180504-1024x768.jpeg",
+        "whyGood": "Only manual-transmission Mustang convertible in the search. 132k miles manageable on the S197 platform. Manual adds years of engagement.",
+        "whatToVerify": "Clutch engagement and pedal feel; synchro 2nd\u20133rd; throw-out bearing; spring-perch rust; top condition; cam-phaser if GT; 8.8 axle.",
+        "bottomLine": "Manual Mustang convertible \u2014 rare find at any price."
+>>>>>>> Stashed changes
       },
       {
         "rank": 3,
         "year": 2018,
         "make": "Ford",
         "model": "Mustang",
+<<<<<<< Updated upstream
         "trim": "Premium",
         "price": 12992,
         "mileage": 141767,
@@ -1235,6 +2330,40 @@
         "whyGood": "Newest Mustang on the list at just 6 years old with the EcoBoost Premium trim \u2014 Sync 3, B&O audio, leather. The 2.3L EcoBoost makes 310hp and the 10-speed auto is the most modern powertrain available here. Still within extended warranty range for many powertrain components.",
         "whatToVerify": "EcoBoost: check intercooler hoses and charge-air system for any delamination or boost leaks. 132k miles on a 2020 is high mileage \u2014 pull a full CarFax/AutoCheck report and check for any recall or warranty claims. IRS bushing inspection. Soft-top seals check.",
         "bottomLine": "Newest and highest-mileage \u2014 modern tech at a high-mile price. Inspect the history carefully."
+=======
+        "trim": null,
+        "price": 13887,
+        "mileage": 141767,
+        "location": null,
+        "dealer": null,
+        "source": "cargurus",
+        "url": "https://www.cargurus.com/details/416443505",
+        "dealRating": null,
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/03/08/05/25/2018_ford_mustang-pic-8593394937171371335-1024x768.jpeg",
+        "whyGood": "S550 generation brings independent rear suspension, better refinement, and modern tech. 2018 at $13,887 buys a genuinely modern car. Trim unknown \u2014 confirm EcoBoost or GT.",
+        "whatToVerify": "Confirm EcoBoost vs GT V8; MT-82 shifter feel if manual; top cycle; rear-seat water staining; IRS bushing wear at high miles.",
+        "bottomLine": "Most modern Mustang in budget \u2014 confirm V8 or EcoBoost before deciding."
+      },
+      {
+        "rank": 4,
+        "year": 2012,
+        "make": "Ford",
+        "model": "Mustang",
+        "trim": null,
+        "price": 10459,
+        "mileage": 96539,
+        "location": null,
+        "dealer": null,
+        "source": "cargurus",
+        "url": "https://www.cargurus.com/details/445737422",
+        "dealRating": "Fair Deal",
+        "transmission": "Automatic",
+        "imageUrl": "https://static.cargurus.com/images/forsale/2026/04/30/14/23/2012_ford_mustang-pic-2949931544508764713-1024x768.jpeg",
+        "whyGood": "2012 S197 under $10,500 with under 100k miles is solid value. Fair Deal on CarGurus. Could be V6 or V8 GT.",
+        "whatToVerify": "Full top cycle and rear window; cam-phaser rattle if GT; spring-perch and rocker rust; 8.8 axle; confirm trim and engine.",
+        "bottomLine": "Good everyday Mustang value \u2014 confirm GT trim for the V8."
+>>>>>>> Stashed changes
       }
     ]
   }
