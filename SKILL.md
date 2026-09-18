@@ -139,25 +139,16 @@ The Cowork artifact for this dashboard is `used-convertibles-near-media-pa`. If 
 
 ### 6. Write `data.json` and push to GitHub via API
 
+> **Architecture note (updated 2026-09-18):** `index.html` now has an empty `{}` in its LISTINGS_DATA script block. The live Vercel site fetches `data.json` at runtime. **Do NOT embed JSON data into `index.html` again** — only `data.json` needs to be pushed each refresh.
+
 1. `mcp__cowork__request_cowork_directory` with path `C:\Users\billb\Documents\AI Agents\AI Agent Team\convertibles-site`.
 2. Write the JSON from step 4 to `C:\Users\billb\Documents\AI Agents\AI Agent Team\convertibles-site\data.json` (overwrite).
-3. Update `index.html` in the same repo folder with the new LISTINGS_DATA: read `index.html`, replace the `<script id="LISTINGS_DATA" type="application/json">…</script>` contents with the JSON from step 4 using a Python lambda (NOT a string replacement — Python's `re` module interprets `\u` in JSON as a bad escape). Write it back to `index.html`.
-   ```python
-   import re, json
-   with open('.../index.html') as f: html = f.read()
-   pattern = r'<script\s+id="LISTINGS_DATA"\s+type="application/json">'
-   m = re.search(pattern, html)
-   start = m.end(); end = html.index('</script>', start)
-   new_html = html[:start] + new_json + html[end:]
-   with open('.../index.html', 'w') as f: f.write(new_html)
-   ```
-4. Push BOTH files to GitHub using the REST API (no git, no lock files):
+3. Push `data.json` to GitHub using the REST API (no git, no lock files):
    ```bash
    python3 /sessions/<current-session>/mnt/convertibles-site/github_push.py          # pushes data.json
-   python3 /sessions/<current-session>/mnt/convertibles-site/github_push.py --file index.html  # pushes index.html
    ```
-   The script reads the token from `.github-token` in the repo folder (gitignored). Vercel redeploys `convertibles.rocketph.one` in ~30 seconds after the `index.html` push. **`index.html` must be pushed — it is the file Vercel serves and it contains the embedded LISTINGS_DATA that the live site reads. Pushing only `data.json` will NOT update the live site.**
-5. **If the push fails** (token missing, network error): log the error, write both files to the local folder anyway so the next manual deploy or scheduled `deploy.ps1` run will pick them up. Do not abort the task — the Cowork artifact is still updated.
+   The script reads the token from `.github-token` in the repo folder (gitignored). Vercel redeploys `convertibles.rocketph.one` in ~30 seconds.
+4. **If the push fails** (token missing, network error): log the error, write the file to the local folder anyway so the next manual deploy or scheduled `deploy.ps1` run will pick it up. Do not abort the task — the Cowork artifact is still updated.
 
 **Token setup (one-time):** Bill must copy `C:\Users\billb\.convertibles-github-token` into the repo as `.github-token`:
 ```
