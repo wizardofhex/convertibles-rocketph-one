@@ -1,22 +1,12 @@
 {
   "lastRefreshed": "2026-09-20T11:58:30Z",
   "filters": {
-    "budget": {
-      "min": 7000,
-      "max": 15000
-    },
-    "radiusMiles": 35,
+    "minPrice": 7000,
+    "maxPrice": 15000,
+    "radiusMi": 35,
     "zip": "19063",
-    "seats": 4,
-    "noAccidents": true,
-    "cleanTitle": true
-  },
-  "summary": {
-    "totalUnique": 36,
-    "carscom": 9,
-    "cargurus": 25,
-    "autotrader": 20,
-    "truecar": 0
+    "minSeats": 4,
+    "mustangMinYear": 2005
   },
   "carscom": {
     "totalFound": 25,
@@ -1013,254 +1003,357 @@
     "url": null,
     "listings": []
   },
-  "top10": [
-    {
-      "id": "784376384",
-      "year": 1991,
-      "make": "INFINITI",
-      "model": "M30",
-      "trim": "Convertible",
-      "price": 8485,
-      "mileage": 38907,
-      "location": null,
-      "dealer": "INFINITI West Chester",
-      "url": "https://www.autotrader.com/cars-for-sale/vehicle/784376384",
-      "dealRating": null,
-      "cleanTitle": true,
-      "noAccidents": true,
-      "transmission": "Automatic",
-      "imageUrl": "https://images.autotrader.com/hn/c/546250bf6ac440538c43e9f564834ead.jpg",
-      "source": "autotrader"
-    },
-    {
-      "id": "724093944",
-      "year": 1995,
-      "make": "Jaguar",
-      "model": "XJS",
-      "trim": "4.0 Convertible",
-      "price": 9249,
-      "mileage": 46103,
-      "location": null,
-      "dealer": "Avi Auto Sales",
-      "url": "https://www.autotrader.com/cars-for-sale/vehicle/724093944",
-      "dealRating": null,
-      "cleanTitle": true,
-      "noAccidents": true,
-      "transmission": "Automatic",
-      "imageUrl": "https://images.autotrader.com/hn/c/827e45a59a0d43d5a0c4e18b3c0bfd9d.jpg",
-      "source": "autotrader",
-      "altSources": [
-        "cars.com"
-      ]
-    },
-    {
-      "id": "787726113",
-      "year": 2001,
-      "make": "Mercedes-Benz",
-      "model": "CLK 430",
-      "trim": "Cabriolet",
-      "price": 11990,
-      "mileage": 34866,
-      "location": null,
-      "dealer": "Selden Motors",
-      "url": "https://www.autotrader.com/cars-for-sale/vehicle/787726113",
-      "dealRating": null,
-      "cleanTitle": true,
-      "noAccidents": true,
-      "transmission": "Automatic",
-      "imageUrl": "https://images.autotrader.com/hn/c/38ecaafd8d714c08b75df76599bafe87.jpg",
-      "source": "autotrader",
-      "altSources": [
-        "cargurus",
-        "cars.com"
-      ]
-    },
-    {
-      "id": "788479418",
-      "year": 2004,
-      "make": "Mercedes-Benz",
-      "model": "CLK 500",
-      "trim": "Cabriolet",
-      "price": 7900,
-      "mileage": 82200,
-      "location": null,
-      "dealer": "Private Seller Exchange",
-      "url": "https://www.autotrader.com/cars-for-sale/vehicle/788479418",
-      "dealRating": null,
-      "cleanTitle": true,
-      "noAccidents": true,
-      "transmission": "Automatic",
-      "imageUrl": "https://assets.cai-media-management.com/ps-vehicle-media/691652ff-2b5f-401b-89c6-0ffd9a0ba397.png",
-      "source": "autotrader"
-    },
-    {
-      "id": "788214836",
-      "year": 2002,
-      "make": "Mitsubishi",
-      "model": "Eclipse",
-      "trim": "GT",
-      "price": 8895,
-      "mileage": 71811,
-      "location": null,
-      "dealer": "Dealer",
-      "url": "https://www.autotrader.com/cars-for-sale/vehicle/788214836",
-      "dealRating": null,
-      "cleanTitle": true,
-      "noAccidents": true,
-      "transmission": "Automatic",
-      "imageUrl": "https://images.autotrader.com/hn/c/4d19934cbae4418584ae03474104aa6c.jpg",
-      "source": "autotrader",
-      "altSources": [
-        "cargurus",
-        "cars.com"
-      ]
-    },
-    {
-      "id": "790533770",
-      "year": 2014,
-      "make": "Chrysler",
-      "model": "200",
-      "trim": "Limited",
-      "price": 7994,
-      "mileage": 86273,
-      "location": null,
-      "dealer": "Fred Beans Ford of Langhorne",
-      "url": "https://www.autotrader.com/cars-for-sale/vehicle/790533770",
-      "dealRating": null,
-      "cleanTitle": true,
-      "noAccidents": null,
-      "transmission": "Automatic",
-      "imageUrl": null,
-      "source": "autotrader",
-      "altSources": [
-        "cargurus"
-      ]
-    },
-    {
-      "id": "3bd42387-a6dc-4a31-922c-a05ca347c731",
-      "year": 2012,
-      "make": "BMW",
-      "model": "128i",
-      "trim": "i",
-      "price": 14140,
-      "mileage": 39772,
-      "location": null,
-      "dealer": "Selden Motors",
-      "url": "https://www.cars.com/vehicledetail/3bd42387-a6dc-4a31-922c-a05ca347c731/",
-      "dealRating": null,
-      "cleanTitle": true,
-      "noAccidents": true,
-      "transmission": null,
-      "imageUrl": "https://platform.cstatic-images.com/in/v2/41500c3b-0278-565b-b8aa-8a53ec151e79/ad88d18d-deae-4e01-a8eb-5f24f8a4750e/7sBJTE4-pFWk-dsWupRv_TpIrTw.jpg",
-      "source": "cars.com",
-      "altSources": [
-        "cargurus"
-      ]
-    },
-    {
-      "id": "790118095",
-      "year": 2008,
-      "make": "BMW",
-      "model": "135i",
-      "trim": "Convertible",
-      "price": 11995,
-      "mileage": 48371,
-      "location": null,
-      "dealer": "Premier Auto Group",
-      "url": "https://www.autotrader.com/cars-for-sale/vehicle/790118095",
-      "dealRating": null,
-      "cleanTitle": true,
-      "noAccidents": null,
-      "transmission": null,
-      "imageUrl": "https://images.autotrader.com/hn/c/48e6e5f8e26f4c9ab27d9520494927ca.jpg",
-      "source": "autotrader",
-      "altSources": [
-        "cargurus"
-      ]
-    },
-    {
-      "id": "1034a46d-fbd1-4d10-b068-5aee61ff7add",
-      "year": 2006,
-      "make": "BMW",
-      "model": "325Ci",
-      "trim": "Ci",
-      "price": 12950,
-      "mileage": 57240,
-      "location": null,
-      "dealer": "Car Cheer",
-      "url": "https://www.cars.com/vehicledetail/1034a46d-fbd1-4d10-b068-5aee61ff7add/",
-      "dealRating": null,
-      "cleanTitle": true,
-      "noAccidents": true,
-      "transmission": null,
-      "imageUrl": "https://platform.cstatic-images.com/in/v2/a733be78-f490-4868-adbe-201a3d056e0c/2a77df0a-c859-4cdf-a54b-eced82338798/4l-TsV5eUhHI3jizwryJoAH6LXg.jpg",
-      "source": "cars.com"
-    },
-    {
-      "id": "789868956",
-      "year": 2014,
-      "make": "Ford",
-      "model": "Mustang",
-      "trim": "Convertible",
-      "price": 9442,
-      "mileage": 121010,
-      "location": null,
-      "dealer": "Dealer",
-      "url": "https://www.autotrader.com/cars-for-sale/vehicle/789868956",
-      "dealRating": "Great Deal",
-      "cleanTitle": true,
-      "noAccidents": true,
-      "transmission": "Automatic",
-      "imageUrl": "https://images.autotrader.com/hn/c/75e59fb5f2c04404940c3357c767c7ff.jpg",
-      "source": "autotrader",
-      "altSources": [
-        "cargurus"
-      ]
-    }
-  ],
-  "manual10": [],
-  "mustangs": [
-    {
-      "id": "789868956",
-      "year": 2014,
-      "make": "Ford",
-      "model": "Mustang",
-      "trim": "Convertible",
-      "price": 9442,
-      "mileage": 121010,
-      "location": null,
-      "dealer": "Dealer",
-      "url": "https://www.autotrader.com/cars-for-sale/vehicle/789868956",
-      "dealRating": "Great Deal",
-      "cleanTitle": true,
-      "noAccidents": true,
-      "transmission": "Automatic",
-      "imageUrl": "https://images.autotrader.com/hn/c/75e59fb5f2c04404940c3357c767c7ff.jpg",
-      "source": "autotrader",
-      "altSources": [
-        "cargurus"
-      ]
-    },
-    {
-      "id": "786146269",
-      "year": 2020,
-      "make": "Ford",
-      "model": "Mustang",
-      "trim": "Premium",
-      "price": 10995,
-      "mileage": 132770,
-      "location": null,
-      "dealer": "Fred Beans Ford of Langhorne",
-      "url": "https://www.autotrader.com/cars-for-sale/vehicle/786146269",
-      "dealRating": null,
-      "cleanTitle": true,
-      "noAccidents": true,
-      "transmission": "Automatic",
-      "imageUrl": "https://images.autotrader.com/hn/c/090110e140f040e4bbe2ecc5adefbf4f.jpg",
-      "source": "autotrader",
-      "altSources": [
-        "cargurus"
-      ]
-    }
-  ]
+  "top10": {
+    "introHtml": "<p><b>How we rank:</b> These 10 picks are drawn from all sources (Cars.com, CarGurus, AutoTrader) and ranked by a composite score that balances price, mileage, age, and verified condition \u2014 condition over miles, like a cheap fun second car deserves. All are 4-seat convertibles within 35 miles of Media, PA at $7k\u2013$15k.</p><p>Every listing here cleared the seat count filter (no 2-seat roadsters), the personal exclude list (no MINI, Buick, Volvo, Camaro, pre-2005 Mustang, Solara), and the standard history filters.</p>",
+    "picks": [
+      {
+        "id": "784376384",
+        "year": 1991,
+        "make": "INFINITI",
+        "model": "M30",
+        "trim": "Convertible",
+        "price": 8485,
+        "mileage": 38907,
+        "location": null,
+        "dealer": "INFINITI West Chester",
+        "url": "https://www.autotrader.com/cars-for-sale/vehicle/784376384",
+        "dealRating": null,
+        "cleanTitle": true,
+        "noAccidents": true,
+        "transmission": "Automatic",
+        "imageUrl": "https://images.autotrader.com/hn/c/546250bf6ac440538c43e9f564834ead.jpg",
+        "source": "autotrader",
+        "rank": 1,
+        "verified": [
+          "No accidents",
+          "Clean title"
+        ],
+        "whyGood": "Low mileage (38,907 mi) for the price. one of the lowest-priced entries in the search. verified no accidents and clean title.",
+        "whatToVerify": "Operate the convertible top through a full cycle and inspect for leaks; pull the floor mats and check for water damage.",
+        "bottomLine": "Excellent value \u2014 low miles at this price is rare. PPI recommended before deposit."
+      },
+      {
+        "id": "724093944",
+        "year": 1995,
+        "make": "Jaguar",
+        "model": "XJS",
+        "trim": "4.0 Convertible",
+        "price": 9249,
+        "mileage": 46103,
+        "location": null,
+        "dealer": "Avi Auto Sales",
+        "url": "https://www.autotrader.com/cars-for-sale/vehicle/724093944",
+        "dealRating": null,
+        "cleanTitle": true,
+        "noAccidents": true,
+        "transmission": "Automatic",
+        "imageUrl": "https://images.autotrader.com/hn/c/827e45a59a0d43d5a0c4e18b3c0bfd9d.jpg",
+        "source": "autotrader",
+        "altSources": [
+          "cars.com"
+        ],
+        "rank": 2,
+        "verified": [
+          "No accidents",
+          "Clean title"
+        ],
+        "whyGood": "Low mileage (46,103 mi) for the price. mid-range pricing with good value proposition. verified no accidents and clean title.",
+        "whatToVerify": "Operate the convertible top through a full cycle and inspect for leaks; pull the floor mats and check for water damage; inspect electrical systems and cooling \u2014 known weak points on XJS era.",
+        "bottomLine": "Excellent value \u2014 low miles at this price is rare. PPI recommended before deposit."
+      },
+      {
+        "id": "787726113",
+        "year": 2001,
+        "make": "Mercedes-Benz",
+        "model": "CLK 430",
+        "trim": "Cabriolet",
+        "price": 11990,
+        "mileage": 34866,
+        "location": null,
+        "dealer": "Selden Motors",
+        "url": "https://www.autotrader.com/cars-for-sale/vehicle/787726113",
+        "dealRating": null,
+        "cleanTitle": true,
+        "noAccidents": true,
+        "transmission": "Automatic",
+        "imageUrl": "https://images.autotrader.com/hn/c/38ecaafd8d714c08b75df76599bafe87.jpg",
+        "source": "autotrader",
+        "altSources": [
+          "cargurus",
+          "cars.com"
+        ],
+        "rank": 3,
+        "verified": [
+          "No accidents",
+          "Clean title"
+        ],
+        "whyGood": "Low mileage (34,866 mi) for the price. mid-range pricing with good value proposition. verified no accidents and clean title.",
+        "whatToVerify": "Operate the convertible top through a full cycle and inspect for leaks; pull the floor mats and check for water damage; check hydraulic convertible top system for leaks.",
+        "bottomLine": "Excellent value \u2014 low miles at this price is rare. PPI recommended before deposit."
+      },
+      {
+        "id": "788479418",
+        "year": 2004,
+        "make": "Mercedes-Benz",
+        "model": "CLK 500",
+        "trim": "Cabriolet",
+        "price": 7900,
+        "mileage": 82200,
+        "location": null,
+        "dealer": "Private Seller Exchange",
+        "url": "https://www.autotrader.com/cars-for-sale/vehicle/788479418",
+        "dealRating": null,
+        "cleanTitle": true,
+        "noAccidents": true,
+        "transmission": "Automatic",
+        "imageUrl": "https://assets.cai-media-management.com/ps-vehicle-media/691652ff-2b5f-401b-89c6-0ffd9a0ba397.png",
+        "source": "autotrader",
+        "rank": 4,
+        "verified": [
+          "No accidents",
+          "Clean title"
+        ],
+        "whyGood": "Reasonable miles (82,200 mi). one of the lowest-priced entries in the search. verified no accidents and clean title.",
+        "whatToVerify": "Operate the convertible top through a full cycle and inspect for leaks; pull the floor mats and check for water damage; check hydraulic convertible top system for leaks.",
+        "bottomLine": "Budget pick \u2014 scrutinize condition carefully before committing. PPI recommended before deposit."
+      },
+      {
+        "id": "788214836",
+        "year": 2002,
+        "make": "Mitsubishi",
+        "model": "Eclipse",
+        "trim": "GT",
+        "price": 8895,
+        "mileage": 71811,
+        "location": null,
+        "dealer": "Dealer",
+        "url": "https://www.autotrader.com/cars-for-sale/vehicle/788214836",
+        "dealRating": null,
+        "cleanTitle": true,
+        "noAccidents": true,
+        "transmission": "Automatic",
+        "imageUrl": "https://images.autotrader.com/hn/c/4d19934cbae4418584ae03474104aa6c.jpg",
+        "source": "autotrader",
+        "altSources": [
+          "cargurus",
+          "cars.com"
+        ],
+        "rank": 5,
+        "verified": [
+          "No accidents",
+          "Clean title"
+        ],
+        "whyGood": "Reasonable miles (71,811 mi). one of the lowest-priced entries in the search. verified no accidents and clean title.",
+        "whatToVerify": "Operate the convertible top through a full cycle and inspect for leaks; pull the floor mats and check for water damage.",
+        "bottomLine": "Budget pick \u2014 scrutinize condition carefully before committing. PPI recommended before deposit."
+      },
+      {
+        "id": "790533770",
+        "year": 2014,
+        "make": "Chrysler",
+        "model": "200",
+        "trim": "Limited",
+        "price": 7994,
+        "mileage": 86273,
+        "location": null,
+        "dealer": "Fred Beans Ford of Langhorne",
+        "url": "https://www.autotrader.com/cars-for-sale/vehicle/790533770",
+        "dealRating": null,
+        "cleanTitle": true,
+        "noAccidents": null,
+        "transmission": "Automatic",
+        "imageUrl": null,
+        "source": "autotrader",
+        "altSources": [
+          "cargurus"
+        ],
+        "rank": 6,
+        "verified": [
+          "Clean title"
+        ],
+        "whyGood": "Reasonable miles (86,273 mi). one of the lowest-priced entries in the search. verified clean title.",
+        "whatToVerify": "Operate the convertible top through a full cycle and inspect for leaks; pull the floor mats and check for water damage.",
+        "bottomLine": "Budget pick \u2014 scrutinize condition carefully before committing. PPI recommended before deposit."
+      },
+      {
+        "id": "3bd42387-a6dc-4a31-922c-a05ca347c731",
+        "year": 2012,
+        "make": "BMW",
+        "model": "128i",
+        "trim": "i",
+        "price": 14140,
+        "mileage": 39772,
+        "location": null,
+        "dealer": "Selden Motors",
+        "url": "https://www.cars.com/vehicledetail/3bd42387-a6dc-4a31-922c-a05ca347c731/",
+        "dealRating": null,
+        "cleanTitle": true,
+        "noAccidents": true,
+        "transmission": null,
+        "imageUrl": "https://platform.cstatic-images.com/in/v2/41500c3b-0278-565b-b8aa-8a53ec151e79/ad88d18d-deae-4e01-a8eb-5f24f8a4750e/7sBJTE4-pFWk-dsWupRv_TpIrTw.jpg",
+        "source": "cars.com",
+        "altSources": [
+          "cargurus"
+        ],
+        "rank": 7,
+        "verified": [
+          "No accidents",
+          "Clean title"
+        ],
+        "whyGood": "Low mileage (39,772 mi) for the price. priced at the upper end but justified by condition/spec. verified no accidents and clean title.",
+        "whatToVerify": "Operate the convertible top through a full cycle and inspect for leaks; pull the floor mats and check for water damage; scan for BMW-specific codes (especially cooling and VANOS on older units).",
+        "bottomLine": "Solid all-around pick at this price point. PPI recommended before deposit."
+      },
+      {
+        "id": "790118095",
+        "year": 2008,
+        "make": "BMW",
+        "model": "135i",
+        "trim": "Convertible",
+        "price": 11995,
+        "mileage": 48371,
+        "location": null,
+        "dealer": "Premier Auto Group",
+        "url": "https://www.autotrader.com/cars-for-sale/vehicle/790118095",
+        "dealRating": null,
+        "cleanTitle": true,
+        "noAccidents": null,
+        "transmission": null,
+        "imageUrl": "https://images.autotrader.com/hn/c/48e6e5f8e26f4c9ab27d9520494927ca.jpg",
+        "source": "autotrader",
+        "altSources": [
+          "cargurus"
+        ],
+        "rank": 8,
+        "verified": [
+          "Clean title"
+        ],
+        "whyGood": "Low mileage (48,371 mi) for the price. mid-range pricing with good value proposition. verified clean title.",
+        "whatToVerify": "Operate the convertible top through a full cycle and inspect for leaks; pull the floor mats and check for water damage; scan for BMW-specific codes (especially cooling and VANOS on older units).",
+        "bottomLine": "Excellent value \u2014 low miles at this price is rare. PPI recommended before deposit."
+      },
+      {
+        "id": "1034a46d-fbd1-4d10-b068-5aee61ff7add",
+        "year": 2006,
+        "make": "BMW",
+        "model": "325Ci",
+        "trim": "Ci",
+        "price": 12950,
+        "mileage": 57240,
+        "location": null,
+        "dealer": "Car Cheer",
+        "url": "https://www.cars.com/vehicledetail/1034a46d-fbd1-4d10-b068-5aee61ff7add/",
+        "dealRating": null,
+        "cleanTitle": true,
+        "noAccidents": true,
+        "transmission": null,
+        "imageUrl": "https://platform.cstatic-images.com/in/v2/a733be78-f490-4868-adbe-201a3d056e0c/2a77df0a-c859-4cdf-a54b-eced82338798/4l-TsV5eUhHI3jizwryJoAH6LXg.jpg",
+        "source": "cars.com",
+        "rank": 9,
+        "verified": [
+          "No accidents",
+          "Clean title"
+        ],
+        "whyGood": "Low mileage (57,240 mi) for the price. priced at the upper end but justified by condition/spec. verified no accidents and clean title.",
+        "whatToVerify": "Operate the convertible top through a full cycle and inspect for leaks; pull the floor mats and check for water damage; scan for BMW-specific codes (especially cooling and VANOS on older units).",
+        "bottomLine": "Solid all-around pick at this price point. PPI recommended before deposit."
+      },
+      {
+        "id": "789868956",
+        "year": 2014,
+        "make": "Ford",
+        "model": "Mustang",
+        "trim": "Convertible",
+        "price": 9442,
+        "mileage": 121010,
+        "location": null,
+        "dealer": "Dealer",
+        "url": "https://www.autotrader.com/cars-for-sale/vehicle/789868956",
+        "dealRating": "Great Deal",
+        "cleanTitle": true,
+        "noAccidents": true,
+        "transmission": "Automatic",
+        "imageUrl": "https://images.autotrader.com/hn/c/75e59fb5f2c04404940c3357c767c7ff.jpg",
+        "source": "autotrader",
+        "altSources": [
+          "cargurus"
+        ],
+        "rank": 10,
+        "verified": [
+          "No accidents",
+          "Clean title"
+        ],
+        "whyGood": "Higher miles (121,010 mi) at a deep discount. mid-range pricing with good value proposition. verified no accidents and clean title.",
+        "whatToVerify": "Operate the convertible top through a full cycle and inspect for leaks; pull the floor mats and check for water damage; check rear-seat water staining and top-latch wear.",
+        "bottomLine": "Solid all-around pick at this price point. PPI recommended before deposit."
+      }
+    ]
+  },
+  "manual10": {
+    "introHtml": "<p>Manual-only picks from all sources. These are listings where the transmission was explicitly reported as <b>Manual</b> on the listing card. None found on this refresh \u2014 try the source tabs for full listings.</p>",
+    "picks": []
+  },
+  "mustangs": {
+    "introHtml": "<p>Ford Mustang convertibles (2005+ only) within budget. The filter excludes the 1994\u20132004 SN95 era \u2014 excellent cars, but the 4.6 or 3.8 V6 examples from those years tend to have more deferred maintenance risk at this price. The S197 (2005\u20132014) and S550 (2015+) generations are the target.</p>",
+    "picks": [
+      {
+        "id": "789868956",
+        "year": 2014,
+        "make": "Ford",
+        "model": "Mustang",
+        "trim": "Convertible",
+        "price": 9442,
+        "mileage": 121010,
+        "location": null,
+        "dealer": "Dealer",
+        "url": "https://www.autotrader.com/cars-for-sale/vehicle/789868956",
+        "dealRating": "Great Deal",
+        "cleanTitle": true,
+        "noAccidents": true,
+        "transmission": "Automatic",
+        "imageUrl": "https://images.autotrader.com/hn/c/75e59fb5f2c04404940c3357c767c7ff.jpg",
+        "source": "autotrader",
+        "altSources": [
+          "cargurus"
+        ],
+        "rank": 1,
+        "verified": [
+          "No accidents",
+          "Clean title"
+        ],
+        "whyGood": "Higher miles (121,010 mi) at a deep discount. mid-range pricing with good value proposition. verified no accidents and clean title.",
+        "whatToVerify": "Operate the convertible top through a full cycle and inspect for leaks; pull the floor mats and check for water damage; check rear-seat water staining and top-latch wear.",
+        "bottomLine": "Solid all-around pick at this price point. PPI recommended before deposit."
+      },
+      {
+        "id": "786146269",
+        "year": 2020,
+        "make": "Ford",
+        "model": "Mustang",
+        "trim": "Premium",
+        "price": 10995,
+        "mileage": 132770,
+        "location": null,
+        "dealer": "Fred Beans Ford of Langhorne",
+        "url": "https://www.autotrader.com/cars-for-sale/vehicle/786146269",
+        "dealRating": null,
+        "cleanTitle": true,
+        "noAccidents": true,
+        "transmission": "Automatic",
+        "imageUrl": "https://images.autotrader.com/hn/c/090110e140f040e4bbe2ecc5adefbf4f.jpg",
+        "source": "autotrader",
+        "altSources": [
+          "cargurus"
+        ],
+        "rank": 2,
+        "verified": [
+          "No accidents",
+          "Clean title"
+        ],
+        "whyGood": "Higher miles (132,770 mi) at a deep discount. mid-range pricing with good value proposition. verified no accidents and clean title.",
+        "whatToVerify": "Operate the convertible top through a full cycle and inspect for leaks; pull the floor mats and check for water damage; check rear-seat water staining and top-latch wear.",
+        "bottomLine": "Price reflects the miles; budget for upcoming maintenance. PPI recommended before deposit."
+      }
+    ]
+  }
 }
