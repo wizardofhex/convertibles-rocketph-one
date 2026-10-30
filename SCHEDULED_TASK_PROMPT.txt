@@ -1,0 +1,206 @@
+Refresh the "used-convertibles-near-media-pa" artifact with fresh convertible listings from each car site, using Claude in Chrome to bypass bot protection. Then re-rank the top 10 best buys for a cheap fun second car (condition over miles). Finally, write `data.json` directly to the convertibles-site repo and push it to GitHub so Vercel redeploys.
+
+## Search criteria (all sites)
+
+- Body style: **convertible** (soft-top, hardtop convertible, retractable hardtop)
+- **Seats: 4 or more.** Exclude ALL 2-seat roadsters everywhere (listings, top10, manual10, mustangs). The sites can't filter on seats, so apply a model deny-list at extraction time: Mazda Miata/MX-5, Honda S2000, Pontiac Solstice, Saturn Sky, Mercedes SLK/SLC/SL, Porsche Boxster/718, BMW Z3/Z4, Audi TT Roadster, Chrysler Crossfire, Corvette, Fiat 124 Spider, Smart Cabrio, Nissan 350Z/370Z Roadster, Alfa Romeo Spider. Known 4-seat convertibles in budget: Ford Mustang (2005+), Chrysler Sebring/200, VW Eos, VW Beetle/Cabrio, Pontiac G6, BMW 1/3/4/6-series, Audi A3/A4/A5/S4/S5 Cabriolet, Saab 9-3, PT Cruiser Convertible, Lexus IS C, Infiniti G37/Q60, Jaguar XJS 2+2. If a model isn't on either list, decide from model knowledge; when unsure, exclude and note it in introHtml.
+
+## Personal exclude list (owner preference — apply everywhere: listings, top10, manual10, mustangs)
+
+These models are excluded from ALL output regardless of condition or price. Apply at extraction time so they never appear in any tab, ranking, or pick.
+
+| Exclude | Rule |
+|---------|------|
+| MINI (any model) | make == "MINI" |
+| Buick (any model) | make == "Buick" |
+| Toyota Camry Solara / Solara | make == "Toyota" AND model contains "Solara" |
+| Chevrolet Camaro | make == "Chevrolet" AND model contains "Camaro" |
+| Ford Mustang 1974–2004 | make == "Ford" AND model contains "Mustang" AND year < 2005 |
+| Volvo (any model) | make == "Volvo" |
+
+Note: 2005+ Ford Mustangs are still wanted and appear in the Mustangs tab and ranked sections as before.
+
+- Min price: **$7,000** / Max price: **$15,000**
+- Radius: **35 miles** from ZIP 19063 (≈45-minute drive around Media, PA)
+- Makes: all (subject to the seat rule and personal exclude list above)
+
+## URLs to fetch (verified working as of 2026-05-11)
+
+- **Cars.com:** https://www.cars.com/shopping/results/?stock_type=used&body_style_slugs[]=convertible&list_price_min=7000&list_price_max=15000&maximum_distance=35&zip=19063&no_accidents=true&clean_title=true&sort=list_price — paginate with &page=2
+- **CarGurus:** https://www.cargurus.com/Cars/l-Used-Convertible-bg1?zip=19063&distance=35&minPrice=7000&maxPrice=15000 — body group is **bg1** (NOT bg2)
+- **AutoTrader:** https://www.autotrader.com/cars-for-sale/all-cars/convertible/media-pa?minPrice=7000&maxPrice=15000&searchRadius=35&zip=19063&sortBy=derivedpriceASC — paginate with &firstRecord=25
+- **TrueCar:** SKIP ENTIRELY. Body-style filter is broken across every slug variant; do not navigate there. Statically emit truecar: { "totalFound": 0, "url": "", "listings": [] }.
+
+## Performance rules
+
+1. **Reuse ONE Chrome tab** for all sites — navigate in place; do not open a tab per site.
+2. **Prefer one-shot javascript_tool extraction** of the embedded state blob (__NEXT_DATA__ / __APOLLO_STATE__ / CarsWeb.SearchController.index) and JSON.parse it in-page, returning only the fields you need. Avoid repeated get_page_text / screenshot passes.
+3. **Apply filters at extraction time** (price band, seat deny-list, personal exclude list, dedupe by VIN/id) so downstream steps handle less data.
+4. **Cap stored listings at 30 per source** after filtering.
+5. **Timebox failures:** if a site fails twice (block page, empty state, changed markup), record totalFound: 0 with "degraded": true for that source and move on. Never loop retries.
+6. Close the tab when done.
+
+## Data extraction
+
+Same __NEXT_DATA__ / __APOLLO_STATE__ / CarsWeb.SearchController.index patterns documented in BUILD_NOTES_FOR_CLAUDE_CODE.md in the lexcars-site repo.
+
+- **Cars.com:** title text matches ^Used (YYYY) (Make) (Model) (Trim). Body of srp_results is at CarsWeb.SearchController.index script id. **Listing URL:** <a href*="/vehicledetail/"> from the [data-listing-id] card, or https://www.cars.com/vehicledetail/{id}/. **Image:** result.gallery.images[0].url.
+- **CarGurus:** cards are [data-cg-ft="srp-listing-blade"]; parent <a href*="/details/{id}"> for the id. Canonical URL https://www.cargurus.com/details/{id} (strip query string; never use the inventorylisting/...action form — it redirects). **Image:** <img> inside the wrapping link.
+- **AutoTrader:** props.pageProps.__eggsState.inventory[id] has make.name (title-case UPPERCASE values), model.name, bodyStyles[0].name (filter "Convertible"). **Listing URL:** card <a href>; canonical https://www.autotrader.com/cars-for-sale/vehicle/{id}.
+
+**Transmission (REQUIRED for every listing):** emit "transmission": "Manual" | "Automatic" | null.
+- Cars.com: embedded-state transmission field, or infer from trim/title: 6A, 7A, 8A, Automatic, CVT, Tiptronic, SMG, DSG → Automatic; 5M, 6M, 5-Speed Manual, 6-Speed Manual, Manual → Manual.
+- CarGurus: blade card spec text (often lists "Manual"/"Automatic").
+- AutoTrader: inventory[id].transmission.name (or specifications block).
+- If genuinely undetermined, use null — never guess.
+
+**URL capture rule:** prefer the <a href> rendered on the SRP card over a constructed URL; strip query strings before storing.
+
+## Image extraction — MANDATORY, all sites
+
+Missing images were the #1 recurring defect (past audit: 79/99 listings null). Follow this exactly:
+
+1. **Scroll EVERY results page top-to-bottom in 600px steps with 300ms delays BEFORE any DOM extraction** — Cars.com and AutoTrader lazy-load below the fold just like CarGurus. This applies to page 2 / firstRecord=25 pages too.
+2. **Two-tier extraction per listing:**
+   - Tier 1 — embedded state: result.gallery.images[0].url (Cars.com), inventory[id].images.sources[0].src (AutoTrader). AutoTrader's sources entries may be objects ({src}) or relative paths — resolve to absolute; if missing, go to Tier 2.
+   - Tier 2 — DOM fallback: after scrolling, first <img> in the card, checking src, data-src, and the first URL in srcset. Skip any URL containing no-image-placeholder, spacer, blank, or a data: URI.
+3. Strip query strings from all image URLs.
+4. **Validation gate (BEFORE writing data.json):** count non-null imageUrl per source. If any source is below **80%**, redo Tier 2 for that source's nulls (re-scroll first). Log final per-source image coverage in introHtml if any source stays below 80%.
+5. **Every top10, manual10, and mustangs pick MUST have a non-null imageUrl.** If a pick lacks one, open its detail page and grab og:image (max 5 detail-page visits per run); if it still has none, substitute the next-ranked listing that has an image.
+
+## Output schema — fields the index.html template depends on
+
+index.html does numeric formatting on price and mileage. The deploy renders $NaN if these are strings like "$11,485" or "82,450 mi". **Always emit them as plain integers.** Per-listing required shape:
+
+{
+  "id": "...",
+  "year": 2006,
+  "make": "Mazda",
+  "model": "MX-5 Miata",
+  "trim": "Base",
+  "price": 11485,
+  "mileage": 82450,
+  "location": "Doylestown, PA",
+  "distanceMi": 32,
+  "url": "https://...",
+  "dealer": "...",
+  "dealRating": "Great Deal" | "Good Deal" | "Fair Deal" | "Great Price" | null,
+  "cleanTitle": true | null,
+  "noAccidents": true | null,
+  "transmission": "Manual" | "Automatic" | null,
+  "imageUrl": "https://..." | null,
+  "source": "cars.com" | "cargurus" | "autotrader" | "truecar"
+}
+
+Picks (top10, manual10, mustangs) have the same numeric price / mileage requirement, the same imageUrl and transmission fields, and must include separate year, make, model fields (not just title) because the renderer concatenates them.
+
+## Ranking criteria for the top 10 (cheap fun 4-seat second car lens)
+
+All picks must be 4+ seat convertibles (deny-list and personal exclude list already applied). In this order:
+
+1. **Working top condition** — listings that describe top operation, recent reseal, new motor, etc. Torn fabric tops or yellowed plastic rear windows drop in rank.
+2. **No rust mentioned, no flood / salvage history**
+3. **Reliable model family** — Mustang V6/GT (2005+ strongly preferred), lower-trim BMW 3-series with documented service, Audi A3/S4 Cabriolet, Saab 9-3, Lexus IS C, Jaguar XJS. De-rank: Sebring/200 (fine but generic), VW Eos (roof-seal failures are expensive), PT Cruiser Convertible (chassis flex), high-mile Audi Cabriolet (electrics/CVT).
+4. **Manual transmission preferred** — but auto OK
+5. **Mileage flexible** — under 150k fine on the reliable families
+6. **Distance** — closer is better, but 35 mi out for a great find beats 5 mi for a tired Sebring
+7. **Sourcing diversity** — try not to make all 10 picks from one site
+
+For each pick include:
+- **rank**: 1–10
+- **year, make, model, trim**: separate fields (do NOT supply a combined title)
+- **price**: integer dollars; **mileage**: integer miles
+- **location, dealer, source, url, dealRating, transmission, imageUrl**: same shape as listings above (imageUrl required — see image rules)
+- **whyGood**: model strengths + this listing's particulars
+- **whatToVerify**: convertible-specific PPI — full top cycle, headliner/carpet water stains, rear-window seam, rocker rust, plus model gotchas (Mustang: 8.8 axle clunk; BMW: oil leaks, soft-top hydraulic ram; Eos: roof drains + seals)
+- **bottomLine**: one-sentence verdict
+
+## Steps
+
+### 1. Connect to Chrome
+Same as lexcars task.
+
+### 2. Fetch each site
+Cars.com, CarGurus, AutoTrader only (TrueCar is statically zeroed). Apply the performance, transmission, image rules, and personal exclude list above.
+
+### 3. Build the Top 10 ranking
+Apply the criteria above. Output 10 picks, all with images.
+
+### 3b. Build the Manual Top 10 section
+
+Filter ALL filtered listings (every source) for transmission == "Manual". If a promising candidate has transmission: null but the trim/title hints manual (e.g., "6-Speed", "5-Speed", "6MT"), open its detail page to confirm (max 5 detail-page visits, shared budget with image lookups). Rank using the same criteria as the Top 10 (rule 4 is moot — everything here is manual). Output up to 10 picks under the manual10 key, same per-pick shape, each with "transmission": "Manual". Add manual-specific PPI items to whatToVerify: clutch engagement point (high bite = worn clutch), 2nd/3rd synchro slow-shift test, throw-out bearing chirp, clutch hydraulics weeping.
+
+Manual convertibles in this price band are scarce — if fewer than 10 qualify, output what exists; if zero, set manual10.totalFound = 0 and manual10.picks = [] with an introHtml saying no manuals surfaced this refresh (the dashboard renders an empty state). Never pad with automatics.
+
+### 3c. Build the Mustangs section
+
+Filter all sources for make == "Ford" AND model contains "Mustang" AND year >= 2005 (fifth generation S197 and newer ONLY — exclude every 2004-and-earlier SN-95/Fox car even if cheap and clean). Rank by:
+1. GT trim > Shelby > Boss > V6/EcoBoost (V8 grunt is the point)
+2. Manual transmission preferred
+3. Lower mileage
+4. Closer to Media, PA
+
+Output up to 5 picks under the mustangs key with the same per-pick shape (imageUrl required). Mustang-specific PPI items: S197 (2005–2014) — 3-valve 4.6 cam-phaser rattle on 05–10 GTs, spring-perch rust, top-latch wear; S550 (2015+) — MT-82 shifter feel, rear-camera function; all — 8.8 axle clunk on takeoff, water staining on rear seats from top-seal failure.
+
+If zero 2005+ Mustangs surface in budget, set mustangs.totalFound = 0 and mustangs.picks = [].
+
+### 4. Build the JSON
+
+⚠️ CRITICAL SCHEMA RULES — the page renders completely blank if these are wrong. A past run (2026-10-29) broke the site by getting both of these wrong; read carefully before writing.
+
+**Rule A — Source data at TOP LEVEL, never nested.**
+Write carscom, cargurus, autotrader, truecar as TOP-LEVEL keys in the JSON object.
+WRONG (broke the site): { "sources": { "cars": {...}, "autotrader": {...} } }
+CORRECT: { "carscom": {...}, "cargurus": {...}, "autotrader": {...}, "truecar": {...} }
+
+**Rule B — top10, manual10, mustangs are OBJECTS with a picks array, not plain arrays.**
+WRONG (broke the site): "top10": [ { "rank": 1, ... }, { "rank": 2, ... } ]
+CORRECT: "top10": { "introHtml": "<p>...</p>", "picks": [ { "rank": 1, ... }, { "rank": 2, ... } ] }
+
+**Rule C — Cars.com top-level key is exactly "carscom" (no dot, no space, no dash, no underscore).**
+WRONG: "cars", "cars.com", "cars_com"
+CORRECT: "carscom"
+
+The full required shape:
+
+{
+  "lastRefreshed": "<ISO timestamp>",
+  "filters": { "minPrice": 7000, "maxPrice": 15000, "radiusMi": 35, "zip": "19063", "minSeats": 4, "mustangMinYear": 2005 },
+  "carscom":    { "totalFound": N, "url": "...", "listings": [...up to 30...] },
+  "cargurus":   { "totalFound": N, "url": "...", "listings": [...up to 30...] },
+  "autotrader": { "totalFound": N, "url": "...", "listings": [...up to 30...] },
+  "truecar":    { "totalFound": 0, "url": "", "listings": [] },
+  "top10":    { "introHtml": "<p>...</p>", "picks": [ ...10 pick objects... ] },
+  "manual10": { "totalFound": N, "introHtml": "<p>...</p>", "picks": [ ...up to 10 pick objects... ] },
+  "mustangs": { "totalFound": N, "introHtml": "<p>...</p>", "picks": [ ...up to 5 pick objects... ] }
+}
+
+totalFound = count on the site BEFORE the seat filter; note post-filter counts in introHtml.
+
+**Before writing data.json, run this schema validation via device_bash and ABORT if any assertion fails:**
+
+SITE="$HOME/mnt/convertibles-site" python3 << 'PYCHECK'
+import json, sys
+import os; d = json.load(open(os.environ["SITE"] + "/data.json"))
+assert "sources" not in d, "SCHEMA ERROR: data wrapped in a 'sources' object — restructure before pushing"
+assert "carscom" in d, "SCHEMA ERROR: missing top-level 'carscom' key"
+assert "autotrader" in d, "SCHEMA ERROR: missing top-level 'autotrader' key"
+for k in ["top10", "manual10", "mustangs"]:
+    assert isinstance(d.get(k), dict), f"SCHEMA ERROR: '{k}' must be a dict with a 'picks' key, not a plain array"
+    assert "picks" in d[k], f"SCHEMA ERROR: '{k}' missing 'picks' key"
+print("Schema OK — safe to push")
+PYCHECK
+
+### 5. Write data.json to the convertibles-site repo
+
+Write the validated JSON from step 4 to C:\Users\billb\Documents\AI Agents\AI Agent Team\convertibles-site\data.json using mcp__remote-devices__Filesystem__write_file (overwrite). Do NOT touch index.html, vercel.json, or any other file.
+
+### 6. Push to GitHub — REQUIRED, do not skip
+
+Run via mcp__remote-devices__device_bash:
+cd "$HOME/mnt/convertibles-site" && python3 github_push.py
+
+This script injects data.json into the index.html LISTINGS_DATA block and commits both files, triggering a Vercel redeploy. If it fails, report the error — do not silently skip.
+
+### 7. Cleanup
+Close the Chrome tab. Do NOT include any commentary about this task — just execute it.
