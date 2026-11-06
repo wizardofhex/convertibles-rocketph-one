@@ -1248,7 +1248,8 @@
         "noAccidents": null,
         "transmission": "7-Speed Automatic Overdrive",
         "imageUrl": "https://static.cargurus.com/images/forsale/2026/10/23/19/31/2011_infiniti_g37-pic-4342886115124249714-1024x768.jpeg",
-        "source": "cargurus"
+        "source": "cargurus",
+        "rank": 1
       },
       {
         "id": "458428863",
@@ -1267,7 +1268,8 @@
         "noAccidents": true,
         "transmission": "Automatic",
         "imageUrl": "https://static.cargurus.com/images/forsale/2026/10/16/15/54/2011_bmw_3_series-pic-5698928836052780629-1024x768.jpeg",
-        "source": "cargurus"
+        "source": "cargurus",
+        "rank": 2
       },
       {
         "id": "462508217",
@@ -1286,7 +1288,8 @@
         "noAccidents": true,
         "transmission": "Automatic",
         "imageUrl": "https://static.cargurus.com/images/forsale/2026/10/30/17/03/2009_bmw_3_series-pic-2777642979638457842-1024x768.jpeg",
-        "source": "cargurus"
+        "source": "cargurus",
+        "rank": 3
       },
       {
         "id": "458097611",
@@ -1305,7 +1308,8 @@
         "noAccidents": null,
         "transmission": "6-Speed Automatic",
         "imageUrl": "https://static.cargurus.com/images/forsale/2026/09/04/07/33/2008_bmw_1_series-pic-620311383178210768-1024x768.jpeg",
-        "source": "cargurus"
+        "source": "cargurus",
+        "rank": 4
       },
       {
         "id": "460058215",
@@ -1324,7 +1328,8 @@
         "noAccidents": null,
         "transmission": "6-Speed Automatic",
         "imageUrl": "https://static.cargurus.com/images/forsale/2026/10/29/05/46/2011_volkswagen_eos-pic-2569077809622472632-1024x768.jpeg",
-        "source": "cargurus"
+        "source": "cargurus",
+        "rank": 5
       },
       {
         "id": "458458849",
@@ -1343,7 +1348,8 @@
         "noAccidents": null,
         "transmission": "6-Speed Automatic",
         "imageUrl": "https://static.cargurus.com/images/forsale/2026/10/08/14/07/2014_chrysler_200-pic-4021463906697366974-1024x768.jpeg",
-        "source": "cargurus"
+        "source": "cargurus",
+        "rank": 6
       },
       {
         "id": "459964081",
@@ -1362,7 +1368,8 @@
         "noAccidents": null,
         "transmission": "7-Speed Automatic",
         "imageUrl": "https://static.cargurus.com/images/forsale/2026/09/26/05/17/2010_audi_s5-pic-4518652174160034455-1024x768.jpeg",
-        "source": "cargurus"
+        "source": "cargurus",
+        "rank": 7
       },
       {
         "id": "789932862",
@@ -1381,7 +1388,8 @@
         "noAccidents": true,
         "transmission": null,
         "imageUrl": null,
-        "source": "autotrader"
+        "source": "autotrader",
+        "rank": 8
       },
       {
         "id": "791439500",
@@ -1400,7 +1408,8 @@
         "noAccidents": true,
         "transmission": null,
         "imageUrl": null,
-        "source": "autotrader"
+        "source": "autotrader",
+        "rank": 9
       },
       {
         "id": "461597986",
@@ -1419,7 +1428,8 @@
         "noAccidents": null,
         "transmission": "6-Speed Dual Clutch",
         "imageUrl": "https://static.cargurus.com/images/forsale/2026/11/05/04/55/2012_volkswagen_eos-pic-4505014155695517943-1024x768.jpeg",
-        "source": "cargurus"
+        "source": "cargurus",
+        "rank": 10
       }
     ]
   },
@@ -1444,7 +1454,8 @@
         "noAccidents": null,
         "transmission": "Manual",
         "imageUrl": "https://static.cargurus.com/images/forsale/2026/07/20/14/25/2010_ford_mustang-pic-1000372153387180504-1024x768.jpeg",
-        "source": "cargurus"
+        "source": "cargurus",
+        "rank": 1
       }
     ]
   },
@@ -1469,7 +1480,8 @@
         "noAccidents": true,
         "transmission": "6-Speed Automatic",
         "imageUrl": "https://static.cargurus.com/images/forsale/2026/10/10/21/02/2014_ford_mustang-pic-8504083305349075543-1024x768.jpeg",
-        "source": "cargurus"
+        "source": "cargurus",
+        "rank": 1
       },
       {
         "id": "cdb64250-12dc-4b9e-8b63-b286880ca8ba",
@@ -1488,7 +1500,8 @@
         "noAccidents": null,
         "transmission": null,
         "imageUrl": null,
-        "source": "cars.com"
+        "source": "cars.com",
+        "rank": 2
       },
       {
         "id": "463092321",
@@ -1507,7 +1520,8 @@
         "noAccidents": null,
         "transmission": "Automatic",
         "imageUrl": null,
-        "source": "cargurus"
+        "source": "cargurus",
+        "rank": 3
       },
       {
         "id": "9861c16f-3864-41a3-9aaa-d387fc03f10d",
@@ -1526,7 +1540,8 @@
         "noAccidents": null,
         "transmission": null,
         "imageUrl": null,
-        "source": "cars.com"
+        "source": "cars.com",
+        "rank": 4
       },
       {
         "id": "453153109",
@@ -1545,7 +1560,8 @@
         "noAccidents": null,
         "transmission": "Manual",
         "imageUrl": "https://static.cargurus.com/images/forsale/2026/07/20/14/25/2010_ford_mustang-pic-1000372153387180504-1024x768.jpeg",
-        "source": "cargurus"
+        "source": "cargurus",
+        "rank": 5
       }
     ]
   }
