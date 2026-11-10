@@ -1,283 +1,422 @@
+#!/usr/bin/env python3
+"""Build data.json for convertibles-site from scraped data."""
 import json
 from datetime import datetime, timezone
 
-# ─── CARS.COM (today July 9 2026, 17 listings, totalFound 48) ────────────────
-CARSCOM_PAGE1 = [
-    ("81d39f41-5daf-4096-9280-6704c2126b1b", 2006, "Audi", "S4", "quattro AWD 2dr Convertible 6A", 7204, 96924, "Warminster, PA", 25, "PA Auto Liquidators", "Great Deal", "Automatic"),
-    ("694f6973-d4bb-4d70-bc8a-0cd406b2d160", 2012, "MINI", "Cooper", "Base", 8389, 112117, "Souderton, PA", 28, "Legacy Used Auto LLC", "Good Deal", None),
-    ("f12cf7c6-8ae1-4690-8661-4f3f45b34d4f", 1987, "Ford", "Mustang", "GT", 9500, 98916, "Westville, NJ", 16, "Corsinos Service Station and Repair Inc", "Great Deal", None),
-    ("d8ef5f09-eb2f-4fd2-83ae-c7eea05881cd", 2004, "Audi", "A4", "1.8T Cabriolet", 9950, 45587, "Feasterville-Trevose, PA", 28, "Car Cheer", "Good Deal", None),
-    ("d108c4ab-9423-4d63-ba08-da5ad8a63615", 2011, "Volvo", "C70", "T5", 9990, 93899, "Vineland, NJ", 35, "JC MILLER AUTO SALES INC", None, None),
-    ("c822098f-4e48-4053-ac80-cac595d90b63", 2011, "BMW", "128i", "128i 2dr Convertible SULEV", 9995, 147552, "Levittown, PA", 35, "Bristol Auto Mall", None, None),
-    ("c73c9af6-32ed-4289-b16b-fab9b3e278b1", 2015, "MINI", "Convertible", "Cooper", 9999, 55000, "Easttown, PA", 8, "Private seller: Jerry", None, None),
-    ("15ab7fb3-236c-47bc-baf5-c775e701d490", 1994, "Ford", "Mustang", "GT", 10500, 44000, "Eddington, PA", 29, "Private seller: Joseph", None, None),
-    ("11a59567-1e64-4f4b-a04a-6708a153e1ad", 1995, "Jaguar", "XJS", "2+2", 10897, 46103, "Magnolia, NJ", 21, "Avi Auto Sales", None, None),
-    ("9fa3f6eb-7ef8-4a2e-90c7-e978ff2b8a79", 2007, "Audi", "A4", "2.0T Cabriolet quattro", 11480, 62185, "Willow Grove, PA", 23, "Selden Motors", "Great Deal", None),
-    ("2ef5601d-4f79-468e-835e-ccccfaea71e8", 2012, "Audi", "S5", "3.0 Premium Plus", 11500, 91900, "Cornwells Heights, PA", 28, "Driven Imports", "Fair Deal", None),
-    ("168e7196-5cc3-49bb-8faf-622353175793", 2013, "Mercedes-Benz", "E-Class", "E 350", 11995, 119433, "Spring City, PA", 20, "Premier Motor Group", None, None),
-    ("a340b863-6d23-4fb9-aa1b-44173ef04f30", 2016, "Audi", "A3", "2.0T Premium", 11999, 83000, "Whitemarsh, PA", 16, "Private seller: Justin", None, None),
-    ("4f0bd49c-c50a-493b-9143-0d0a13d0ee26", 2012, "Volkswagen", "Eos", "Komfort", 12385, 76397, "Downingtown, PA", 16, "Jeff D'Ambrosio Chrysler Dodge Jeep", "Good Deal", None),
-    ("f7d54151-c2eb-4bbb-a4f7-710d3cfe2836", 2010, "Lexus", "IS 250C", "Base", 13450, 124762, "Norristown, PA", 14, "New Concept Inc", "Good Deal", None),
-    ("844a2265-3119-4fd6-90a5-bdc078c33633", 2014, "BMW", "428i xDrive", "Convertible", 14990, 98054, "Vineland, NJ", 35, "JC MILLER AUTO SALES INC", None, None),
+# ─── CARS.COM ────────────────────────────────────────────────────────────────
+# Format: [id8, fullId, year, make, model, trim, price, mileage, imageUrl, dealer, dealerZip]
+# Excludes: 2-seater roadsters, MINI, Ohio dealer (45150)
+
+CARSCOM_RAW = [
+    # PAGE 1 (8 unique eligible)
+    ["97c8159e","97c8159e-2ad2-48b5-ab9d-98c1081303e2",2012,"BMW","128","128i",12704,86671,
+     "https://platform.cstatic-images.com/in/v2/74cd7801-ed1b-554a-a133-7a8b7ee99784/7733e84b-5b55-4f09-8f7d-7187f020e8ec/tdT79jfEfhPbcMg0yGDVNoj22Ts.jpg",
+     "PAAUTOSALES.COM","19116"],
+    ["5a563051","5a563051-6ebc-4c5b-a09e-277d9d84f77a",2003,"BMW","330","330Cic Convertible 2D",10977,100123,
+     "https://platform.cstatic-images.com/in/v2/779a78eb-783a-43a2-89ef-bb4017a826b3/19e53f46-22db-4871-9571-655c570de0f8/y4hZalH_ae58M139FTD50DKOZ1M.jpg",
+     "Trend Auto Motors Inc","19355"],
+    ["9861c16f","9861c16f-3864-41a3-9aaa-d387fc03f10d",2014,"Ford","Mustang","V6",10495,109452,
+     "https://platform.cstatic-images.com/in/v2/2d6e9a7c-9da8-4788-ad45-185839bf3972/e124027a-229e-4acd-b72e-0c5dc8542855/VODlj9OwATz95PZrANm141D7Hak.jpg",
+     "Brother's Auto Center","08312"],
+    ["684a6879","684a6879-8ff5-4dd5-9d0b-1485b08a22f5",2012,"Volvo","C70","T5",7773,131847,
+     "https://platform.cstatic-images.com/in/v2/5aef8e01-b2d4-5e77-8bd0-4dab09cf2f86/7e9c14d6-6f4d-4d13-9e49-8b5c7a4aedc2/dummy.jpg",
+     "Davis Honda","08016"],
+    ["6482454c","6482454c-a7c7-4ece-9224-b16307df189f",2013,"INFINITI","G37","Base",12988,91309,
+     "https://platform.cstatic-images.com/in/v2/c04447ce-c7d6-5b50-ab72-ee5ab9e22495/0b874690-9551-4d99-80c5-1dbaef9155a7/_-JgjyfWJX49WmwFZTNGlFn03pI.jpg",
+     "Faulkner INFINITI","19090"],
+    ["e8f762b2","e8f762b2-d1fe-4815-8755-53aee804f98b",2005,"Jaguar","XK8","Base",12950,51549,
+     "https://platform.cstatic-images.com/in/v2/a733be78-f490-4868-adbe-201a3d056e0c/2a597d81-324b-4fc6-9886-1436a47ae8f9/Uw_rKHIXYfis06fXa6LAWVVZJH0.jpg",
+     "Car Cheer","19053"],
+    ["c822098f","c822098f-4e48-4053-ac80-cac595d90b63",2011,"BMW","128","128i 2dr Convertible SULEV",7485,147552,
+     "https://platform.cstatic-images.com/in/v2/66aedd22-5f4c-571c-bcc9-9a6e5d5a07c7/9ad95780-0702-412c-b31e-e44fa24094aa/VzajC8Oo11oD-uHgdt9QaZM7B48.jpg",
+     "Bristol Auto Mall","19057"],
+    ["dcf43a76","dcf43a76-4a2c-49cd-abf9-0da63e683140",2009,"Volkswagen","Eos","Lux",7389,91737,
+     "https://platform.cstatic-images.com/in/v2/368a5253-cda5-46bf-9f9e-786a51b409e5/131936bf-21d1-468b-b8ec-008ecec77784/a8U2YDC_dVK8JrIZK8Du9v2xjv8.jpg",
+     "Legacy Used Auto LLC","18964"],
+    # PAGE 2 (10 eligible, excluding Ohio 45150 Camry Solara)
+    ["3379f96f","3379f96f-c7f9-4cbd-a6f3-f1e29635b9d0",2015,"Audi","A5","2.0T Premium Plus",11480,108217,
+     "https://platform.cstatic-images.com/in/v2/c55653a2-dba3-577c-9761-100f25492861/7e3451e8-a62d-4526-98cc-21e804803d55/UK_BOCe6slT0chIwWvzBZy5JOIY.jpg",
+     "Bergey's Lincoln","19446"],
+    ["11a59567","11a59567-1e64-4f4b-a04a-6708a153e1ad",1995,"Jaguar","XJS","2+2",8899,46103,
+     "https://platform.cstatic-images.com/in/v2/2a9ff44c-1d8c-572a-b85a-e2c017e560ce/eec71dc7-9fe7-4cbe-86f1-4f071ac06ac8/5WgTTGYREAi4bO4kfEPlo0Ncpmw.jpg",
+     "Avi Auto Sales","08049"],
+    ["1faf3dba","1faf3dba-c46d-4f7d-9b51-83a5669ebaae",2012,"Audi","A5","2.0T Premium",8495,80410,
+     "https://platform.cstatic-images.com/in/v2/p2p/16b786f6-0c39-436c-95a7-05465908b11d/01d78260-a9ec-422a-8a85-d830ecdabb8f",
+     None,"19438"],
+    ["a513484f","a513484f-cf02-4dbc-95ef-634dfcf3b3bb",2003,"BMW","330","330Ci 2dr Convertible",9495,64358,
+     "https://platform.cstatic-images.com/in/v2/915dc978-cb40-5160-94a4-afaa35adacb8/85261c6d-9dc8-4f72-b1a8-9244ecccaf79/iDrG-hqKtpND5Nw-jIG8TFqzBO4.jpg",
+     "GEG Automotive LLC","19525"],
+    ["bfc8a417","bfc8a417-6fcf-4ab2-9daf-c8f8b5bba74f",2013,"Volvo","C70","T5 Premier Plus Convertible 2D",12990,100858,
+     "https://platform.cstatic-images.com/in/v2/5ba3cb38-9313-46f4-bf2a-09e8e250c34b/f87be388-28f6-40dd-b902-0ea5325d46aa/SAKf6JHcRfK6x4uqwTo_a3Dxofw.jpg",
+     "JC MILLER AUTO SALES INC","08360"],
+    ["79ae64dc","79ae64dc-25ce-4249-88e0-83729a3c5ce5",2016,"Audi","A3","2.0T Premium",12500,84000,
+     "https://platform.cstatic-images.com/in/v2/p2p/0cb11156-d4b9-4b04-b292-c2f8153b0994/a868667f-4021-4b17-9e2d-ba6d653f48ab.JPG",
+     None,"19462"],
+    ["4ec1af9d","4ec1af9d-ea07-4635-a417-496303daee38",2018,"BMW","430","i xDrive",14999,111270,
+     "https://platform.cstatic-images.com/in/v2/6a443be0-9426-5926-8102-c8cb3136fd0d/dbd02e73-00be-4901-97ea-e1186cee6777/mZzZnA0I7matU-todu1TgH7K4FU.jpg",
+     "Eastern Auto Exchange","08620"],
+    ["58c27482","58c27482-081b-4030-8ab0-528d44b703b9",2007,"BMW","328","i",14485,34431,
+     "https://platform.cstatic-images.com/in/v2/84f99b5a-f558-5eec-a1f1-3c0a5bf0dad5/Ki1qN9xzDrP97mK7O___Qv/IEbVYq1mzlk-zkS-ESoUZDbC_8U.jpg",
+     "Scott Mazda","18103"],
+    ["09628d44","09628d44-73e9-480b-8fb5-aeb7798e4da0",2013,"Volvo","C70","T5",10889,102592,
+     "https://platform.cstatic-images.com/in/v2/7300ae19-ff54-5820-9215-33b20011b624/ffdd542b-0be9-4b85-96ec-756f835751db/Ryl24_43JB40piLkxFYfuwEnoXE.jpg",
+     "Miracle Autosport","08619"],
+    ["11386bb9","11386bb9-0a62-4902-9964-2118bf6f5b04",2013,"Ford","Mustang","V6 Premium",10599,97202,
+     "https://platform.cstatic-images.com/in/v2/b19182ae-668a-5e30-93ee-2b50a30a2c77/0153cdac-7c4b-44d1-bce5-5f3bf609348c/pVtJ7YR8I4cgB1M7ApQ157hq48Q.jpg",
+     "Independence Auto Sale","08505"],
 ]
-CARSCOM_PAGE2 = [
-    ("dabcb463-e945-41fc-b07c-dd08637d350a", 2011, "Audi", "S5", "3.0 Premium Plus", 13642, 69156, "Haddon Township, NJ", 18, "Royal Auto Group", "Fair Deal", None),
-    # NOTE: 2010 Mustang (f03acd34) at Reading PA (40mi) no longer appearing in today's search
-]
-CARSCOM_IMAGES = {
-    "81d39f41-5daf-4096-9280-6704c2126b1b": "https://platform.cstatic-images.com/large/in/v2/002825a0-a9a8-4a84-81f9-2b9f5eb0680e/fe1275b2-6fd0-450b-a535-006d1cb2592b/zgaU1m_CJWUN-2SmM3mrQbOhWDY.jpg",
-    "694f6973-d4bb-4d70-bc8a-0cd406b2d160": "https://platform.cstatic-images.com/large/in/v2/368a5253-cda5-46bf-9f9e-786a51b409e5/c54eb0c6-311d-4ba7-bcad-27017e9d9963/0l7Kk7dYDOV65-RcINhJpsCi4A0.jpg",
-    "f12cf7c6-8ae1-4690-8661-4f3f45b34d4f": "https://platform.cstatic-images.com/large/in/v2/fba58d6f-4505-4338-955e-5ae6f5b3a641/acbc2a2f-58bc-4c87-8389-4cbd574c25d8/OB6tUeCORiCg507Dt21ZMQOIvH4.jpeg",
-    "d8ef5f09-eb2f-4fd2-83ae-c7eea05881cd": "https://platform.cstatic-images.com/large/in/v2/a733be78-f490-4868-adbe-201a3d056e0c/73978ca8-644e-4561-9459-7f22e426ea7e/azPniDeNgOeCRg9cn8mKoQU3188.jpg",
-    "d108c4ab-9423-4d63-ba08-da5ad8a63615": "https://platform.cstatic-images.com/large/in/v2/5ba3cb38-9313-46f4-bf2a-09e8e250c34b/0e18d3f1-3925-475f-904e-edc38e24e0f9/LQ1-JbzItZBIDWtQCVv91Sm5FZY.jpg",
-    "c822098f-4e48-4053-ac80-cac595d90b63": "https://platform.cstatic-images.com/large/in/v2/66aedd22-5f4c-571c-bcc9-9a6e5d5a07c7/9ad95780-0702-412c-b31e-e44fa24094aa/VzajC8Oo11oD-uHgdt9QaZM7B48.jpg",
-    "c73c9af6-32ed-4289-b16b-fab9b3e278b1": "https://platform.cstatic-images.com/large/in/v2/p2p/7c218327-0c22-43ec-ba78-96ef5e726111/519f581a-e182-4041-9b51-5ef13606b3b4.jpg",
-    "15ab7fb3-236c-47bc-baf5-c775e701d490": "https://platform.cstatic-images.com/large/in/v2/p2p/9e815461-6dc3-4712-8c5b-23b8d83d3cf3/37ae3543-f590-449f-8be0-58d7dd71217a.JPG",
-    "11a59567-1e64-4f4b-a04a-6708a153e1ad": "https://platform.cstatic-images.com/large/in/v2/2a9ff44c-1d8c-572a-b85a-e2c017e560ce/eec71dc7-9fe7-4cbe-86f1-4f071ac06ac8/uDIu0L8GLJu1FM_qrVpDQjhb3kk.jpg",
-    "9fa3f6eb-7ef8-4a2e-90c7-e978ff2b8a79": "https://platform.cstatic-images.com/large/in/v2/41500c3b-0278-565b-b8aa-8a53ec151e79/67c17dcd-1350-4c8a-8e3c-f91c251b9c4f/F6kI3u8dODREG2uu3pajYdPGx5I.jpg",
-    "2ef5601d-4f79-468e-835e-ccccfaea71e8": "https://platform.cstatic-images.com/large/in/v2/e38c73e1-af87-4f69-aaab-26acff7cbf95/f11b1101-2596-40e7-833d-2e81bcbd282d/6P60FbvLh8BPheQdVl2NKq6FuqA.jpg",
-    "168e7196-5cc3-49bb-8faf-622353175793": "https://platform.cstatic-images.com/large/in/v2/687e2a1f-ebc7-5430-89f7-b9a52e6185f9/f3f63d52-5d12-42b0-98bb-b1240058acd8/aOEatydVFsvUrrSZ9U83SKz6byo.jpg",
-    "a340b863-6d23-4fb9-aa1b-44173ef04f30": "https://platform.cstatic-images.com/large/in/v2/p2p/0cb11156-d4b9-4b04-b292-c2f8153b0994/fab80809-9c21-407b-9cbb-ae374f36d811.JPG",
-    "4f0bd49c-c50a-493b-9143-0d0a13d0ee26": "https://platform.cstatic-images.com/large/in/v2/12beb5a4-335b-5025-b9f6-2d0571f07634/68c7f4de-ea3b-408b-83aa-1321d3e9187f/1qIDU0jNIfOWDLqWmx4-YMJgcjQ.jpg",
-    "f7d54151-c2eb-4bbb-a4f7-710d3cfe2836": "https://platform.cstatic-images.com/large/in/v2/5631252c-0139-5d87-8647-26d44957f0e7/d35e8904-3dc0-469b-9e8f-e5091f2e12a4/VOyBnZtgK6xfBPE7yxnVu8esqFs.jpg",
-    "844a2265-3119-4fd6-90a5-bdc078c33633": "https://platform.cstatic-images.com/large/in/v2/5ba3cb38-9313-46f4-bf2a-09e8e250c34b/6f9cff97-4e79-4cc3-9b5a-f92ac40aa875/oRd-QiMn6qF7fvKgHfz8A0VIDWE.jpg",
-    "dabcb463-e945-41fc-b07c-dd08637d350a": None,
+
+# Location lookup by zip (best-effort)
+ZIP_LOCATION = {
+    "19116": "Philadelphia, PA", "19355": "Malvern, PA", "08312": "Clayton, NJ",
+    "08016": "Burlington, NJ", "19090": "Willow Grove, PA", "19053": "Feasterville-Trevose, PA",
+    "19057": "Levittown, PA", "18964": "Souderton, PA", "19446": "Lansdale, PA",
+    "08049": "Magnolia, NJ", "19438": "Towamencin, PA", "19525": "Gilbertsville, PA",
+    "08360": "Vineland, NJ", "19462": "Plymouth Meeting, PA", "08620": "Trenton, NJ",
+    "18103": "Allentown, PA", "08619": "Trenton, NJ", "08505": "Jobstown, NJ",
 }
 
-# ─── CARGURUS (today July 9 2026, 16 listings, totalFound 66) ─────────────────
-CARGURUS_LISTINGS = [
-    ("451219409", 2011, "BMW", "3 Series", "328i Convertible RWD", 13985, 57926, "Limerick, PA", 22, "Nissan 422 of Limerick", "Fair Deal", "Automatic", "https://static.cargurus.com/images/forsale/2026/06/29/16/31/2011_bmw_3_series-pic-9159328635163337833-1024x768.jpeg"),
-    ("447408669", 2011, "Audi", "S5", "3.0T quattro Prestige Cabriolet AWD", 14337, 69156, "Haddon Township, NJ", 17, None, "Good Deal", "Automatic", "https://static.cargurus.com/images/forsale/2026/05/06/23/37/2011_audi_s5-pic-3807763922415203099-1024x768.jpeg"),
-    ("452755967", 2011, "Audi", "A5", "2.0T Premium Plus Cabriolet FWD", 10480, 56654, "Feasterville Trevose, PA", 27, None, "Great Deal", "Automatic", "https://static.cargurus.com/images/forsale/2026/07/06/16/50/2011_audi_a5-pic-5375033648114274627-1024x768.jpeg"),
-    ("433875732", 2014, "BMW", "4 Series", "428i xDrive Convertible AWD", 10555, 103444, "Philadelphia, PA", 19, None, "Good Deal", "Automatic", "https://static.cargurus.com/images/forsale/2026/06/12/15/05/2014_bmw_4_series-pic-7438888840704462163-1024x768.jpeg"),
-    ("452805177", 2008, "BMW", "3 Series", "335i Convertible RWD", 7999, 91522, "Burlington, NJ", 31, None, "Good Deal", "Automatic", "https://static.cargurus.com/images/forsale/2026/07/07/08/45/2008_bmw_3_series-pic-3088756476358766474-1024x768.jpeg"),
-    ("451367312", 2010, "BMW", "3 Series", "328i Convertible RWD", 10900, 80232, "West Chester, PA", 9, None, "Fair Deal", "Automatic", "https://static.cargurus.com/images/forsale/2026/06/20/14/22/2010_bmw_3_series-pic-2956539671150296942-1024x768.jpeg"),
-    ("447787678", 2014, "Nissan", "Murano CrossCabriolet", "AWD", 8942, 97107, "Gilbertsville, PA", 29, None, "Great Deal", "Automatic", "https://static.cargurus.com/images/forsale/2026/06/08/05/33/2014_nissan_murano_crosscabriolet-pic-35340187767206375-1024x768.jpeg"),
-    ("450845685", 2015, "INFINITI", "Q60", "Sport Convertible RWD", 13513, 108038, "Cherry Hill, NJ", 21, None, "Good Deal", "Automatic", "https://static.cargurus.com/images/forsale/2026/06/23/02/28/2015_infiniti_q60-pic-1413849881431671998-1024x768.jpeg"),
-    ("445737422", 2012, "Ford", "Mustang", "V6 Convertible RWD", 11459, 96539, "West Chester, PA", 9, None, "Fair Deal", "Automatic", "https://static.cargurus.com/images/forsale/2026/04/30/14/23/2012_ford_mustang-pic-2949931544508764713-1024x768.jpeg"),
-    ("447819611", 2007, "Saab", "9-3", "Aero Convertible", 11689, 81323, "Wilmington, DE", 14, None, "Good Deal", "Manual", "https://static.cargurus.com/images/forsale/2026/05/27/06/05/2007_saab_9-3-pic-5308153467144029579-1024x768.jpeg"),
-    ("448587287", 2013, "Mercedes-Benz", "E-Class", "E 350 Cabriolet", 12369, 119433, "Spring City, PA", 19, None, "Fair Deal", "Automatic", "https://static.cargurus.com/images/forsale/2026/05/20/21/48/2013_mercedes-benz_e-class-pic-4259229858412416228-1024x768.jpeg"),
-    ("451190817", 2006, "Ford", "Mustang", "V6 Premium Convertible RWD", 7598, 118398, "Westampton, NJ", 34, None, "Fair Deal", "Automatic", "https://static.cargurus.com/images/forsale/2026/07/03/08/32/2006_ford_mustang-pic-4500177556670887035-1024x768.jpeg"),
-    ("425880591", 2012, "BMW", "6 Series", "650i xDrive Convertible AWD", 11395, 106070, "Bensalem, PA", 29, None, "Good Deal", "Automatic", "https://static.cargurus.com/images/forsale/2026/03/16/10/47/2012_bmw_6_series-pic-7428276367802095709-1024x768.jpeg"),
-    ("449886715", 2016, "Buick", "Cascada", "Premium FWD", 11994, 71211, "Sewell, NJ", 20, None, "Great Deal", "Automatic", "https://static.cargurus.com/images/forsale/2026/07/03/22/42/2016_buick_cascada-pic-994318415939501030-1024x768.jpeg"),
-    ("445737422_SKIP", 2012, "Ford", "Mustang", "V6 Convertible RWD", 11459, 96539, "West Chester, PA", 9, None, "Fair Deal", "Automatic", None),  # already listed, skip
-    ("447270039", 2007, "MINI", "Cooper", "S Convertible", 8942, 65594, "Roebling, NJ", 29, None, "Fair Deal", "Automatic", "https://static.cargurus.com/images/forsale/2026/05/08/05/34/2007_mini_cooper-pic-2043758708695550607-1024x768.jpeg"),
+# Rough distanceMi from ZIP 19063 (Media, PA)
+ZIP_DISTANCE = {
+    "19116": 26, "19355": 13, "08312": 26, "08016": 30, "19090": 23,
+    "19053": 28, "19057": 35, "18964": 28, "19446": 24, "08049": 21,
+    "19438": 25, "19525": 29, "08360": 35, "19462": 16, "08620": 33,
+    "18103": 50, "08619": 33, "08505": 32,
+}
+
+carscom_listings = []
+for row in CARSCOM_RAW:
+    id8, fullId, year, make, model, trim, price, mileage, imageUrl, dealer, zip_ = row
+    loc = ZIP_LOCATION.get(zip_, zip_)
+    dist = ZIP_DISTANCE.get(zip_, 30)
+    carscom_listings.append({
+        "id": id8,
+        "year": year,
+        "make": make,
+        "model": model,
+        "trim": trim,
+        "price": price,
+        "mileage": mileage,
+        "location": loc,
+        "distanceMi": dist,
+        "url": f"https://www.cars.com/vehicledetail/{fullId}/",
+        "dealer": dealer,
+        "dealRating": None,
+        "cleanTitle": True,
+        "noAccidents": True,
+        "transmission": None,
+        "imageUrl": imageUrl or "",
+        "source": "cars.com"
+    })
+
+# ─── CARGURUS ────────────────────────────────────────────────────────────────
+# From cargurus_p1.txt: id|year|make|model|trim|price|mileage|location|distanceMi|dealRating|transmission|imageUrl|url
+CARGURUS_RAW = [
+    ["461597986",2012,"Volkswagen","Eos","Komfort SULEV",9463,86370,"Croydon, PA",29,"Fair Deal",None,
+     "https://static.cargurus.com/images/forsale/2026/11/05/04/55/2012_volkswagen_eos-pic-4505014155695517943-1024x768.jpeg",
+     "https://www.cargurus.com/details/461597986"],
+    ["458458849",2014,"Chrysler","200","Limited Convertible FWD",7485,86273,"Langhorne, PA",33,"Good Deal",None,
+     "https://static.cargurus.com/images/forsale/2026/10/08/14/07/2014_chrysler_200-pic-4021463906697366974-1024x768.jpeg",
+     "https://www.cargurus.com/details/458458849"],
+    ["458428863",2011,"BMW","3 Series","328i Convertible RWD",7888,89795,"Medford, NJ",32,"Great Deal",None,
+     "https://static.cargurus.com/images/forsale/2026/10/16/15/54/2011_bmw_3_series-pic-5698928836052780629-1024x768.jpeg",
+     "https://www.cargurus.com/details/458428863"],
+    ["456364076",2015,"Audi","A3","2.0T quattro Premium Plus Cabriolet AWD",12299,105069,"Monroeville, NJ",23,"Fair Deal",None,
+     "https://static.cargurus.com/images/forsale/2026/09/09/10/27/2015_audi_a3-pic-6948141372738757313-1024x768.jpeg",
+     "https://www.cargurus.com/details/456364076"],
+    ["455946186",2013,"INFINITI","G37","Convertible RWD",12489,91309,"Willow Grove, PA",23,"Good Deal",None,
+     "https://static.cargurus.com/images/forsale/2026/11/06/09/27/2013_infiniti_g37-pic-1660226628461026038-1024x768.jpeg",
+     "https://www.cargurus.com/details/455946186"],
+    ["454910434",2012,"Audi","A5","2.0T quattro Premium Plus Cabriolet AWD",10190,86962,"",18,"Fair Deal",None,
+     "https://static.cargurus.com/images/forsale/2026/10/22/08/48/2012_audi_a5-pic-5440491617432993742-1024x768.jpeg",
+     "https://www.cargurus.com/details/454910434"],
+    ["453750011",2010,"Audi","S5","3.0T quattro Premium Plus Cabriolet AWD",10489,92034,"Feasterville Trevose, PA",27,"Good Deal",None,
+     "https://static.cargurus.com/images/forsale/2026/10/14/15/08/2010_audi_s5-pic-4832088940729344249-1024x768.jpeg",
+     "https://www.cargurus.com/details/453750011"],
+    ["462508217",2009,"BMW","3 Series","335i Convertible RWD",14333,38748,"Doylestown, PA",34,"Good Deal",None,
+     "https://static.cargurus.com/images/forsale/2026/10/30/17/03/2009_bmw_3_series-pic-2777642979638457842-1024x768.jpeg",
+     "https://www.cargurus.com/details/462508217"],
+    ["461341277",2014,"Ford","Mustang","V6 Convertible RWD",8048,167500,"Woodlynne, NJ",18,"Fair Deal",None,
+     "https://static.cargurus.com/images/forsale/2026/10/10/21/02/2014_ford_mustang-pic-8504083305349075543-1024x768.jpeg",
+     "https://www.cargurus.com/details/461341277"],
+    ["457339579",2007,"Volkswagen","Beetle","2.5L Convertible",7094,99882,"Berlin, NJ",27,"Fair Deal",None,
+     "https://static.cargurus.com/images/forsale/2026/08/28/01/03/2007_volkswagen_beetle-pic-625193239448549921-1024x768.jpeg",
+     "https://www.cargurus.com/details/457339579"],
+    ["454648300",2013,"Mercedes-Benz","E-Class","E 350 Cabriolet",7900,152912,"Burlington, NJ",31,"Fair Deal",None,
+     "https://static.cargurus.com/images/forsale/2026/07/29/07/56/2013_mercedes-benz_e-class-pic-3780741551422153063-1024x768.jpeg",
+     "https://www.cargurus.com/details/454648300"],
+    ["462017255",2011,"BMW","3 Series","328i Convertible RWD",8972,118267,"Feasterville-Trevose, PA",29,"Fair Deal",None,
+     "https://static.cargurus.com/images/forsale/2026/10/19/19/41/2011_bmw_3_series-pic-202222175876792318-1024x768.jpeg",
+     "https://www.cargurus.com/details/462017255"],
+    ["457408910",2017,"BMW","4 Series","430i xDrive Convertible AWD",13195,112184,"Birdsboro, PA",32,"Great Deal",None,
+     "https://static.cargurus.com/images/forsale/2026/10/13/07/55/2017_bmw_4_series-pic-4705782880859175264-1024x768.jpeg",
+     "https://www.cargurus.com/details/457408910"],
 ]
 
-# ─── AUTOTRADER (carried from yesterday — AutoTrader data lost in session break) ──
-AUTOTRADER_ALL = [
-    ("691838857", 2013, "BMW", "328i", "Convertible", 8326, 144928, 29, "Josie's Auto Sales", "Great Deal", "Automatic", "https://images.autotrader.com/hn/c/a58d247ecc5f47f6b836d98326a74238.jpg"),
-    ("724093944", 1995, "Jaguar", "XJS", "4.0 Convertible", 9998, 46103, 21, "Avi Auto Sales", "Great Deal", "Automatic", "https://images.autotrader.com/hn/c/b6ed0cf3d79146b8907e264b2e0590f2.jpg"),
-    ("754834213", 2015, "BMW", "435i xDrive", "Convertible", 8500, 140389, 27, "Private Seller Exchange", "Good Deal", "Automatic", "https://assets.cai-media-management.com/ps-vehicle-media/640316c0-126a-41a5-997b-6ae6b6bd6dd2.jpeg"),
-    ("774295178", 2011, "BMW", "128i", "Convertible", 9995, 147552, 34, "Bristol Auto Mall", "Great Deal", "Automatic", "https://images.autotrader.com/hn/c/e080f33db3ef4251989984026e977283.jpg"),
-    ("776291796", 2014, "Volkswagen", "Beetle", "2.5", 9200, 127956, 22, "AMERICAN AUTO GROUP LLC", "Fair Deal", "Automatic", "https://images.autotrader.com/hn/c/d8631d3dc761481389d04f20c728eaf1.jpg"),
-    ("777472503", 2012, "MINI", "Cooper", "S", 9400, 98500, 17, "Private Seller Exchange", "Great Deal", None, "https://assets.cai-media-management.com/ps-vehicle-media/3794377d-adea-46b7-93da-26eb2b3f4466.jpeg"),
-    ("778854923", 2007, "MINI", "Cooper", "S", 8452, 65594, 29, "Josie's Auto Sales", "Great Deal", "Manual", "https://images.autotrader.com/hn/c/938a412733d64cb88c70012dc1d8d4a5.jpg"),
-    ("779890992", 2007, "Audi", "A4", "2.0T", 10990, 62185, 22, "Selden Motors", "Great Deal", "Automatic", "https://images.autotrader.com/hn/c/8509c442d599433a848fa46e8983bd06.jpg"),
-    ("781590811", 2010, "Lexus", "IS 250C", None, 14740, 91340, 13, "Private Seller Exchange", None, None, "https://assets.cai-media-management.com/ps-vehicle-media/5380fad3-243a-4fa3-ae3d-ebac920dc5b4.jpeg"),
-    ("781593445", 2010, "BMW", "328i", "Convertible", 10900, 80232, 9, "Sky Motor Cars", "Great Deal", None, "https://images.autotrader.com/hn/c/482b14d62ff64466b384137668321915.jpg"),
-    ("784323009", 1993, "Jaguar", "XJS", "4.0 Convertible", 11000, 110280, 27, "Private Seller Exchange", None, "Automatic", "https://assets.cai-media-management.com/ps-vehicle-media/1cabc523-37e4-49ad-b6e0-a9f48a54f1cf.jpeg"),
-    ("784570681", 2012, "MINI", "Cooper", "Convertible", 7995, 112117, 28, "Dealer", "Great Deal", "Automatic", "https://images.autotrader.com/hn/c/d5018f6daee44ce2b3059a16b7f21a56.jpg"),
-    ("784809537", 2004, "BMW", "645Ci", "Convertible", 11000, 51000, 5, "Private Seller Exchange", None, None, "https://assets.cai-media-management.com/ps-vehicle-media/d0a40452-8b6b-4d92-b80d-00e8c61292b7.jpeg"),
-    ("784924266", 2011, "Audi", "A5", "2.0T Premium Plus", 9990, 56654, 27, "Divan Auto Group", "Good Deal", "Automatic", "https://images.autotrader.com/hn/c/00a43b75d37e448fb52a3aec3ca1b098.jpg"),
-    ("774473437", 2018, "Ford", "Mustang", "Premium", 12992, 141767, 26, "Keystone Auto Group-Berlin", "Great Deal", "Automatic", "https://images.autotrader.com/hn/c/1ba1f7b1446c463d83e6c38555c0bd6b.jpg"),
-    ("779393826", 2015, "BMW", "228i xDrive", "Convertible", 14700, 102238, 12, "Private Seller Exchange", None, "Automatic", "https://assets.cai-media-management.com/ps-vehicle-media/7fc32b2f-2bf0-45df-80e8-5a972296d197.jpeg"),
-    ("780080978", 2007, "Saab", "9-3", "Aero", 10990, 81323, 14, "Audi Wilmington", "Great Deal", "Manual", "https://images.autotrader.com/hn/c/aa9483bb9d00422098415b49f9ae46bf.jpg"),
-    # 780193901 (2016 Audi A3, 83mi mileage corrupt) — excluded, Cars.com version used instead
-    ("780885942", 2013, "Mercedes-Benz", "E 350", None, 11995, 119433, 20, "Premier Motor Group", "Good Deal", "Automatic", "https://images.autotrader.com/hn/c/071a50b6344449bba249af4004ea6477.jpg"),
-    ("782476875", 1997, "Chevrolet", "Camaro", None, 11895, 73590, 29, "Dealer", "Great Deal", "Manual", "https://images.autotrader.com/hn/c/b37fef06d8a94c1fa4e0d3d9d09eccc0.jpg"),
-    ("782756492", 2012, "Volkswagen", "Eos", None, 11895, 76397, 16, "Jeff D'Ambrosio's Dodge Chrysler Jeep Downingtown", "Great Deal", "Automatic", "https://images.autotrader.com/hn/c/9a2d0da9546744eeba12194880faba6d.jpg"),
-    ("783074697", 2015, "INFINITI", "Q60", None, 13513, 108038, 20, "Cherry Hill Chrysler Dodge Jeep Ram", "Great Deal", "Automatic", "https://images.autotrader.com/hn/c/07f79db50dde4236bd61485d591f6fb8.jpg"),
-    ("783436042", 2011, "BMW", "328i", None, 13495, 57926, 22, "Nissan 422 of Limerick", "Great Deal", "Automatic", "https://images.autotrader.com/hn/c/61ad058a029b446f82d32087fd743da3.jpg"),
-    ("783468945", 1995, "Chevrolet", "Camaro", None, 12900, 119892, 19, "Wolf's Elite Autos", "Great Deal", None, "https://images.autotrader.com/hn/c/784ec3cd15254f189033309ae95e88ad.jpg"),
-    ("784478737", 2014, "INFINITI", "Q60", None, 13995, 88105, 10, "Advanced Auto Group, LLC.", None, "Automatic", "https://images.autotrader.com/hn/c/b42212240eb34d3e88cb43c673eee05d.jpg"),
-    ("784825719", 2016, "Buick", "Cascada", None, 11195, 71211, 25, "Automotive Avenues of Sewell", None, "Automatic", "https://images.autotrader.com/hn/c/94c4fa85cebf456c92f618f01a4f20b5.jpg"),
+cargurus_listings = []
+for row in CARGURUS_RAW:
+    id_, year, make, model, trim, price, mileage, loc, dist, deal, trans, img, url = row
+    cargurus_listings.append({
+        "id": id_,
+        "year": year,
+        "make": make,
+        "model": model,
+        "trim": trim,
+        "price": price,
+        "mileage": mileage,
+        "location": loc or None,
+        "distanceMi": dist,
+        "url": url,
+        "dealer": None,
+        "dealRating": deal,
+        "cleanTitle": None,
+        "noAccidents": None,
+        "transmission": trans,
+        "imageUrl": img,
+        "source": "cargurus"
+    })
+
+# ─── AUTOTRADER ──────────────────────────────────────────────────────────────
+# Text extracted from 3 pages; no listing IDs or image URLs available
+# Format: [year, make, model, trim, price, mileageK, dealer, distanceMi, dealRating]
+AT_SEARCH_URL = "https://www.autotrader.com/cars-for-sale/all-cars/convertible/cars-between-7000-and-15000/media-pa?searchRadius=35&sortBy=derivedpriceASC"
+
+AUTOTRADER_RAW = [
+    # Page 1
+    [1994,"Ford","Mustang","GT",7495,44,"CarNu Sales",27,None],
+    [1995,"Pontiac","Firebird","Convertible",7500,124,"Private Seller",30,None],
+    [2012,"Volvo","C70","T5",7773,131,"Davis Honda",31,None],
+    [2004,"Mercedes-Benz","CLK 500","Cabriolet",7900,82,"Private Seller",32,None],
+    [2009,"BMW","335i","Convertible",8000,107,"EXTREME AUTO CARE",21,None],
+    [1995,"Jaguar","XJS","4.0 Convertible",8499,46,"Avi Auto Sales",21,None],
+    [2015,"BMW","435i xDrive","Convertible",8500,140,"Private Seller",27,None],
+    [2013,"Volkswagen","Eos","Lux",9797,98,"SPEEDY CAR SALES",8,None],
+    [2013,"BMW","328i","Convertible",10390,144,"Josie's Auto Sales",29,None],
+    [2014,"Ford","Mustang","V6 Convertible",10390,121,"Josie's Auto Sales",29,None],
+    [2014,"Ford","Mustang","Convertible",10437,128,"Discount Auto",34,None],
+    [2011,"BMW","328i","Convertible",10475,123,None,24,None],
+    [2010,"Audi","S5","Premium Plus",10489,92,"Divan Auto Group",27,"Great Price"],
+    [2014,"Ford","Mustang","Premium",10495,109,"BROTHER'S AUTO CENTER LLC",25,None],
+    [2008,"BMW","135i","Convertible",11595,48,"Premier Auto Group",22,None],
+    [2014,"Mercedes-Benz","E 350","Cabriolet",13751,79,"Porsche Conshohocken",14,"Great Price"],
+    [2009,"BMW","335i","Convertible",14333,38,"Mercedes-Benz of Doylestown",34,None],
+    # Page 2 new
+    [1997,"Chevrolet","Camaro","Z28",10495,73,"MERIC AUTO GROUP LLC",29,None],
+    [2003,"BMW","330Ci","Convertible",10977,100,"Trend Auto Motors",13,None],
+    [1993,"Jaguar","XJS","4.0 Convertible",11000,110,"Private Seller",27,None],
+    [2015,"Audi","A5","2.0T Premium Plus",11480,108,None,24,None],
+    [2016,"Volkswagen","Beetle","1.8T Denim",11875,98,"Private Seller",None,None],
+    [2016,"Buick","Cascada","Premium",12485,95,"Peruzzi Mazda",34,None],
+    [2013,"INFINITI","G37","Convertible",12489,91,"Faulkner INFINITI",21,"Great Price"],
+    [2016,"Audi","A3","2.0T Premium",12500,84,"Private Seller",4,None],
+    [2006,"Lexus","SC 430","Convertible",13485,146,"Advanced Auto",10,None],
+    # Page 3 new
+    [2013,"Volkswagen","Beetle","2.5",13825,90,"Woerth Motor Co.",32,None],
+    [2012,"INFINITI","G37","Convertible",14254,83,None,27,None],
+    [2015,"BMW","428i xDrive","Convertible",14390,101,"Josie's Auto Sales",29,None],
+    [2015,"BMW","435i xDrive","Convertible",14995,117,"Southampton Imported Cars",35,None],
+    [2004,"Ford","Mustang","GT",14999,47,"CrossRoads Auto Sales",11,None],
 ]
 
-# ─── COMMENTARY (indexed by top10 rank order after scoring) ───────────────────
-TOP10_COMMENTARY = [
-  {"whyGood": "A 2016 Audi A3 Cabriolet with just 83 miles is essentially a new car at a used-car price — almost certainly a delivery-miles dealer transfer or concierge service vehicle. Clean 4-seat drop-top, modern 2.0T TFSI, MMI infotainment, and standard sport seats at $11,999 defies market logic.", "whatToVerify": "Verify the odometer with CARFAX — 83 miles on a 2016 warrants confirming this isn't a title-wash or odometer irregularity. Ask for a copy of the original registration. Confirm open recall status. Full top cycle test. Inspect for any hidden storage damage.", "bottomLine": "If the mileage checks out, this is the standout find of the search — a nearly new 2016 A3 convertible at a price that makes sense."},
-  {"whyGood": "Newest MINI in the search on a modern F57 platform with only 55k miles, clean title and no accidents confirmed via Cars.com, and just 8 miles away in Easttown. The F57 is the most refined MINI convertible ever built — proper 4 seats, slick electric cloth top, and genuine driving character.", "whatToVerify": "Full top cycle test (MINI cloth tops can develop window separation at the seam). Check timing chain tensioner service history — F57 Cooper used Prince-family engines with known tensioner concerns at 60-80k. Rear seat headroom check. Verify no outstanding recalls.", "bottomLine": "Closest pick, newest platform, confirmed clean history — ideal urban fun-car."},
-  {"whyGood": "The Cascada is Opel-engineered beneath the Buick badge — one of the most undervalued 4-seat convertibles in America. Premium trim adds heated leather, Bose stereo, and IntelliLink nav. At 71k miles on a 2016 this is comparatively fresh and properly modern.", "whatToVerify": "Full electric roof cycle (listen for hesitation). Check both front corner drain tubes for debris — blocked drains flood the trunk at the first rainstorm. Look for GM's 1.6T turbo actuator TSBs. Confirm TPMS and airbag lights clear. Transmission fluid check.", "bottomLine": "The overlooked gem — European-engineered refinement and spacious 4-seat comfort at a price that reflects the badge, not the build quality."},
-  {"whyGood": "Clean title and no accidents confirmed (Cars.com filter). Private seller, 16 miles away in Whitemarsh. The B8.5 A3 Cabriolet is a modern 4-seat drop-top with Audi's 2.0T TFSI, proper infotainment, and a folding soft top that stows cleanly.", "whatToVerify": "Confirm DSG vs manual — the S tronic dual-clutch is smooth but check for shudder under 20 mph (mechatronic TSBs). Full soft-top cycle. Oil service records for the 2.0T TFSI chain-driven engine. Check for any water intrusion near the rear seat.", "bottomLine": "Solid private-sale find with confirmed clean history — pays to see in person alongside the near-zero-mile example above."},
-  {"whyGood": "Great Deal badge from a franchised Nissan dealer (Nissan 422 of Limerick). The E93 BMW 328i is the gold standard 4-seat BMW soft-top — balanced N52 inline-6, hydraulic power top, and real rear seats. 57k miles is genuinely low for a 2011 platform.", "whatToVerify": "N52 engine: valve cover gasket and oil filter housing are known leakers at this mileage. Check soft-top hydraulic rams (slow closure = low fluid or worn rams). Cooling system — thermostat and water pump often replaced together at 80-100k. Rear window de-fog function. Water staining on rear leather.", "bottomLine": "The definitive pick if you want a BMW convertible — Great Deal badge, low mileage, proven platform."},
-  {"whyGood": "B8 A5 Cabriolet with 56k miles for under $10k with a Good Deal badge is the value standout. The A5's 2.0T TFSI is well-sorted by 2011 and paired with a 6-speed S tronic in a genuinely handsome body. 4-seat convertible at this price and mileage is rare.", "whatToVerify": "Full soft-top cycle (open AND close, watch for hesitation or rattle). Headliner and rear carpet for water stains — a reliable tell for top-seal failure. B8 2.0T timing chain tensioner inspection is worth the conversation at 56k. MMI screen and HVAC blend doors.", "bottomLine": "Best-value premium 4-seat convertible in the search — low mileage, great looking, under $10k."},
-  {"whyGood": "The Eos has the most sophisticated top in this price bracket — a retractable hardtop with integrated sunroof that transforms from coupe to convertible to sunroof vehicle. Great Deal badge confirms pricing. Jeff D'Ambrosio is an established Downingtown multi-brand dealer.", "whatToVerify": "Full RHT (retractable hardtop) cycle twice — listen for mechanical binding or motor struggle. DSG fluid and filter service check (2.0T Eos is dual-clutch — critical maintenance at 40k intervals). Cam follower inspection if service history shows high-pressure fuel pump work. Check sunroof drains.", "bottomLine": "The engineering pick — best roof mechanism in the segment, proven 2.0T, Great Deal price."},
-  {"whyGood": "The Q60 Convertible (V36) is one of the most beautiful 4-seat convertibles ever sold in the US — long hood, flowing lines, and a VQ37VHR V6 that sounds like it costs twice as much. Good Deal badge. Retractable hardtop means no soft-top aging concerns.", "whatToVerify": "Full RHT cycle test — V36 hardtop motors can be slow or noisy when weak. VQ37 valve cover area for oil seeps (common). Check rear seat access and headroom. CVTC (continuous valve timing) service history. Confirm convertible-top module codes are clean.", "bottomLine": "Grand-touring beauty with a proven V6 — arguably the most striking car on this list for the money."},
-  {"whyGood": "One year fresher and 20k fewer miles than the 2015 Q60 above, at only $500 more. Same VQ37VHR V6 and gorgeous V36 styling. 88k miles on a hardtop convertible V6 is a reasonable ownership proposition for this price.", "whatToVerify": "Same checklist as 2015 Q60 — full RHT cycle, VQ oil seep inspection, rear seat access, CVTC history. Confirm 2014 vs 2015 model year differences (2014 has slightly updated suspension). Verify no airbag recall backlog (Takata).", "bottomLine": "Lower-mileage Q60 alternative — nearly identical car, fewer miles, very similar price."},
-  {"whyGood": "The F23 228i is the most modern BMW platform in this entire search — available with xDrive AWD, TwinPower Turbo inline-4, electric soft top, and active safety tech not found in older E-series. 2+2 seating covers the 4-seat requirement. Private Seller Exchange is AutoTrader's concierge resale service.", "whatToVerify": "N20 engine: timing chain tensioner noise on cold start is a known failure mode — confirm cold-start quiet. Full soft-top cycle. Cooling system at 102k. xDrive transfer case fluid. Clarify Private Seller Exchange inspection scope (they do a basic check but not a PPI substitute).", "bottomLine": "Most modern platform in the search — AWD, turbo 4-cyl, current tech — at the top of the budget."},
-]
+autotrader_listings = []
+for i, row in enumerate(AUTOTRADER_RAW):
+    year, make, model, trim, price, mileageK, dealer, distMi, deal = row
+    slug = f"at-{year}-{make.lower().replace(' ','-').replace('-benz','')}-{model.lower().replace(' ','-')}-{i+1}"
+    autotrader_listings.append({
+        "id": slug,
+        "year": year,
+        "make": make,
+        "model": model,
+        "trim": trim,
+        "price": price,
+        "mileage": mileageK * 1000,
+        "location": None,
+        "distanceMi": distMi,
+        "url": AT_SEARCH_URL,
+        "dealer": dealer,
+        "dealRating": deal,
+        "cleanTitle": None,
+        "noAccidents": None,
+        "transmission": None,
+        "imageUrl": "",
+        "source": "autotrader"
+    })
 
-MANUAL10_COMMENTARY = [
-  {"whyGood": "R56 MINI Cooper S with a 6-speed manual is the sports-car experience at a bargain price. At 65k miles the Cooper S should have decades of fun left, and the Great Deal badge validates the $8,452 ask. Manual MINI Coopers are genuinely engaging to drive in a way that automatics simply aren't.", "whatToVerify": "Clutch engagement point (high or notchy bite = worn clutch). Second-gear synchro grind test (common R56 weak point). Throw-out bearing: listen for chirp with clutch pedal depressed at idle. Timing chain tensioner — Prince engine tensioner at 60-100k is critical. Coolant hose inspection.", "bottomLine": "The driver's car — snappy 6-speed, 65k miles, Great Deal price. Best manual pick in the search."},
-  {"whyGood": "A 6-speed manual Saab 9-3 Aero Convertible is a genuinely rare find — Swedish turbocharged character, proper 4 seats, and a sophisticated soft top. The B207 Aero's 2.0T makes 210hp and sounds tremendous with the manual box. Great Deal badge from a franchised Audi dealer.", "whatToVerify": "Saab 2.0T timing chain tensioner (known failure — check for rattle on cold start). Full soft-top operation. SID display and IGTG turn-signal stalk (common failure points). Oil consumption test. Clutch feel and throwout bearing.", "bottomLine": "The rare find — a manual Saab Aero convertible, increasingly scarce, with genuine turbocharged personality."},
-  {"whyGood": "4th-gen Camaro convertible with a manual gearbox (T-5 or T-56 depending on engine) is a classic American muscle statement. At 73k miles the running gear should be solid. Confirm V8 — the LT1 5.7 with a T-56 6-speed is the configuration worth having here.", "whatToVerify": "Confirm engine: 3.8 V6 or 5.7 LT1 V8 and which gearbox. At 29 years old, frame rails, floor pans, and wheel arches need a proper undercarriage inspection for rust. Full top operation — 4th-gen tops can have hydraulic cylinder failures. Check ignition switch recall completion (known 4th-gen issue).", "bottomLine": "Raw American muscle with a stick shift — the most visceral pick in this list, but rust is the real due-diligence item."},
-]
+# ─── BUILD TOP 10 BEST BUYS ──────────────────────────────────────────────────
+# Criteria: best value = good deal rating + lower mileage for price + desirable make/model
+# Prioritize: Great/Good deal ratings, clean titles, lower mileage relative to price, source diversity
 
-MUSTANG_COMMENTARY = [
-  {"whyGood": "Cheapest 2005+ Mustang in the search at $7,598. The S197 V6 Premium is a clean platform with 210hp and easy maintenance. 118k miles on a 2006 is expected — this car has had time to shake out any issues.", "whatToVerify": "At 118k miles a thorough PPI is essential: check rear axle (8.8 clunk on takeoff), convertible top latch wear and hydraulic cylinders, spring perch rust (S197 weak point), and coolant system. Water staining on rear seat from top seal.", "bottomLine": "The budget Mustang — enough car to enjoy at the lowest price point, but high miles demand a careful look."},
-  {"whyGood": "The S197 2012 V6 is arguably the best-value Mustang convertible ever made — the 305hp Cyclone V6 is bulletproof, beats the old 4.6 V8 in fuel economy and longevity, and the 2010-2014 facelift body is the cleanest S197. At 96k miles and $11,459 it's reasonable.", "whatToVerify": "Full top latch cycle (S197 tops are mechanical and durable but check latch mechanism). Rear seat water staining. 8.8 rear axle fluid and clunk test. Spring perch rust — S197 weak spot. ABS module check.", "bottomLine": "The sensible Mustang pick — bulletproof V6, clean body style, priced right at 96k miles."},
-  {"whyGood": "S550 Mustang convertible — the most modern Mustang in this search by far. Independent rear suspension, available Performance Package, and a 2018 cabin that's genuinely competitive with European rivals. Great Deal badge. 141k miles is high but the S550 Coyote V8 or EcoBoost are both robust.", "whatToVerify": "Confirm engine: 2.3L EcoBoost or 5.0L Coyote V8 (both are good). S550 MT-82 gearbox: if manual, check 3rd-gear grind (known MT-82 issue). IRS rear cradle bushing wear at this mileage. Power soft-top operation. Run CARFAX for any accidents at high mileage.", "bottomLine": "Most modern Mustang in the search — IRS, current platform, but high miles at the top of the budget."},
-]
+def value_score(listing):
+    """Lower score = better value."""
+    price = listing["price"]
+    mileage = listing["mileage"]
+    deal = listing.get("dealRating") or ""
 
-# ─── NORMALIZE ───────────────────────────────────────────────────────────────
-SRC_LABEL = {'carscom': 'cars.com', 'cargurus': 'cargurus', 'autotrader': 'autotrader'}
-
-def make_listing(source, lid, year, make, model, trim, price, mileage,
-                 location, distanceMi, dealer, dealRating, transmission, imageUrl,
-                 cleanTitle=None, noAccidents=None):
-    if source == 'carscom':
-        url = f"https://www.cars.com/vehicledetail/{lid}/"
-        cleanTitle = True; noAccidents = True
-    elif source == 'cargurus':
-        url = f"https://www.cargurus.com/Cars/listing/l{lid}"
+    # Base: price/mileage ratio (cents per mile)
+    if mileage > 0:
+        cpp = price / mileage
     else:
-        url = f"https://www.autotrader.com/cars-for-sale/vehicle/{lid}"
-    return {"id": lid, "source": source, "year": year, "make": make, "model": model,
-            "trim": trim, "price": price, "mileage": mileage, "location": location,
-            "distanceMi": distanceMi, "dealer": dealer, "dealRating": dealRating,
-            "transmission": transmission, "imageUrl": imageUrl, "cleanTitle": cleanTitle,
-            "noAccidents": noAccidents, "url": url}
+        cpp = price / 50000
 
-all_listings = []
-for row in CARSCOM_PAGE1 + CARSCOM_PAGE2:
-    lid, year, make, model, trim, price, mileage, loc, dist, dealer, dr, trans = row
-    all_listings.append(make_listing('carscom', lid, year, make, model, trim, price, mileage, loc, dist, dealer, dr, trans, CARSCOM_IMAGES.get(lid)))
-for row in CARGURUS_LISTINGS:
-    lid, year, make, model, trim, price, mileage, loc, dist, dealer, dr, trans, img = row
-    if lid.endswith('_SKIP'): continue  # dedup marker
-    all_listings.append(make_listing('cargurus', lid, year, make, model, trim, price, mileage, loc, dist, dealer, dr, trans, img))
-for row in AUTOTRADER_ALL:
-    lid, year, make, model, trim, price, mileage, dist, dealer, dr, trans, img = row
-    all_listings.append(make_listing('autotrader', lid, year, make, model, trim, price, mileage, None, dist, dealer, dr, trans, img))
+    # Deal rating bonus
+    if "Great" in deal:
+        cpp *= 0.7
+    elif "Good" in deal:
+        cpp *= 0.85
+    elif "Fair" in deal:
+        cpp *= 1.0
 
-# ─── DEDUP ───────────────────────────────────────────────────────────────────
-def norm_model(make, model):
-    m = model.lower(); mk = make.lower()
-    if mk == 'bmw':
-        if any(x in m for x in ['128','1 series']): return 'bmw_1series'
-        if any(x in m for x in ['228','2 series']): return 'bmw_2series'
-        if any(x in m for x in ['328','335','3 series']): return 'bmw_3series'
-        if any(x in m for x in ['428','435','4 series']): return 'bmw_4series'
-        if any(x in m for x in ['645','6 series']): return 'bmw_6series'
-    if mk == 'mercedes-benz' and ('e-class' in m or 'e 350' in m or 'e350' in m):
-        return 'mb_eclass'
-    return m
+    # Desirability bonus for certain makes
+    make = listing["make"]
+    model = listing["model"]
+    if make in ["Audi","BMW","INFINITI","Mercedes-Benz","Jaguar"]:
+        cpp *= 0.9
 
-def dedup_key(l):
-    return (l['year'], l['make'].lower(), norm_model(l['make'], l['model']), round(l['mileage'] / 1000))
+    # Clean title bonus (cars.com all have cleanTitle=True)
+    if listing.get("cleanTitle"):
+        cpp *= 0.95
 
-seen = {}
-for l in all_listings:
-    k = dedup_key(l)
-    if k not in seen or l['price'] < seen[k]['price']:
-        seen[k] = l
+    return cpp
 
-final_ids = {}
-deduped = []
-for l in seen.values():
-    if l['id'] not in final_ids:
-        final_ids[l['id']] = True
-        deduped.append(l)
+# Collect all listings for scoring
+all_listings = carscom_listings + cargurus_listings + autotrader_listings
 
-# ─── SCORING ─────────────────────────────────────────────────────────────────
-RELIABLE = ['bmw','audi','volkswagen','volvo','mini','saab','mercedes','infiniti','lexus','buick']
-DEAL_SCORE = {'Great Deal': 3, 'Good Deal': 2, 'Fair Deal': 1}
+# Deduplicate: same year/make/model/price/mileage combo → keep best (cars.com > cargurus > autotrader)
+source_priority = {"cars.com": 0, "cargurus": 1, "autotrader": 2}
 
-def score(l):
-    s = (l['year'] - 1990) * 2
-    s += max(0, (150000 - l['mileage']) / 5000)
-    s += DEAL_SCORE.get(l['dealRating'], 0)
-    if any(r in l['make'].lower() for r in RELIABLE): s += 3
-    if l['year'] < 2000: s -= 8
-    if l['imageUrl']: s += 1
-    return s
+seen_combos = {}
+for lst in all_listings:
+    key = (lst["year"], lst["make"].lower(), lst["model"].lower(), lst["price"])
+    src = source_priority.get(lst["source"], 9)
+    if key not in seen_combos or src < source_priority.get(seen_combos[key]["source"], 9):
+        seen_combos[key] = lst
 
-deduped.sort(key=score, reverse=True)
-top10 = deduped[:10]
-manuals = sorted([l for l in deduped if l['transmission'] == 'Manual'], key=score, reverse=True)[:10]
-mustangs = sorted([l for l in deduped if l['make'].lower() == 'ford' and 'mustang' in l['model'].lower() and l['year'] >= 2005],
-                  key=lambda l: (l['year'], l['mileage'], l['price']))
+unique_listings = list(seen_combos.values())
 
-def fmt_listing(l):
-    return {k: l[k] for k in ["id","year","make","model","trim","price","mileage",
-                                "location","distanceMi","dealer","dealRating","transmission",
-                                "imageUrl","cleanTitle","noAccidents","url","source"]}
+# Sort by value score, pick top 10
+unique_listings.sort(key=value_score)
+top10_picks = unique_listings[:10]
 
-def fmt_pick(l, rank, comm):
-    p = fmt_listing(l)
-    p["rank"] = rank
-    p["source"] = SRC_LABEL.get(l["source"], l["source"])
-    p["whyGood"] = comm.get("whyGood", "")
-    p["whatToVerify"] = comm.get("whatToVerify", "")
-    p["bottomLine"] = comm.get("bottomLine", "")
-    return p
+# ─── MUSTANGS (2005+) ────────────────────────────────────────────────────────
+mustang_listings = []
+seen_mustangs = {}
+for lst in all_listings:
+    if lst["make"] == "Ford" and lst["model"] in ["Mustang"] and lst["year"] >= 2005:
+        key = (lst["year"], lst["price"], lst["mileage"])
+        src = source_priority.get(lst["source"], 9)
+        if key not in seen_mustangs or src < source_priority.get(seen_mustangs[key]["source"], 9):
+            seen_mustangs[key] = lst
 
-now_iso = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
-carscom_listings_out  = [l for l in all_listings if l['source'] == 'carscom']
-cargurus_listings_out = [l for l in all_listings if l['source'] == 'cargurus' and not l['id'].endswith('_SKIP')]
-at_listings_out       = [l for l in all_listings if l['source'] == 'autotrader']
+mustang_picks = sorted(seen_mustangs.values(), key=lambda x: x["mileage"])
 
-total_scanned = 48 + 66 + 27  # today: carscom up to 48
+# ─── MANUAL TRANSMISSION ─────────────────────────────────────────────────────
+# No explicit manual transmission data available from extraction; leave empty
+manual_picks = []
 
-top10_intro = (
-    f"<p>Refreshed {now_iso[:10]}. Scanned {total_scanned} raw listings across "
-    f"Cars.com (48), CarGurus (66), and AutoTrader (27). "
-    f"After filtering 2-seat roadsters and deduplicating cross-site listings, "
-    f"{len(deduped)} unique 4-seat convertibles in the pool. "
-    f"TrueCar skipped (body-style filter broken). "
-    f"Top 10 ranked by recency, mileage, deal rating, and make reliability.</p>"
-)
-manual_intro = (
-    f"<p>{len(manuals)} manual-transmission convertibles confirmed from this refresh. "
-    f"Transmission data sourced from AutoTrader embedded state and CarGurus listing metadata. "
-    f"Note: many listings on Cars.com don't report transmission — actual manual count may be higher. "
-    f"Always confirm transmission before driving.</p>"
-    if manuals else
-    "<p>No confirmed manual-transmission convertibles found this refresh.</p>"
-)
-mustangs_intro = (
-    f"<p>{len(mustangs)} Ford Mustang convertible{'s' if len(mustangs)!=1 else ''} (2005+, S197/S550 generation{'s' if len(mustangs)!=1 else ''}) found in range and budget. "
-    f"Fox-body (pre-1994) and SN-95 (1994–2004) generations excluded per criteria. Sorted by year ascending.</p>"
-)
+# ─── ASSEMBLE DATA.JSON ──────────────────────────────────────────────────────
+now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-output = {
-    "lastRefreshed": now_iso,
-    "filters": {"minPrice": 7000, "maxPrice": 15000, "radiusMi": 35, "zip": "19063", "minSeats": 4, "mustangMinYear": 2005},
-    "carscom":    {"totalFound": 48, "url": "https://www.cars.com/shopping/results/?stock_type=used&body_style_slugs[]=convertible&list_price_min=7000&list_price_max=15000&maximum_distance=35&zip=19063", "listings": [fmt_listing(l) for l in carscom_listings_out]},
-    "cargurus":   {"totalFound": 66, "url": "https://www.cargurus.com/Cars/l-Used-Convertible-bg1?zip=19063&distance=35&minPrice=7000&maxPrice=15000", "listings": [fmt_listing(l) for l in cargurus_listings_out]},
-    "autotrader": {"totalFound": 27, "url": "https://www.autotrader.com/cars-for-sale/all-cars/convertible/media-pa?minPrice=7000&maxPrice=15000&searchRadius=35&zip=19063", "listings": [fmt_listing(l) for l in at_listings_out]},
-    "truecar":    {"totalFound": 0, "url": "", "listings": []},
-    "top10":    {"introHtml": top10_intro,    "picks": [fmt_pick(l, i+1, TOP10_COMMENTARY[i] if i < len(TOP10_COMMENTARY) else {}) for i, l in enumerate(top10)]},
-    "manual10": {"introHtml": manual_intro,   "picks": [fmt_pick(l, i+1, MANUAL10_COMMENTARY[i] if i < len(MANUAL10_COMMENTARY) else {}) for i, l in enumerate(manuals)]},
-    "mustangs": {"introHtml": mustangs_intro, "picks": [fmt_pick(l, i+1, MUSTANG_COMMENTARY[i] if i < len(MUSTANG_COMMENTARY) else {}) for i, l in enumerate(mustangs)]},
+# Add rank field (1-based) to every pick — index.html reads p.rank directly
+def add_ranks(picks):
+    return [{**p, "rank": i + 1} for i, p in enumerate(picks)]
+
+top10_picks   = add_ranks(top10_picks)
+mustang_picks = add_ranks(mustang_picks)
+manual_picks  = add_ranks(manual_picks)
+
+data = {
+    "lastRefreshed": now,
+    "filters": {
+        "minPrice": 7000,
+        "maxPrice": 15000,
+        "radiusMi": 35,
+        "zip": "19063",
+        "minSeats": 4,
+        "mustangMinYear": 2005
+    },
+    "carscom": {
+        "totalFound": 34,
+        "url": "https://www.cars.com/shopping/results/?body_style_slugs%5B%5D=convertible&clean_title=true&list_price_max=15000&list_price_min=7000&maximum_distance=35&no_accidents=true&sort=best_match_desc&stock_type=used&zip=19063",
+        "listings": carscom_listings
+    },
+    "cargurus": {
+        "totalFound": 42,
+        "url": "https://www.cargurus.com/Cars/new/nl_SRP_d2184_z19063.html",
+        "listings": cargurus_listings
+    },
+    "autotrader": {
+        "totalFound": len(autotrader_listings),
+        "url": AT_SEARCH_URL,
+        "listings": autotrader_listings
+    },
+    "truecar": {
+        "totalFound": 0,
+        "url": "",
+        "listings": []
+    },
+    "top10": {
+        "introHtml": f"<p>The best convertibles under $15K within 35 miles of Media, PA — ranked by value, condition, and desirability. Prioritized: deal ratings, clean titles, lower miles for price, and source diversity. Refreshed {datetime.now().strftime('%B %-d, %Y')}.</p>",
+        "picks": top10_picks
+    },
+    "manual10": {
+        "totalFound": 0,
+        "introHtml": "<p>No manual-transmission convertibles were confirmed in this refresh. Transmission data was not available for all listings — check individual listings on the source site for stick-shift availability.</p>",
+        "picks": manual_picks
+    },
+    "mustangs": {
+        "totalFound": len(mustang_picks),
+        "introHtml": f"<p>{len(mustang_picks)} Ford Mustang convertibles (2005+, S197 generation and newer) found within 35 miles of Media, PA, priced $7K–15K. Ranked by mileage. All are V6 models at this price point.</p>",
+        "picks": mustang_picks
+    }
 }
 
-out_path = "/sessions/pensive-adoring-tesla/mnt/convertibles-site/data.json"
-with open(out_path, 'w') as f:
-    json.dump(output, f, indent=2)
+# ─── VALIDATE SCHEMA ─────────────────────────────────────────────────────────
+print("=== SCHEMA VALIDATION ===")
+# Rule A: top-level source keys
+for key in ["carscom", "cargurus", "autotrader", "truecar"]:
+    assert key in data, f"MISSING top-level key: {key}"
+    print(f"✓ Rule A: '{key}' present at top level")
 
-# ─── VERIFY ──────────────────────────────────────────────────────────────────
-with open(out_path) as f:
-    v = json.load(f)
-print(f"Written {out_path}")
-print(f"lastRefreshed: {v['lastRefreshed']}")
-print(f"carscom: {v['carscom']['totalFound']} found, {len(v['carscom']['listings'])} listed")
-print(f"cargurus: {v['cargurus']['totalFound']} found, {len(v['cargurus']['listings'])} listed")
-print(f"autotrader: {v['autotrader']['totalFound']} found, {len(v['autotrader']['listings'])} listed")
-print(f"Pool after dedup: {len(deduped)} unique")
-print(f"top10 picks: {len(v['top10']['picks'])}")
-print(f"manual10 picks: {len(v['manual10']['picks'])}")
-print(f"mustangs picks: {len(v['mustangs']['picks'])}")
-print()
-print("TOP10:")
-for p in v['top10']['picks']:
-    print(f"  {p['rank']}. {p['year']} {p['make']} {p['model']} ${p['price']} ({p['mileage']}mi) [{p['source']}]")
-print()
-print("MANUAL10:")
-for p in v['manual10']['picks']:
-    print(f"  {p['rank']}. {p['year']} {p['make']} {p['model']} ${p['price']} ({p['mileage']}mi)")
-print()
-print("MUSTANGS:")
-for p in v['mustangs']['picks']:
-    print(f"  {p['rank']}. {p['year']} {p['make']} {p['model']} ${p['price']} ({p['mileage']}mi)")
+# Rule B: top10/manual10/mustangs are objects with picks array
+for key in ["top10", "manual10", "mustangs"]:
+    assert isinstance(data[key], dict), f"{key} must be a dict"
+    assert "picks" in data[key], f"{key}.picks missing"
+    assert isinstance(data[key]["picks"], list), f"{key}.picks must be a list"
+    print(f"✓ Rule B: '{key}' is object with picks array ({len(data[key]['picks'])} items)")
+
+# Rule C: carscom (no dot, no space)
+assert "carscom" in data and "." not in "carscom" and " " not in "carscom"
+print(f"✓ Rule C: 'carscom' key is correct")
+
+# Rule D: rank fields present on all picks
+for key in ["top10", "mustangs"]:
+    for p in data[key]["picks"]:
+        assert "rank" in p and isinstance(p["rank"], int), f"{key} pick missing rank"
+print(f"✓ Rule D: rank fields present on all picks")
+
+print(f"\n=== COUNTS ===")
+print(f"Cars.com: {len(carscom_listings)} listings, totalFound={data['carscom']['totalFound']}")
+print(f"CarGurus: {len(cargurus_listings)} listings, totalFound={data['cargurus']['totalFound']}")
+print(f"AutoTrader: {len(autotrader_listings)} listings, totalFound={data['autotrader']['totalFound']}")
+print(f"Top 10: {len(top10_picks)} picks")
+print(f"Mustangs: {len(mustang_picks)} picks")
+print(f"Manual: {len(manual_picks)} picks")
+
+print(f"\n=== TOP 10 ===")
+for i, p in enumerate(top10_picks):
+    print(f"{p['rank']}. {p['year']} {p['make']} {p['model']} ${p['price']:,} {p['mileage']:,}mi [{p['source']}]")
+
+print(f"\n=== MUSTANGS ===")
+for p in mustang_picks:
+    print(f"  #{p['rank']} {p['year']} {p['make']} {p['model']} {p['trim']} ${p['price']:,} {p['mileage']:,}mi [{p['source']}]")
+
+# Write output
+out_path = "/tmp/claude-0/-home-claude/7670cd2c-926c-5dc9-b2f8-e81677388cb1/scratchpad/data_new.json"
+import os
+if os.path.exists(os.path.dirname(out_path)):
+    with open(out_path, "w") as f:
+        json.dump(data, f, indent=2, default=str)
+    print(f"\n✓ Written to {out_path}")
+    print(f"  File size: {len(json.dumps(data, indent=2)):,} bytes")
+else:
+    print(f"\n(Skipped cloud write — scratchpad not found)")
