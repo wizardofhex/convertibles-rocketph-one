@@ -137,6 +137,29 @@ def main():
     if not data_path.exists():
         print(f"ERROR: data.json not found — run the refresh task first.")
         sys.exit(1)
+    # 2b. HARD GATE — normalize + validate against the contract index.html
+    #     renders. A malformed refresh must never reach the live site.
+    import validate_data
+    try:
+        d_check = json.loads(data_path.read_text(encoding="utf-8"))
+    except Exception as e:
+        print(f"ERROR: data.json is not valid JSON ({e}) — NOT pushing.")
+        sys.exit(1)
+    fixes = validate_data.normalize(d_check)
+    for f in fixes:
+        print(f"  auto-fixed: {f}")
+    errs = validate_data.validate(d_check)
+    if errs:
+        print(f"ERROR: data.json failed validation ({len(errs)} problem(s)) — NOT pushing. Live site left unchanged.")
+        for e in errs[:60]:
+            print(f"  - {e}")
+        if len(errs) > 60:
+            print(f"  ... and {len(errs) - 60} more")
+        sys.exit(1)
+    if fixes:
+        data_path.write_text(json.dumps(d_check, indent=2), encoding="utf-8")
+    print("  schema: OK")
+
     data_bytes = data_path.read_bytes()
     print(f"  data  : data.json  ({len(data_bytes):,} bytes)")
 
