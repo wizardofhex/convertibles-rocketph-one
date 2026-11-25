@@ -15,7 +15,7 @@ Usage:
     python3 validate_data.py --check    # validate only, do not rewrite the file
 Exit code 0 = safe to push, 1 = do not push.
 """
-import json, sys
+import json, re, sys
 from pathlib import Path
 
 SOURCES   = ["carscom", "cargurus", "autotrader", "truecar"]
@@ -31,6 +31,18 @@ DEAL_LABEL = {
     "OVERPRICED": "High Price",
     "NA": None, "N/A": None, "NO_PRICE_ANALYSIS": None, "": None,
 }
+
+
+# Listing links must be the site's real detail-page URL. Constructed
+# search/legacy forms (used on 2026-11-25) open an error or empty page.
+URL_RULES = [
+    ("cars.com", r"^https://www\.cars\.com/vehicledetail/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/?$",
+     "use https://www.cars.com/vehicledetail/{full 36-char listing id}/"),
+    ("cargurus.com", r"^https://www\.cargurus\.com/details/\d+$",
+     "use https://www.cargurus.com/details/{id}"),
+    ("autotrader.com", r"^https://www\.autotrader\.com/cars-for-sale/vehicle/\d+$",
+     "use https://www.autotrader.com/cars-for-sale/vehicle/{id}"),
+]
 
 
 def _fix_item(it):
@@ -108,6 +120,11 @@ def _check_vehicle(p, where, errs, need_image=False):
         errs.append(f"{where}: 'mileage' must be an integer or null (got {p.get('mileage')!r})")
     if not isinstance(p.get("url"), str) or not p["url"].startswith("http"):
         errs.append(f"{where}: 'url' must be an http(s) link (got {p.get('url')!r})")
+    u = p.get("url") if isinstance(p.get("url"), str) else ""
+    host = u.split("/")[2] if u.count("/") >= 2 else ""
+    for dom, pat, why in URL_RULES:
+        if host.endswith(dom) and not re.match(pat, u):
+            errs.append(f"{where}: dead-link URL format {u!r} — {why}")
     img = p.get("imageUrl")
     if need_image and not (isinstance(img, str) and img.startswith("http")):
         errs.append(f"{where}: pick needs a non-null imageUrl")
